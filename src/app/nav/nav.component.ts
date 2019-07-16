@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonService } from '../service/CommonService';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { DatePipe } from '@angular/common';
+import { ClockService } from '../service/ClockService';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    this._clockSubscription.unsubscribe();
+  }
   private subscription: Subscription;
 
 
@@ -24,9 +29,14 @@ export class NavComponent implements OnInit {
   // value nav
   private flagsShow: boolean = true;
   public showZhan: boolean = true;
+  // value today
+  private location: string =" Formosa Ha Tinh";
+  private dateCurrent : any;
+  private TimerCurrent : Date;
+  private timerOk : string;
+  private _clockSubscription: Subscription;
 
-
-  constructor(private commoService: CommonService, private translateService: TranslateService) {
+  constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService) {
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.selectAdrees = translateService.instant("nav.adrress");
@@ -35,11 +45,19 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dateCurrent = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_zhan =this.translateService.instant("rainFall.station");
     this.selectAdrees = this.translateService.instant("nav.adrress");
     this.reviceData();
     this.showFunctionHeader();
- 
+    this._clockSubscription = this.clockService.getClock().subscribe(time => {
+      this.TimerCurrent = time;
+     
+      this.timerOk = this.datePipe.transform(this.TimerCurrent,"HH:mm:ss");
+      if(this.timerOk === "00:00:00"){
+        this.dateCurrent = this.datePipe.transform(new Date(), "yyyy/MM/dd");
+      }
+    });
   }
   checkLogin() {
     localStorage.setItem("access_token","access_token");
@@ -54,6 +72,7 @@ export class NavComponent implements OnInit {
     //this.selectAdrees = this.translateService.instant("nav.adrress");
     if (this.title === "TODAY") {
       this.flagsShow = false;
+      
     } else if(this.title == this.translateService.instant("home.windspeed")){
       this.showZhan = true;
       this.flagsShow = true;
@@ -83,4 +102,5 @@ export class NavComponent implements OnInit {
 
     });
   }
+
 }
