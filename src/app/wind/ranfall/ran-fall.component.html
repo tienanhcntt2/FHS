@@ -40,18 +40,14 @@
         <!-- select datetimer -->
         <div class="row">
           <div class="col-md-6">
-                  <div class="form-group">
-                      <div class='input-group date' id='datetimepicker1' style="width:50%; height: 20px;">
-                          <input  type='text' class="form-control" matInput [matDatepicker]="start" readonly (click)="start.open()"
-                          [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)" />
-                          <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                          </span>
-                          <mat-datepicker #start></mat-datepicker>
-                      </div>
-                  </div>
+              <input style="width:50%;"  matInput [matDatepicker]="start" readonly (click)="start.open()" 
+              [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)" />
+              <mat-datepicker #start></mat-datepicker>
 
-            <input type="time" value="16:30" style="width:40%; margin-left: 10px;" />
+              <kendo-timepicker 
+              
+              (valueChange)="onChange($event)"
+              [value]="timeStart"></kendo-timepicker>
           </div>
           <div class="col-md-6">
             <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()"
@@ -59,7 +55,10 @@
               >
             <mat-datepicker #end></mat-datepicker>
 
-            <input type="time" value="16:30" style="width:40%; margin-left: 10px;" />
+            <kendo-timepicker 
+             
+            (valueChange)="onChangeEnd($event)"
+            [value]="timeEnd"></kendo-timepicker>
           </div>
 
         </div>
