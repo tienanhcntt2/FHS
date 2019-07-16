@@ -62,6 +62,8 @@ export class RanFallComponent implements OnInit {
   private show: boolean = true;
   email: string;
   enDate: any;
+  public timeStart: Date = new Date();
+  public timeEnd: Date = new Date();
   /**
    * constructor ranfall
    * @param commoService 

@@ -60,6 +60,7 @@ import { DateAdapter, MAT_DATE_FORMATS } from "@angular/material";
 import { AppDateAdapter, APP_DATE_FORMATS } from './util/date.adapter';
 import { TimePickerModule } from '@progress/kendo-angular-dateinputs';
 import 'hammerjs';
+import { ClockService } from './service/ClockService';
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -121,7 +122,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [
-    DatePipe, CommonService, UserServicer, Service, ServiceHuminity, TeamperatureService, WeatherService,
+    DatePipe, CommonService, UserServicer, Service, ServiceHuminity, TeamperatureService, WeatherService,ClockService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyInterceptor,
