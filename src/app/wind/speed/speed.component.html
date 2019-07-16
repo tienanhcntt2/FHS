@@ -1,0 +1,137 @@
+<app-nav></app-nav>
+<mat-drawer-container class="container_full">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-slide-menu></app-slide-menu>
+  </mat-drawer>
+
+  <div class="example-sidenav-content" >
+
+    <div class="colum_left" [style.width.%]="widthleft">
+
+      <!-- chart cricel  -->
+      <div id="chart-demo">
+        <dx-polar-chart #chart id="radarChart" palette="soft" [dataSource]="windRose"
+          (onLegendClick)="onLegendClick($event)">
+          <!-- hien thi toc do gio -->
+          <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name">
+          </dxi-series>
+          <dxo-common-series-settings type="stackedbar"></dxo-common-series-settings>
+          <dxo-margin [bottom]="50" [left]="100" [top]="50">
+          </dxo-margin>
+          <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true">
+          </dxo-argument-axis>
+        </dx-polar-chart>
+     
+      </div>
+    </div>
+    <div class="colum_right" [style.width.%]="widthright">
+      <img src={{icon_show}} (click)="functionShowHide()" />
+
+      <div class="detail" *ngIf="okma">
+        <div class="row">
+          <div class="col-md-6">
+            <span>{{'rainFall.select' | translate}}</span>
+            <br />
+            <mat-radio-group [(ngModel)]="selectzhan" (change)="onSelectionChange($event)">
+              <mat-radio-button value="8" (change)="selectEight()">8 {{'rainFall.station' | translate}}</mat-radio-button>
+              <mat-radio-button  value="16"(change)="selectSixteen()"[checked]="true" #sixteen> 16 {{'rainFall.station' | translate}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <!-- select datetimer -->
+        <div class="row">
+          <div class="col-md-6">
+
+            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()"
+            [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+            <mat-datepicker #start></mat-datepicker>
+          
+     
+              
+              <kendo-timepicker 
+              
+              (valueChange)="onChange($event)"
+              [value]="timeStart"></kendo-timepicker>
+      
+        
+          </div>
+          <div class="col-md-6">
+            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()"
+              (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)"
+              [formControl]="date">
+            <mat-datepicker #end></mat-datepicker>
+            
+            <kendo-timepicker 
+             
+              (valueChange)="onChangeEnd($event)"
+              [value]="timeEnd"></kendo-timepicker>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6" style="margin-top:20px;">
+            <button type="button" class="done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+            <button type="button" class="dain">{{'rainFall.printf' | translate}}</button>
+          </div>
+
+        </div>
+        <div *ngIf="checkData">
+            <div class="row" >
+                <span class="title_table">{{'rainFall.showdata' | translate}} <img (click)="showDetail()" src={{nameMaticon}} />
+                  <div class="line"></div>
+                </span>
+              </div>
+              <div class="row" *ngIf="showTable" style="margin-top:20px;">
+      
+                <button class="col-md-6">
+                  {{'rainFall.show%' | translate}}
+                </button>
+                <button class="col-md-6">
+                  {{'rainFall.showspeed' | translate}}
+                </button>
+      
+                <div class="tbl-header">
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                      <tr>
+              
+                        <th *ngFor="let header of listNametable">
+                         {{header}}
+                        </th>
+                       
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <div class="tbl-content">
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                 
+                      <tr *ngFor='let dt of listWindValue'>
+      
+                        <td>{{ dt.arg }}</td>
+                        <td>{{ dt.val1 }}</td>
+                        <td>{{ dt.val2 }}</td>
+                        <td>{{ dt.val3 }}</td>
+                        <td>{{ dt.val4 }}</td>
+                        <td>{{ dt.val5 }}</td>
+                        <td>{{ dt.val6 }}</td>
+                        <td>{{ dt.val7 }}</td>
+                        <td>{{ dt.val8 }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+              </div>
+        </div>
+       
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+</mat-drawer-container>

@@ -1,0 +1,58 @@
+<div id='FHS'>
+  <header>
+
+    <div>
+      <img src="../../assets/image/logo_fhs.png" />
+    </div>
+    <!-- <input id="menu-toggle" type="checkbox" />
+        <label class='menu-button-container' for="menu-toggle">
+        <div class='menu-button'></div>
+        </label>
+        <ul class="menu">
+          <li><a routerLink="/login" routerLinkActive ='active' (click) ="login()">Login</a> </li>
+          <li><a routerLink="/register" routerLinkActive ='active' (click) ="register()"> Register</a> </li>
+        </ul> -->
+
+
+  </header>
+  <div class="login">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="center">
+        <span>
+          <img src="../../assets/image/iconng.png" />
+          <p>--{{ 'login.txt_login' | translate }}--</p>
+        </span>
+        <div style="text-align:center; color: red" *ngIf="erroMessage">{{message}}</div>
+        <div class="input-container">
+          <i class="icon"><img src="../../assets/image/name.png" /></i>
+          <input class="input-field" type="text" placeholder="{{ 'login.txt_username' | translate }}"
+            formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+        </div>
+        <h5 *ngIf="submitted">
+          <div *ngIf="f.username.errors.required">{{ 'login.txt_message_user' | translate }}</div>
+        </h5>
+
+        <div class="input-container">
+          <i class="icon"><img src="../../assets/image/password.png" /></i>
+          <input class="input-field" type="password" placeholder="{{ 'login.txt_password' | translate }}"
+            formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+        </div>
+        <h5 *ngIf="submitted">
+          <div *ngIf="f.password.errors.required">{{ 'login.txt_message_pass' | translate }}</div>
+        </h5>
+        <img *ngIf="loading"
+          src="https://loading.io/spinners/spinner/index.ajax-spinner-preloader.gif" style="display: block;
+          margin: 0 auto" />
+        <button class="btn" (click)="checkLogin()">{{ 'login.txt_login' | translate }}</button>
+
+      </div>
+      <div class="lg_content">
+        <!-- [style.color] ="changeColor() ===1 ?'blue': 'white'" formControlName ="lg_vn" (click) ="selectLanguage()" -->
+        <a [style.color]="colorN === 1 ? 'aqua' : 'white'" (click)="selectLg1('vi')">VN</a>
+        <a [style.color]="colorN === 2 ? 'aqua' : 'white'" (click)="selectLg2('en')">ENG</a>
+        <a [style.color]="colorN === 3 ? 'aqua' : 'white'" (click)="selectLg3('zh')">中文</a>
+      </div>
+    </form>
+  </div>
+
+</div>

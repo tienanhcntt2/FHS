@@ -1,0 +1,9 @@
+version: '2.3'
+
+services:
+  angular:
+    hostname: 10.199.15.93
+    container_name: angular-container
+    build: .
+    ports:
+      - 80:80

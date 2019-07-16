@@ -1,0 +1,48 @@
+{
+    "login":{
+        "txt_login": "Đăng Nhập",
+        "txt_username" :"Tài Khoản",
+        "txt_password": "Mật Khẩu",
+        "txt_message_user":"Tài khoản là bắt buộc",
+        "txt_message_pass" :"Mật khẩu =là bắt buộc",
+        "txt_message": "Tên người dùng hoặc mật khẩu không có kết nối"
+    },
+    "home":{
+        "rainfall":"Lượng mưa",
+        "windspeed" :"Tốc độ gió",
+        "winddriction" :"Hướng gió",
+        "Humidity" :"Độ ẩm"
+    },
+    "menu":{
+        "home" : "Trang chủ",
+        "Temperature": "Nhiệt độ"
+
+    },
+    "footer" :{
+        "address" : "Địa chỉ",
+        "phone" : "Phone",
+        "email" : "Email",
+        "fax" : "Fax",
+        "detailAdress" :"Khu kinh tế Vũng Áng, Phường Kỳ Long, thị xã Kỳ Anh, Tỉnh Hà"
+    },
+    "rainFall" :{
+        "search" :"Tìm kiếm",
+        "printf" : "In",
+        "showdata" :"Hiển thị dữ liệu chi tiết",
+        "show%" :"Hiển thị theo %",
+        "showspeed" :"Hiển thị theo km/h",
+        "station" :"Trạm",
+        "select" :"Lựa chọn"
+    },
+    "nav" :{
+        "adrress": "Nhà hành chính"
+        
+    },"temperature":{
+        "txt_hight":"Cao trung bình",
+        "txt_low" :"Trung bình thấp",
+        "vga_temperature" :"Nhiệt độ trung bình",
+        "Temperature_Ranges": "Phạm vi nhiệt độ"
+    } ,"huminity" :{
+        "avg_huminity" :"Độ ẩm trung bình"
+    }
+}

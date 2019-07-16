@@ -1,0 +1,118 @@
+<app-nav></app-nav>
+<mat-drawer-container class="container_full" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-slide-menu></app-slide-menu>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <!-- colum left -->
+    <div class="colum_left" [style.width.%]="widthleft">
+      <dx-chart id="chart" [dataSource]="dataSource">
+        <dxi-series valueField="value" name="00:00 - 07:59">
+
+        </dxi-series>
+        <dxi-series valueField="value2" name="08:00 - 15:59">
+
+        </dxi-series>
+        <dxi-series valueField="value3" name="16:00 - 23:59">
+
+        </dxi-series>
+        <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"
+          selectionMode="allArgumentPoints">
+          <dxo-label [visible]="false" [format]="{
+                type: 'fixedPoint',
+                precision: '0'
+            }">
+          </dxo-label>
+        </dxo-common-series-settings>
+        <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+        </dxo-legend>
+        <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip">
+        </dxo-tooltip>
+
+      </dx-chart>
+    </div>
+    <!-- colum right  -->
+    <div class="colum_right" [style.width.%]="widthright">
+      <img src={{icon_show}} (click)="functionShowHide()" />
+      <!-- select date -->
+      <div class="detail" *ngIf="okma">
+        <!-- select datetimer -->
+        <div class="row">
+          <div class="col-md-6">
+                  <div class="form-group">
+                      <div class='input-group date' id='datetimepicker1' style="width:50%; height: 20px;">
+                          <input  type='text' class="form-control" matInput [matDatepicker]="start" readonly (click)="start.open()"
+                          [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)" />
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                          <mat-datepicker #start></mat-datepicker>
+                      </div>
+                  </div>
+
+            <input type="time" value="16:30" style="width:40%; margin-left: 10px;" />
+          </div>
+          <div class="col-md-6">
+            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()"
+              (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)" [formControl]="date"
+              >
+            <mat-datepicker #end></mat-datepicker>
+
+            <input type="time" value="16:30" style="width:40%; margin-left: 10px;" />
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6" style="margin-top:20px;">
+            <button type="button" class="done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+            <button type="button" class="dain">{{'rainFall.printf' | translate}}</button>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <span class="title_table">{{'rainFall.showdata' | translate}} <img (click)="showDetail()"
+              src={{nameMaticon}} />
+            <div class="line"></div>
+          </span>
+        </div>
+        <!-- table detail -->
+        <div class="row" *ngIf="show" style="margin-top:20px;">
+          <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>00:00 - 07:59</th>
+                  <th>08:00 - 15:59</th>
+                  <th>16:00 - 23:59</th>
+                  <!-- <th>TB</th> -->
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+
+                <tr *ngFor="let body of dataSource">
+                  <td>{{body.date}}</td>
+                  <td #value1>{{body.value}}</td>
+                  <td>{{body.value2}}</td>
+                  <td>{{body.value3}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- finish select date -->
+    </div>
+
+  </div>
+
+</mat-drawer-container>

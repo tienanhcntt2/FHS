@@ -1,0 +1,8 @@
+<div class="listmenu">
+  <ul class="list-group menu">
+    <li *ngFor="let menu of listmenu; let i =index" (click) ="sendUrl(i)" >
+      <a ><img src={{menu.icon}}  />
+        <span>{{menu.title}}</span></a>
+    </li>
+  </ul>
+</div>

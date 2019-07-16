@@ -1,0 +1,48 @@
+{
+    "login":{
+        "txt_login": "LOGIN",
+        "txt_username" :"UserName",
+        "txt_password": "Password",
+        "txt_message_user":"Username is required",
+        "txt_message_pass" :"Password is required",
+        "txt_message": "User Name or Password no connect"
+    },
+    "home":{
+        "rainfall":"RainFall",
+        "windspeed" :"Wind Speed",
+        "winddriction" :"Wind Driction",
+        "Humidity" :"Humidity"
+    },
+    "menu":{
+        "home" : "Home",
+        "Temperature": "Temperature"
+
+    },
+    "footer" :{
+        "address" : "Address",
+        "phone" : "Phone",
+        "email" : "Email",
+        "fax" : "Fax",
+        "detailAdress" :"Vung Ang Economic Zone,Ky Long Ward, Ky Anh Town,HaTinh Provice"
+    },
+    "rainFall" :{
+        "search" :"Search",
+        "printf" : "Print",
+        "showdata" :"Display detailed data",
+        "show%" :"Show follow %",
+        "showspeed" :"Show follow km/h",
+        "station" :"Station",
+        "select" :"Select"
+    },
+    "nav" :{
+        "adrress": "Administrative buildings"
+         
+    },"temperature":{
+        "txt_hight":"High Average",
+        "txt_low" :"Low Average",
+        "vga_temperature" :"Average Temperature",
+        "Temperature_Ranges": "Temperature Ranges"
+    },"huminity" :{
+        "avg_huminity" :"Average Humidity"
+    }
+}

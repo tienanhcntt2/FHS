@@ -1,0 +1,43 @@
+ // color
+$color_0b3cb1 :#0b3cb1;
+$color_2a34ff : #2a34ff;
+
+$green: #2ecc71;
+$red: #e74c3c;
+$blue: #3498db;
+$yellow: #f1c40f;
+$purple: #8e44ad;
+$turquoise: #1abc9c;
+
+
+.listmenu{
+  
+    background:$color_0b3cb1;
+    height: 100%;
+ }
+.listmenu .menu{
+      list-style: none;
+}
+.listmenu .menu li {
+        padding: 16px 32px;
+        border-bottom: 1px solid #1abc9c;
+        cursor: pointer;
+        color: white;
+       
+        position: relative;
+}
+.listmenu .menu li:hover{
+  background-color: $color_2a34ff;
+
+}
+.listmenu .menu li img{
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.listmenu .menu li a{
+  text-decoration: none;
+  color:#1abc9c; 
+}
+.listmenu .menu li .active {
+  background-color: $color_2a34ff;
+}

@@ -1,0 +1,48 @@
+{
+    "login":{
+        "txt_login": "登錄",
+        "txt_username" :"用戶名",
+        "txt_password": "密碼",
+        "txt_message_user":"用戶名是必需的",
+        "txt_message_pass" :"密碼是必需的",
+        "txt_message": "用戶名或密碼無連接"
+    },
+    "home":{
+        "rainfall":"雨量",
+        "windspeed" :"風速",
+        "winddriction" :"風向",
+        "Humidity" :"濕度"
+    },
+    "menu":{
+        "home" : "家",
+        "Temperature": "溫度"
+
+    },
+    "footer" :{
+        "address" : "地址",
+        "phone" : "電話",
+        "email" : "郵件",
+        "fax" : "傳真",
+        "detailAdress" :"Vung Ang經濟區，Ky Long Ward，Ky Anh Town，HaTinh Provice"
+    },
+    "rainFall" :{
+        "search" :"搜索",
+        "printf" : "打印",
+        "showdata" :"显 示 详 细 数 据 ",
+        "show%" :"顯示如下 %",
+        "showspeed" :"顯示如下 km/h",
+        "station" :"站",
+        "select" :"选择"
+    },
+    "nav" :{
+        "adrress": "行政大樓"
+        
+    },"temperature":{
+        "txt_hight":"高平均值",
+        "txt_low" :"低平均值",
+        "vga_temperature" :"平均溫度",
+        "Temperature_Ranges": "溫度範圍"
+    } ,"huminity" :{
+        "avg_huminity" :"平均濕度"
+    }
+}

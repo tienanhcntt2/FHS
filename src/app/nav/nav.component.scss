@@ -1,0 +1,113 @@
+
+//Colours
+$green: #2ecc71;
+$red: #e74c3c;
+$blue: #3498db;
+$yellow: #f1c40f;
+$purple: #8e44ad;
+$turquoise: #1abc9c;
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+  
+}
+nav{
+  width: 100%;
+  background-color: white;
+  height: 5%;
+  border: 1px #1abc9c solid;
+  clear: both;
+  display: flex;
+  align-items: center;
+  font-family: 'Times New Roman', Times, serif;
+  justify-content: center;
+ }
+  
+  nav .menu{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  nav .menu .colum_left{
+      width: 12%;
+      float: left;
+      height: 100%;
+      display: flex;
+      background-color: #0b3cb1;
+      align-items: center;
+      justify-content: center;
+      img{
+        cursor: pointer;
+      }
+  } 
+  nav .menu .colum_center{
+      width: 12%;
+      float: left;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span{
+        color: #3498db;
+        font-size: 18px;
+      }
+  }
+  nav .menu .colum_right{
+      width: 70%;
+      float: right;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      span{
+        width: 1%;
+        height: 30px;
+        vertical-align: middle;
+    
+      }
+      .colum_one{
+        width: 30%;
+        float: left;
+        text-align: center;
+        font-size: 18px;
+      }
+      .colum_two{
+        width: 10%;
+        float: left;
+        text-align: center;
+        font-size: 18px;
+      }
+    }
+@media only screen and (max-width : 600px){
+  nav .menu .colum_left{
+    width: 20%;
+    float: left;
+    height: 100%;
+    display: flex;
+    background-color: #0b3cb1;
+    align-items: center;
+    justify-content: center;
+    img{
+      cursor: pointer;
+    }
+} 
+nav .menu .colum_center{
+    width: 20%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span{
+      color: #3498db;
+      font-size: 18px;
+    }
+}
+nav .menu .colum_right{
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+}

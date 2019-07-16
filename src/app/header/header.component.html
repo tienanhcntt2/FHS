@@ -1,0 +1,24 @@
+<header>
+
+  <div class="logo"><img src="../../assets/image/logo.png"  /></div>
+  <div class="header-col">
+    <div class="login">
+      <a  routerLink ="/login" (click) ="functionLogin()" *ngIf="show">{{ 'login.txt_login' | translate }}</a>
+       <span *ngIf="show === false"  mat-button [matMenuTriggerFor]="logout">{{userName}}</span>
+       <mat-menu #logout="matMenu">
+        <button (click) = "functionlogout()" mat-menu-item >LOGOUT</button>
+      </mat-menu>
+    </div>
+    <span><img src="../../assets/image/span_header.png" /></span>
+
+    <div class="language">
+      <div mat-div [matMenuTriggerFor]="menu"><img src={{lag.imagePath}} /><span>{{lag.name}}</span> </div>
+      <mat-menu #menu="matMenu">
+        <button *ngFor="let language of languages;let i = index"  mat-menu-item (click) ="selectLanguage(i)">
+          <img src={{language.imagePath}} /><span style="margin-left: 5px">{{language.name}}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+</header>

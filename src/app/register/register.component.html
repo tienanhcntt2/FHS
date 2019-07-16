@@ -1,0 +1,82 @@
+
+<div id='login'>
+  <header>
+    
+ 
+      <!-- <span class="items">
+        <span>
+            <a routerLink="" >Login</a> 
+        </span>
+        <span>|</span>
+        <span>
+            <a routerLink="" > Register</a> 
+        </span>
+        <span>
+            <img src="../../assets/image/tuychon.png"/>
+        </span>
+      </span> -->
+        <div>
+          <img src="../../assets/image/logo_fhs.png"/>
+        </div>
+        <input id="menu-toggle" type="checkbox" />
+        <label class='menu-button-container' for="menu-toggle">
+        <div class='menu-button'></div>
+        </label>
+        <ul class="menu">
+          <li><a routerLink="/login" routerLinkActive ='active' (click) ="login()">Login</a> </li>
+          <li><a routerLink="/register" routerLinkActive ='active' (click) ="register()"> Register</a> </li>
+        </ul>
+ 
+    
+  </header>
+  <div class="login">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="center">
+          <span>
+              <img src="../../assets/image/iconng.png"/>
+              <p>--new acount--</p>
+            </span>
+            <div class="input-container">
+                <i class="icon"><img src="../../assets/image/name.png"/></i>
+                <input class="input-field" type="text" placeholder="Username" formControlName="username"
+                [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+              </div>
+            <h5 *ngIf="submitted"> <div *ngIf="f.username.errors.required">Username is required</div></h5>
+      
+            <div class="input-container">
+                <i class="icon"><img src="../../assets/image/password.png"/></i>
+                <input class="input-field" type="password" placeholder="Password" formControlName="password" 
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
+              </div>
+            <h5 *ngIf="submitted"> <div *ngIf="f.password.errors.required">Password is required</div></h5>
+            <div class="input-container">
+              <i class="icon"><img src="../../assets/image/password.png"/></i>
+              <input class="input-field" type="password" placeholder="Password" formControlName="configpassword" 
+              [ngClass]="{ 'is-invalid': submitted && f.configpassword.errors }" >
+            </div>
+          <h5 *ngIf="submitted"> <div *ngIf="f.configpassword.errors.required">Password is required</div></h5>
+
+          <div class="input-container">
+            <i class="icon"><img src="../../assets/image/icon_email.png"/></i>
+            <input class="input-field" type="email" placeholder="email" formControlName="email" 
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" >
+          </div>
+        <h5 *ngIf="submitted"> <div *ngIf="f.email.errors.required">Password is required</div></h5>
+           <button class="btn" (click)="checkRegister()">REGISTER</button>
+
+        
+           <div class="text">
+            <h5><a routerLink="">Create Acount</a></h5>
+          </div>
+         
+      </div>
+      <div class="lg_content">
+          <!-- [style.color] ="changeColor() ===1 ?'blue': 'white'" formControlName ="lg_vn" (click) ="selectLanguage()" -->
+            <a >VN</a>
+            <a >ENG</a>
+            <a >中文</a>
+      </div>
+    </form>
+  </div>
+
+</div>

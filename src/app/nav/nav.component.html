@@ -1,0 +1,20 @@
+<nav class="clearfix">
+     
+  <div class="menu">
+    <div class="colum_left">
+        <img  (click) ="checkLogin()" [src]="icon_val"/>
+    </div>
+    <div class="colum_center">
+        <span >{{title}}</span>
+    </div>
+    <div class="colum_right" *ngIf="flagsShow">
+        <span>|</span>
+        <div class="colum_one"> {{selectAdrees}}</div>
+        <div class="colum_two" *ngIf="showZhan"> {{zhan}} {{txt_zhan}}</div>
+        <div class="colum_one">{{txt_start_date}}</div>
+        <div class="colum_one">{{txt_end_date}}</div>
+        
+    </div>
+  </div>
+
+</nav>
