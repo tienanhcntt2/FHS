@@ -9,10 +9,7 @@ $turquoise: #1abc9c;
   clear: both;
 }
 .container_full{
-    background : linear-gradient(to bottom,#0048ff 0%, #ffffff 100%);
-    background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
-    background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
-    background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
+    background-color: #052762;
     width: 100%;
     min-height: 65%;
   }
@@ -25,38 +22,23 @@ $turquoise: #1abc9c;
     overflow: hidden;
     display: flex;
     margin: auto;
-    padding: 40px;
+    padding: 10px;
   }
 
    .example-sidenav-content .colum_left{
         width: 50%;
         margin-top: 50px;
         height: 100%;
-        font-family:'UTM Avo';
+        
         float: left;
         flex: 1;
         mat-card{
-          
-         width: 55%;
+         width: 60%;
          margin-left: auto;
-         box-shadow: 1px 2px 10px 0 #0623ff !important;
          margin-right: auto;
          background-position: center;
          background-repeat: no-repeat;
-          border-radius: 20px;
-          -moz-border-radius: 20px;
-          -webkit-border-radius: 20px;
-          -ms-border-radius: 20px;
-          -o-border-radius: 20px;
-          mat-card-title{
-            font-family:'UTM Avo';
-            font-size: 30px;
-            color:#1491d0; 
-          }
-          h1{
-            font-size: 55px;
-            color: #0048ff;
-          }
+         
         }
         .iconnhietdo{
           position: absolute;
@@ -74,64 +56,48 @@ $turquoise: #1abc9c;
         margin-top: 50px;
  }
   .example-sidenav-content .colum_right mat-card{
-    font-family:'UTM Avo';
     width: 20%;
-    margin-right: 20px;
+    margin-right: 10px;
     float: left;
-    box-shadow: 1px 2px 10px 0 #0623ff !important;
     height: 100%;
     overflow: hidden;
-    color:#1491d0;
-    border-radius: 15px;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
+    color: #2E64FE;
     h3{
       text-align: center;
       
       height: 10%;
-      font-size: 20px;
+      font-size: 16px;
     }
     h1{
-      font-weight: bold;
+      
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+     top: 50%;
+     -webkit-transform: translateY(-50%);
+     -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
       text-align: center;
       height: 50%;
-      font-size: 50px
+      p{
+        text-align: center;
+        font-size: 12px;
+      }
     }
-      p{
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-
-      p{
-       
-        text-align: center;
-        font-size: 15px;
-      }
    
     span{
       height: 40%;
       text-align: center;
-      font-family:'UTM Avo';
+      
     }
     .line{
-      background-color: #1491d0;
-      height: 1.5px;
+      background-color: #164de3;
+      height: 2px;
       width: 100%;
       margin: 10px 10px 10px 10px;
      }
   
   }   
   table tr{
-   margin: 15px;
+   margin: 10px;
    height: 50px;
   }
   table tr th img{
@@ -142,9 +108,7 @@ $turquoise: #1abc9c;
     text-transform: uppercase;
   }
   mat-card-subtitle{
-    color:#1491d0;
-    font-family:'UTM Avo';
-    font-size: 15px
+    color: black;
   }
 /* Extra small devices (phones, 600px and down) */
 @media screen and (max-width: 600px) {
@@ -164,7 +128,8 @@ $turquoise: #1abc9c;
     
     mat-card{
       width: 90%;
-      box-shadow: 1px 2px 10px 0 #0623ff !important;
+      margin-left: auto;
+      margin-right: auto;
     }
    }
    .example-sidenav-content .colum_right{
@@ -196,9 +161,8 @@ $turquoise: #1abc9c;
     }
    
     span{
-      height:30%;
+      height: 30%;
       text-align: center;
-      font-family:'UTM Avo';
     }
   }
 
