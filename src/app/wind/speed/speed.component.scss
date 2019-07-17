@@ -50,11 +50,12 @@ $turquoise: #1abc9c;
    }
    .example-sidenav-content .colum_right .detail{
     width: 90%;
-    float: left;
-
+   
+    display: block;
     padding-top: 50px;
-    padding-left: 20px;
-    font-family: "Microsoft YaHei","微软雅黑","黑体","宋体";
+    margin-left: auto;
+    margin-right: auto;
+
     height: 100%;
   }
   .detail .row mat-select{
@@ -80,18 +81,28 @@ $turquoise: #1abc9c;
     color: white;
     justify-items: center;
   }
-  .detail .row input{
-    border: 1px solid #c9d9f0;
-    background-image: url("../../../assets/image/calendar.png");
-    background-position: 4px 3px;
-    background-repeat: no-repeat;
+  .detail .row input {
+    border: 1px solid #c4c4c4;
+    border-radius: 2px;
     text-align: center;
-    height: 27px;
-    
-  }
+    //background-color: #fff;
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+    padding: 3px 5px;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+    width: 50%;
+    ::-webkit-inner-spin-button {
+      display: none;
+    }
+    ::-webkit-calendar-picker-indicator {
+      opacity: 0;
+    }
+  } 
   .detail .row kendo-timepicker{
-    width: 40%;
+    width: 45%;
     margin-left: 3px;
+
+    padding: 3px 5px;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
     font-size: 12px;
   }
   
