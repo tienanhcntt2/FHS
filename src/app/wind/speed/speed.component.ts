@@ -84,6 +84,7 @@ export class SpeedComponent implements OnInit {
   private windRoseData: WindRose[];
   // show hide
   public okma: boolean = true;
+  private selectToday : Date;
 
   /**
    * list table 
@@ -91,6 +92,7 @@ export class SpeedComponent implements OnInit {
   private listNametable: string[] = ['ARG', 'Val 1', 'Val 2', 'Val 3', 'Val 4', 'Val 5', 'Val 6', 'Val 7', 'Val 8'];
   private urlSpeed: string = "http://10.199.15.95/mops/Meteorology/";
   private txt_zhan :string;
+
 
   /**
    * 
@@ -107,6 +109,7 @@ export class SpeedComponent implements OnInit {
 
       this.sendTitle();
     });
+    this.selectToday = new Date();
     let date = new Date();
     this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate()-6)));
   }

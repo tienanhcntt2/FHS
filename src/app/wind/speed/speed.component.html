@@ -32,7 +32,7 @@
           <div class="col-md-6">
             <span>{{'rainFall.select' | translate}}</span>
             <br />
-            <mat-radio-group [(ngModel)]="selectzhan" (change)="onSelectionChange($event)">
+            <mat-radio-group (change)="onSelectionChange($event)">
               <mat-radio-button value="8" (change)="selectEight()">8 {{'rainFall.station' | translate}}</mat-radio-button>
               <mat-radio-button  value="16"(change)="selectSixteen()"[checked]="true" #sixteen> 16 {{'rainFall.station' | translate}}</mat-radio-button>
             </mat-radio-group>
@@ -42,21 +42,22 @@
         <div class="row">
           <div class="col-md-6">
 
-            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()"
+            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()"  [max]="selectToday"
             [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
-            <mat-datepicker #start></mat-datepicker>
+            <mat-datepicker #start ></mat-datepicker>
           
      
               
               <kendo-timepicker 
               
               (valueChange)="onChange($event)"
+    
               [value]="timeStart"></kendo-timepicker>
       
         
           </div>
           <div class="col-md-6">
-            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()"
+            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()" [max]="selectToday"
               (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)"
               [formControl]="date">
             <mat-datepicker #end></mat-datepicker>

@@ -7,23 +7,16 @@
   <div class="example-sidenav-content">
     <!-- colum left -->
     <div class="colum_left" [style.width.%]="widthleft">
-      <dx-chart id="chart" [dataSource]="dataSource">
-        <dxi-series >
-        </dxi-series>
-        <dxi-value-axis [tickInterval]="5"></dxi-value-axis>
-        <dxo-common-series-settings type="scatter" argumentField="date" valueField ="precip"></dxo-common-series-settings>
-        <dxo-argument-axis [tickInterval]="5">
-          <dxo-grid [visible]="true"></dxo-grid>
-          <dxo-minor-grid [visible]="true"></dxo-minor-grid>
-        </dxo-argument-axis>
-        <dxo-legend [visible]="false"></dxo-legend>
-        <dxo-common-pane-settings>
-          <dxo-border [visible]="true"></dxo-border>
-        </dxo-common-pane-settings>
-        <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip">
-        </dxo-tooltip>
-      </dx-chart>
-  
+        <dx-chart [dataSource]="stockPrices">
+            <!-- See details in the "Bind Series to Data" topic -->
+           
+            <dxi-series type="scatter" argumentField="timestamp" valueField="direction"></dxi-series>
+            <dxo-argument-axis >
+                <dxo-label format="shortDate"></dxo-label>
+            </dxo-argument-axis>
+            <!-- <dxo-argument-axis argumentType="datetime" aggregationInterval="months" [valueMarginsEnabled]="false">
+            </dxo-argument-axis> -->
+        </dx-chart>
     </div>
     <!-- colum right  -->
     <div class="colum_right" [style.width.%]="widthright">

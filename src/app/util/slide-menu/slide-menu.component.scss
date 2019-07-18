@@ -1,5 +1,5 @@
  // color
-$color_0b3cb1 :#0b3cb1;
+$color_0b3cb1 : #032ea3;
 $color_2a34ff : #2a34ff;
 
 $green: #2ecc71;
@@ -20,9 +20,8 @@ $turquoise: #1abc9c;
 }
 .listmenu .menu li {
         padding: 16px 32px;
-        border-bottom: 1px solid #1abc9c;
+        border-bottom: 1px solid #1491d0;
         cursor: pointer;
-        color: white;
        
         position: relative;
 }
@@ -33,11 +32,13 @@ $turquoise: #1abc9c;
 .listmenu .menu li img{
   vertical-align: middle;
   margin-right: 10px;
+  width: 30px;
+  height: 30px;
 }
 .listmenu .menu li a{
   text-decoration: none;
-  color:#1abc9c; 
+  color:#00eaf9; 
 }
 .listmenu .menu li .active {
-  background-color: $color_2a34ff;
+  background-color: #00eaf9;
 }

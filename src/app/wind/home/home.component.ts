@@ -147,6 +147,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.setBackgound(obj.Humidity);
       this.fengshi = obj.WindVelocity;
       this.wendu = obj.Humidity;
+      this.localtion = obj.Location;
+      this.shidu = obj.Temperature;
       }
      
       };
@@ -181,9 +183,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   private getdataHome(){
     this.infoService.getinfoHomeV2(this.url_home).pipe(first()).subscribe(info => {      
       this.setValueHome(info.rainfall,info.windVelocity,info.windDegree,info.humidity);
-      //this.localtion = info.location;
+      this.localtion = info.location;
       this.fengshi = info.windVelocity;
       this.wendu = info.humidity;
+      this.shidu = info.temperature;
       this.setBackgound(info.humidity);
     })
   }

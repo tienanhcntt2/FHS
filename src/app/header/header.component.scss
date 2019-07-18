@@ -1,4 +1,4 @@
-$color_072884:#072884;
+$color_072884 :  #032ea3;
 header{
     width: 100%;
     padding: 10px 15px;
@@ -35,18 +35,21 @@ header{
         background-repeat: no-repeat;
         margin-right: 20px;
         padding-left: 50px;
-        font-family: 'Times New Roman', Times, serif;
+        font-family:'UTM Avo';
         a{
             text-decoration: none;
             color: white;
+            font-family:'UTM Avo';
             height: 100%;
             display: flex;
             justify-content: center; /* align horizontal */
             align-items: center; /* align vertical */
             cursor: pointer;
+            
         }
         span{
             color: white;
+            font-family:'UTM Avo';
             height: 100%;
             display: flex;
             justify-content: center; /* align horizontal */
@@ -62,6 +65,7 @@ header{
         flex-wrap: wrap; 
         justify-content: center;
         align-items: center;
+       
     }
     .language{
         float: right;
@@ -83,6 +87,7 @@ header{
         span{
             float: right;
             vertical-align:middle;
+            
         }
         :hover{
             cursor: pointer;
