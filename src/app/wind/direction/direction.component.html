@@ -7,15 +7,14 @@
   <div class="example-sidenav-content">
     <!-- colum left -->
     <div class="colum_left" [style.width.%]="widthleft">
-        <dx-chart [dataSource]="stockPrices">
+        <dx-chart id="chart" [dataSource]="stockPrices">
             <!-- See details in the "Bind Series to Data" topic -->
            
             <dxi-series type="scatter" argumentField="timestamp" valueField="direction"></dxi-series>
             <dxo-argument-axis >
                 <dxo-label format="shortDate"></dxo-label>
             </dxo-argument-axis>
-            <!-- <dxo-argument-axis argumentType="datetime" aggregationInterval="months" [valueMarginsEnabled]="false">
-            </dxo-argument-axis> -->
+           
         </dx-chart>
     </div>
     <!-- colum right  -->
@@ -23,33 +22,29 @@
       <img src={{icon_show}} (click)="functionShowHide()" />
       <!-- select date -->
       <div class="detail" *ngIf="okma">
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <span>选择类型</span>
-            <mat-select class="customSelect" [(value)]="title">
-              <mat-option *ngFor="let title of types" [value]="title">{{title}}</mat-option>
-            </mat-select>
 
-          </div>
-
-        </div> -->
         <!-- select datetimer -->
         <div class="row" style="margin-top:10px;">
           <div class="col-md-6">
 
-            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()"
+            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()" [max] ="selectToday"
               [formControl]="date" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
             <mat-datepicker #start></mat-datepicker>
-
-            <!-- <img src="../../assets/image/icon_select.png" (click)="openStartDate()" /> -->
-            <input type="time" value="16:30" style="width:40%; margin-left: 10px;" />
+            <kendo-timepicker 
+              
+            (valueChange)="onChange($event)"
+  
+            [value]="timeStart"></kendo-timepicker>
           </div>
           <div class="col-md-6">
-            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()"
+            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()" [max] ="selectToday"
               (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)"
               [formControl]="date">
             <mat-datepicker #end></mat-datepicker>
-            <input type="time" value="16:30" style="width:40%; margin-left: 10px;" />
+            <kendo-timepicker 
+             
+              (valueChange)="onChangeEnd($event)"
+              [value]="timeEnd"></kendo-timepicker>
           </div>
 
         </div>
@@ -74,8 +69,14 @@
               <thead>
                 <tr>
 
-                  <th *ngFor="let header of listNametable">
-                    {{header}}
+                  <th>
+                    Date
+                  </th>
+                  <th>
+                    Direction
+                  </th>
+                  <th>
+                    Name Direction
                   </th>
 
                 </tr>
@@ -85,10 +86,11 @@
           <div class="tbl-content">
             <table cellpadding="0" cellspacing="0" border="0">
               <tbody>
-                <tr>
+                <tr *ngFor='let dt of stockPrices'>
 
-                  <td *ngFor='let dt of listDirectionValue'>{{ dt }} km/h</td>
-
+                  <td >{{dt.timestamp | date: 'yyyy/MM/dd : HH:mm:ss'}}</td>
+                  <td >{{dt.direction}}</td>
+                  <td >AST</td>
                 </tr>
               </tbody>
             </table>
