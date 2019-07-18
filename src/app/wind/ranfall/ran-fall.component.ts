@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { NavComponent } from 'src/app/nav/nav.component';
 import { listMenu } from 'src/app/config/listmenu';
 import { CommonService } from 'src/app/service/CommonService';
@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-ran-fall',
@@ -77,6 +78,10 @@ export class RanFallComponent implements OnInit {
      
       this.sendTitle();
     });
+    if(window.innerWidth <770){
+     this.widthleft = 100;
+     this.widthright = 100;
+    }
     let date = new Date();
     this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
   }
@@ -104,6 +109,14 @@ export class RanFallComponent implements OnInit {
     };
    }
 
+
+ @HostListener('window:resize', ['$event'])
+onResize(event?) {
+  if(window.innerWidth <=770){
+    this.widthleft = 100;
+    this.widthright = 100;
+  }
+}
   /**
     * show open menu in teamplerature
     */
@@ -163,14 +176,14 @@ export class RanFallComponent implements OnInit {
     this.numbercheckShow += 1;
     if (this.numbercheckShow % 2 == 0) {
       this.okma = true;
-      this.widthleft = 60;
-      this.widthright = 40;
+      // this.widthleft = 60;
+      // this.widthright = 40;
       this.icon_show = "../../assets/image/icon_hiden.png";
 
     } else {
       this.okma = false;
-      this.widthleft = 97;
-      this.widthright = 3;
+      // this.widthleft = 97;
+      // this.widthright = 3;
       this.icon_show = "../../assets/image/icon_show.png";
     }
 

@@ -14,6 +14,7 @@ import { UserServicer } from 'src/app/service/user.Servicer';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ScatterData, TeamperatureService, DataScatter } from 'src/app/service/Temperature';
 import { Fengxiang } from 'src/app/model/fengxiang';
+import { IntlService } from '@progress/kendo-angular-intl';
 
 
 
@@ -62,10 +63,12 @@ export class DirectionComponent implements OnInit, OnDestroy {
    */
   private txt_date_start: string;
   private txt_date_end: string;
-  private txt_time_start:string ="00:00:00";
-  private txt_time_end: string ="00:30:00";
+  private txt_time_start: any;
+  private txt_time_end: any;
 
-
+  public timeStart: Date = new Date();
+  public timeEnd: Date = new Date();
+  private selectToday : Date;
 
   /**
    * constructor direction
@@ -76,24 +79,13 @@ export class DirectionComponent implements OnInit, OnDestroy {
    * @param httpClient 
    * @param userService 
    */
-  constructor(private commoService: CommonService,  private datePipe: DatePipe
-    , private httpClient: HttpClient, private userService: UserServicer,private translate:TranslateService,
-    private teampleService :TeamperatureService ) {
+  constructor(private commoService: CommonService,  private datePipe: DatePipe,
+    private userService: UserServicer,private translate:TranslateService, private intl: IntlService ) {
       translate.onLangChange.subscribe((event: LangChangeEvent) => {
      
         this.sendTitle();
       });
-      this.dataSource =teampleService.getWeatherIndicators();
-
-      for(let i=0 ;i<this.dataSource.length;i++){
-        //this.dataDemo.push();
-       
-        this.dataDemo = this.dataSource[i].temp;
-        // for(let j = 0;j<this.dataSource[i].temp.length;j++){
-        //   console.log("anhtt"," hello = "+i +" " +this.dataSource[i].temp[j].time +" " +this.dataSource[i].temp[j].xiang);
-        // }
-       
-      }
+      this.selectToday = new Date();
   }
 
 
@@ -102,8 +94,9 @@ export class DirectionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.nav.showZhan = false;
     this.sendTitle();
-  
-
+    this.txt_time_start = this.formatValue(this.timeStart) + ":00";
+    this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
+    this.txt_time_end = this.formatValue(this.timeEnd) +":00";
     // check login
     this.userService.chienchalogin();
 
@@ -166,6 +159,17 @@ export class DirectionComponent implements OnInit, OnDestroy {
   endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start,this.txt_date_end,this.txt_time_start,this.txt_time_end);
+  }
+  private formatValue(value?: Date): string {
+    return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
+  }
+  public onChange(value: Date): void {
+    this.txt_time_start = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  public onChangeEnd(value: Date): void {
+    this.txt_time_end = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
   // check login
   checkOpenMenu() {
