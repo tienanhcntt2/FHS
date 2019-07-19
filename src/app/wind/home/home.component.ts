@@ -148,7 +148,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.fengshi = obj.WindVelocity;
       this.wendu = obj.Humidity;
       this.localtion = obj.Location;
-      this.shidu = obj.Temperature;
+      var digits = obj.Temperature.toString().split('.');
+      this.shidu = parseInt(digits+"");
+      
       }
      
       };
@@ -186,7 +188,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.localtion = info.location;
       this.fengshi = info.windVelocity;
       this.wendu = info.humidity;
-      this.shidu = info.temperature;
+      var digits = info.temperature.toString().split('.');
+      this.shidu = parseInt(digits+"");
       this.setBackgound(info.humidity);
     })
   }
