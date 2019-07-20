@@ -246,9 +246,7 @@ onResize(event?) {
       headers: new HttpHeaders().set('Authorization', 'Bearer '+auth_token)
   }).subscribe(
       result => {
-         this.dataSource = result;
-         
-         
+         this.dataSource = result; 
       },
       err => {
         console.log("Error- something is wrong!")

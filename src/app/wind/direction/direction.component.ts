@@ -240,16 +240,21 @@ private printfChart(){
   customizeText = (arg: any) => {
     let value = new Date(arg.value);
     if (arg.valueText.length < 2) {
-        arg.valueText = value.toLocaleString().split(' ')[0];
+        // console.log(arg.valueText);
+        // console.log(value.toLocaleString());
+        arg.valueText = value.toLocaleString().split(' ')[1];
+        // console.log(arg.valueText);
     }
     else if (arg.valueText.length > 8) {
+       
         let temp = arg.valueText.split(' ');
+        
         arg.valueText = temp[1] + temp[2];
     }
     return arg.valueText;
 }
 valueCustomizeText(arg: any) {
-    console.log(arg);
+    console.log(arg.value);
     switch (true) {
         case arg.value > 350: {
             arg.valueText = '360';
