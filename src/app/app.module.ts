@@ -58,9 +58,10 @@ import { WeatherService } from './model/Weather';
 
 import { DateAdapter, MAT_DATE_FORMATS } from "@angular/material";
 import { AppDateAdapter, APP_DATE_FORMATS } from './util/date.adapter';
-import { TimePickerModule } from '@progress/kendo-angular-dateinputs';
+import { TimePickerModule, DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import 'hammerjs';
 import { ClockService } from './service/ClockService';
+import { IntlModule } from '@progress/kendo-angular-intl';
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -112,6 +113,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     DxTooltipModule,
     TimePickerModule,
     AppRoutingModule,
+    IntlModule, DateInputsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

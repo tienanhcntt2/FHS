@@ -42,20 +42,29 @@
       <div class="detail" *ngIf="okma">
         <!-- select datetimer -->
         <div class="row" style="margin-top:10px;">
-          <div class="col-md-6">
+            <div class="col-md-6">
 
-            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()"
-              [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
-            <mat-datepicker #start></mat-datepicker>
-            <input type="time" value="00:00" style="width:40%; margin-left: 10px;" />
-          </div>
-          <div class="col-md-6">
-            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()"
-              (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)"
-              [formControl]="date">
-            <mat-datepicker #end></mat-datepicker>
-            <input type="time" value="23:59" style="width:40%; margin-left: 10px;" />
-          </div>
+                <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)">
+                  </kendo-datepicker>
+                  <kendo-timepicker *ngIf="fplagStart"
+                  (valueChange)="onChangeTimerStart($event)"
+                  [value]="timeStart"></kendo-timepicker>
+                  <kendo-timepicker *ngIf="fplagStart == false"
+                  [max] ="timerCurrent"
+                  (valueChange)="onChangeTimerStart($event)"
+                  [value]="timeStart"></kendo-timepicker>
+            </div>
+            <div class="col-md-6">
+                <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)">
+                  </kendo-datepicker>
+                  <kendo-timepicker *ngIf="fplagEnd"
+                  [max] ="timerCurrent"
+                  (valueChange)="onChangeTimerEnd($event)"
+                  [value]="timeEnd"></kendo-timepicker>
+                  <kendo-timepicker *ngIf="fplagEnd == false"
+                  (valueChange)="onChangeTimerEnd($event)"
+                  [value]="timeEnd"></kendo-timepicker>
+            </div>
 
         </div>
 

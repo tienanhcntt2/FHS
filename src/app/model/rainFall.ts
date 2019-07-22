@@ -9,6 +9,9 @@ export class RainFall {
     
 }
 
+export class ListRainFall{
+    rainfalls: RainFall[];
+}
 export class ValueRain{
     value :number;
 }

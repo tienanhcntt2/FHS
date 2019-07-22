@@ -14,6 +14,7 @@ import { MatDatepickerInputEvent } from '@angular/material';
 import { DatePipe } from '@angular/common';
 
 import {  DxChartComponent } from 'devextreme-angular';
+import { IntlService } from '@progress/kendo-angular-intl';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
@@ -23,15 +24,20 @@ export class TemperatureComponent implements OnInit {
 
   // child 
   @ViewChild('drawer') drawer;
-  @ViewChild('end') dateEnd;
-  @ViewChild('start') dateStart;
+
   @ViewChild(NavComponent)
   private nav: NavComponent;
 
   @ViewChild("chartVar") chart: DxChartComponent;
 
-  enDate: any;
-
+  private enDate: any;
+  private startDate:any;
+  public timeStart: Date = new Date();
+  public timeEnd: Date = new Date();
+  private timerCurrent: Date = new Date();
+  private fplagStart: boolean = true;
+  private fplagEnd: boolean = true;
+  private selectToday : Date;
   // value right 
   private numbercheckShow: number = 0;
   private widthleft: number = 60;
@@ -56,9 +62,8 @@ export class TemperatureComponent implements OnInit {
 */
   private txt_date_start: string;
   private txt_date_end: string;
-  private txt_time_start: string = "00:00:00";
-  private txt_time_end: string = "23:59:00";
-  public date = new FormControl(new Date());
+  private txt_time_start: string ;
+  private txt_time_end: string ;
   private txt_seach_date: any;
   /**
    * constructor
@@ -69,16 +74,18 @@ export class TemperatureComponent implements OnInit {
    * @param datePipe 
    */
   constructor(private commoService: CommonService, private httpClient: HttpClient,
-    private translate: TranslateService, private weatherService: WeatherService, private datePipe: DatePipe) {
+    private translate: TranslateService, private weatherService: WeatherService, private datePipe: DatePipe,
+    private intl: IntlService) {
 
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.sendTitle();
 
     });
-
+    this.selectToday = new Date();
     let date = new Date();
-    this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
+    this.enDate = new Date();
+    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
   }
 
   /**
@@ -93,7 +100,8 @@ export class TemperatureComponent implements OnInit {
       }
 
     });
-    let date = new Date();
+    this.txt_time_start = this.formatValue(this.timeStart) +":00";
+    this.txt_time_end = this.formatValue(this.timeEnd) +":00";
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
@@ -125,36 +133,59 @@ export class TemperatureComponent implements OnInit {
   precipitationCustomizeText() {
     return this.valueText + " mm";
   }
-  /**
-  * event open date date end 
-  */
-  openDate() {
-
-    this.dateEnd.open();
-  }
-  /**
-   * event open date start
-   */
-  openStartDate() {
-    this.dateStart.open();
-  }
+  
+  
   /**
    * event click change date when select
-   * @param type 
-   * @param event 
+   * @param value 
    */
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_start = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeStartDay(value: Date) {
+    
+    this.txt_date_start = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_start === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagStart = false;
+    }else{
+      this.fplagStart = true;
+    }
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+
+  /**
+   * end date
+   * @param value 
+   */
+  onChangeEndDay(value: Date) {
+    this.txt_date_end = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_end === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagEnd = true;
+    }else{
+      this.fplagEnd = false;
+    }
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+   
+  }
+
+/**
+   * on change timer start
+   * @param value 
+   */
+  onChangeTimerStart(value: Date){
+    this.txt_time_start = this.formatValue(value) + ":00";
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
   /**
-   * change date when click
-   * @param type 
-   * @param event 
+   * change timer end
+   * @param value 
    */
-  endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeTimerEnd(value: Date){
+    this.txt_time_end = this.formatValue(value) + ":00";
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * formar timer
+   */
+  private formatValue(value?: Date): string {
+    return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
   /**
    * show open menu in teamplerature
