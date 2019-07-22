@@ -192,12 +192,95 @@ let WindRoseDate : WindValue []=[{
     val7: 0,
     val8: 0
 }]
-
+let WindRoseDateEight : WindValue []=[{
+    arg: "N",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}, {
+    arg: "NE",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}, {
+    arg: "E",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}, {
+    arg: "SE",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}, {
+    arg: "S",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}, {
+    arg: "SW",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}, {
+    arg: "W",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}, {
+    arg: "NW",
+    val1: 0,
+    val2: 0,
+    val3: 0,
+    val4: 0,
+    val5: 0,
+    val6: 0,
+    val7: 0,
+    val8: 0
+}]
 @Injectable()
 export class Service {
     getWindRoseData() {
         
         return WindRoseDate;
+    }
+    getWindRoseDateEight(){
+        return WindRoseDateEight;
     }
     getWindSources() {
         return windSources;

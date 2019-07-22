@@ -34,24 +34,26 @@
         <div class="row" style="margin-top:10px;">
           <div class="col-md-6">
 
-            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()" [max] ="selectToday"
-              [formControl]="date" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
-            <mat-datepicker #start></mat-datepicker>
-            <kendo-timepicker 
-              
-            (valueChange)="onChange($event)"
-  
-            [value]="timeStart"></kendo-timepicker>
+              <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)">
+                </kendo-datepicker>
+                <kendo-timepicker *ngIf="fplagStart"
+                (valueChange)="onChangeTimerStart($event)"
+                [value]="timeStart"></kendo-timepicker>
+                <kendo-timepicker *ngIf="fplagStart == false"
+                [max] ="timerCurrent"
+                (valueChange)="onChangeTimerStart($event)"
+                [value]="timeStart"></kendo-timepicker>
           </div>
           <div class="col-md-6">
-            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()" [max] ="selectToday"
-              (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)"
-              [formControl]="date">
-            <mat-datepicker #end></mat-datepicker>
-            <kendo-timepicker 
-             
-              (valueChange)="onChangeEnd($event)"
-              [value]="timeEnd"></kendo-timepicker>
+              <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)">
+                </kendo-datepicker>
+                <kendo-timepicker *ngIf="fplagEnd"
+                [max] ="timerCurrent"
+                (valueChange)="onChangeTimerEnd($event)"
+                [value]="timeEnd"></kendo-timepicker>
+                <kendo-timepicker *ngIf="fplagEnd == false"
+                (valueChange)="onChangeTimerEnd($event)"
+                [value]="timeEnd"></kendo-timepicker>
           </div>
 
         </div>

@@ -1,25 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
-import { MatDatepickerInputEvent } from '@angular/material';
 import { DatePipe } from '@angular/common';
-import { FormControl} from '@angular/forms';
-
 import { Subscription } from 'rxjs';
-
 import { CommonService } from 'src/app/service/CommonService';
-
 import { listMenu } from 'src/app/config/listmenu';
 import { NavComponent } from 'src/app/nav/nav.component';
 import { UserServicer } from 'src/app/service/user.Servicer';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { ScatterData, DataScatter } from 'src/app/service/Temperature';
 import { IntlService } from '@progress/kendo-angular-intl';
-import {  DxChartComponent } from 'devextreme-angular';
 import { Fengxiang } from 'src/app/model/fengxiang';
-
-
-
-
 @Component({
   selector: 'app-direction',
   templateUrl: './direction.component.html',
@@ -28,37 +17,33 @@ import { Fengxiang } from 'src/app/model/fengxiang';
 export class DirectionComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer') drawer;
-  @ViewChild('end') dateEnd;
-  @ViewChild('start') dateStart;
+
   @ViewChild('chart') chart;
 
   @ViewChild(NavComponent)
   private nav: NavComponent;
 
   
-  dataSource: ScatterData[];
-  dataDemo : DataScatter[];
+  private enDate: any;
+  private startDate:any;
+  public timeStart: Date = new Date();
+  public timeEnd: Date = new Date();
+  private timerCurrent: Date = new Date();
+  private fplagStart: boolean = true;
+  private fplagEnd: boolean = true;
+
   private subscription: Subscription;
   public show: boolean = true;
   public numberCheck: number = 0;
   public nameMaticon: string = "../../assets/image/drop_down.png";
-  public dateCurrent: string;
-  date = new FormControl(new Date());
 
 
-  private  listNametable: string[];
-  private listDirectionValue: string[];
-// var item 
-  showSelect: boolean = false;
-  position: number = 0;
-  clickOpen: number = 0;
-  address: string;
-  title: string;
-  okma :boolean = true;
+  private clickOpen: number = 0;
+
+  private okma :boolean = true;
 
   // menu
   listmenu = listMenu;
-  public icon_val: string;
   
   /**
    * select date and timer
@@ -68,8 +53,6 @@ export class DirectionComponent implements OnInit, OnDestroy {
   private txt_time_start: any;
   private txt_time_end: any;
 
-  public timeStart: Date = new Date();
-  public timeEnd: Date = new Date();
   private selectToday : Date;
 
   /**
@@ -88,6 +71,9 @@ export class DirectionComponent implements OnInit, OnDestroy {
         this.sendTitle();
       });
       this.selectToday = new Date();
+      let date = new Date();
+      this.enDate = new Date();
+      this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
   }
 /* ---------------------------------------------------
     onInit
@@ -104,8 +90,6 @@ export class DirectionComponent implements OnInit, OnDestroy {
     this.txt_date_start = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start,this.txt_date_end,this.txt_time_start,this.txt_time_end);
-
-    this.nav.selectAdrees = this.address;
 
     this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
@@ -128,19 +112,7 @@ private printfChart(){
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  /* ---------------------------------------------------
-    open Date
-    ----------------------------------------------------- */
-  openDate() {
-
-    this.dateEnd.open();
-  }
-  /* ---------------------------------------------------
-    openDate
-    ----------------------------------------------------- */
-  openStartDate() {
-    this.dateStart.open();
-  }
+ 
  /* ---------------------------------------------------
     Detail
     ----------------------------------------------------- */
@@ -155,36 +127,59 @@ private printfChart(){
       this.nameMaticon = "../../assets/image/drop_up.png"
     }
   }
+/**
+   * event click change date when select
+   * @param value 
+   */
+  onChangeStartDay(value: Date) {
+    
+    this.txt_date_start = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_start === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagStart = false;
+    }else{
+      this.fplagStart = true;
+    }
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
 
   /**
-   * change date
-   * @param type 
-   * @param event 
+   * end date
+   * @param value 
    */
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_start = this.datePipe.transform(event.value, "yyyy/MM/dd");
-    this.setValueDatetimer(this.txt_date_start,this.txt_date_end,this.txt_time_start,this.txt_time_end);
+  onChangeEndDay(value: Date) {
+    this.txt_date_end = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_end === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagEnd = true;
+    }else{
+      this.fplagEnd = false;
+    }
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+   
   }
-  /**
-   * change date
-   * @param type 
-   * @param event 
+
+/**
+   * on change timer start
+   * @param value 
    */
-  endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
-    this.setValueDatetimer(this.txt_date_start,this.txt_date_end,this.txt_time_start,this.txt_time_end);
-  }
-  private formatValue(value?: Date): string {
-    return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
-  }
-  public onChange(value: Date): void {
+  onChangeTimerStart(value: Date){
     this.txt_time_start = this.formatValue(value) + ":00";
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
-  public onChangeEnd(value: Date): void {
+  /**
+   * change timer end
+   * @param value 
+   */
+  onChangeTimerEnd(value: Date){
     this.txt_time_end = this.formatValue(value) + ":00";
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
+  /**
+   * formar timer
+   */
+  private formatValue(value?: Date): string {
+    return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
+  }
+ 
   /* ---------------------------------------------------
     check menu
     ----------------------------------------------------- */

@@ -18,7 +18,8 @@ $turquoise: #1abc9c;
   }
   .example-sidenav{
     width: 12%;
-
+    overflow: hidden;
+    display: flex;
   }
   .example-sidenav-content {
     width: 100%;
