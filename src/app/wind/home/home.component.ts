@@ -10,7 +10,7 @@ import { first } from 'rxjs/internal/operators/first';
 import { Paho } from 'ng2-mqtt/mqttws31'
 import { Winds } from 'src/app/model/Winds';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { LanguageService } from 'src/app/service/language.service';
+
 
 
 @Component({
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    private fengxiang: String = "EAST";
    private fengshi : number = 30;
 
-
+   private heightRigh :number;
    /**
     * change background
     */
@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
      
       this.getdataHome();
     });
+   
   }
 
   ngOnInit() {
@@ -215,8 +216,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setShidu(humidity : number){
-    
+  private splitNumber(humidity : number,limit:number){
+    return humidity.toString().split(".",limit);
   }
  
 }
