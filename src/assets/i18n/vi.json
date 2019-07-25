@@ -23,7 +23,10 @@
         "phone" : "Phone",
         "email" : "Email",
         "fax" : "Fax",
-        "detailAdress" :"Khu kinh tế Vũng Áng, Phường Kỳ Long, thị xã Kỳ Anh, Tỉnh Hà"
+        "detailAdress" :"Khu kinh tế Vũng Áng, Phường Kỳ Long, thị xã Kỳ Anh, Tỉnh Hà",
+        "xa" :"Vung Ang Economic Zone",
+        "phuong" :"Ky Long Ward Ky Anh Town",
+        "ting" :"HaTinh Provice"
     },
     "rainFall" :{
         "search" :"Tìm kiếm",

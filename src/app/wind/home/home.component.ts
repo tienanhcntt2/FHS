@@ -33,21 +33,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    public icon_val: string;
    private flags : boolean = false;
-   private winds : Winds[] = [];
+   public winds : Winds[] = [];
    private url_home: string ="http://10.199.15.95:80/mops/Meteorology/info";
    private _client: Paho.MQTT.Client;
-   private localtion : String ="Ha Tinh";
-   private shidu : number = 28;
-   private wendu : number = 10;
-   private fengxiang: String = "EAST";
-   private fengshi : number = 30;
+   public localtion : String ="Ha Tinh";
+   public shidu : number = 28;
+   public wendu : number = 10;
+   public fengxiang: String = "EAST";
+   public fengshi : number = 30;
 
    private heightRigh :number;
    /**
     * change background
     */
-   private  imagSource: string ="../../assets/image/raingif.gif";
-   private imageIcon : string = "../../assets/image/1.png";
+   public  imagSource: string ="../../assets/image/raingif.gif";
+   public imageIcon : string = "../../assets/image/1.png";
   
 
    

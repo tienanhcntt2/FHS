@@ -7,7 +7,7 @@
 
   <div class="container-fluid">
       <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-3 col-xl-6 h-100" style="padding: 20px;" > 
+          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6 h-100" style="padding: 20px;" > 
               <mat-card>
                   <mat-card-header>
                     <mat-card-title>{{localtion}}</mat-card-title>
@@ -51,15 +51,13 @@
                   </div>
                 </mat-card>
           </div>
-          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-9 col-xl-6 h-100" style="padding: 20px;">
+          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6 h-100" style="padding: 20px;">
             <div class="col-md-3 col-sm-6 col-xs-6 col-lg-3 detail" *ngFor="let wind of winds" >
                 <mat-card>
                   <div class="row">
                       <h3 class="col">{{wind.name}}</h3>
                   </div>
-                  <div class="row">
-                      <h3 class="col line"></h3>
-                  </div>
+           
                   <div class="row">
                       <h1 class="col">
                           {{wind.number}}
