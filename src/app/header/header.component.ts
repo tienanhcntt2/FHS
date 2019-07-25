@@ -17,9 +17,9 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
 
-  private languages = ListLanguage;
-  private lag: Language;
-  private show: boolean = true;
+  public languages = ListLanguage;
+  public lag: Language;
+  public show: boolean = true;
   private userName: string = "";
   private lg : string ="";
   

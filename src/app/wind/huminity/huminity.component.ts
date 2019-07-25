@@ -3,13 +3,13 @@ import { CommonService } from 'src/app/service/CommonService';
 import { Subscription } from 'rxjs';
 import { listMenu } from 'src/app/config/listmenu';
 import { NavComponent } from 'src/app/nav/nav.component';
-import { ServiceHuminity, HuminityInfo, HuminityDescription } from 'src/app/model/huminity';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Weather, WeatherService } from 'src/app/model/Weather';
+import { IntlService } from '@progress/kendo-angular-intl';
 
 
 
@@ -20,16 +20,24 @@ import { Weather, WeatherService } from 'src/app/model/Weather';
 })
 export class HuminityComponent implements OnInit {
   @ViewChild('drawer') drawer;
-  @ViewChild('end') dateEnd;
-  @ViewChild('start') dateStart;
+
   @ViewChild(NavComponent)
   private nav: NavComponent;
-  enDate : any;
+  
+  private enDate: any;
+  private startDate:any;
+  public timeStart: Date = new Date();
+  public timeEnd: Date = new Date();
+  private timerCurrent: Date = new Date();
+  private fplagStart: boolean = true;
+  private fplagEnd: boolean = true;
+
+  private selectToday : Date;
   // value right 
   private numbercheckShow: number = 0;
-  private widthleft: number = 60;
-  private widthright: number = 40;
-  private icon_show: string = "../../assets/image/icon_hiden.png";
+  public widthleft: number = 60;
+  public widthright: number = 40;
+  public icon_show: string = "../../assets/image/icon_hiden.png";
   okma: boolean = true;
   // value menu var
   private listmenu = listMenu;
@@ -46,12 +54,12 @@ export class HuminityComponent implements OnInit {
  */
   private txt_date_start: string;
   private txt_date_end: string;
-  private txt_time_start: string = "00:00:00";
-  private txt_time_end: string = "00:30:00";
+  private txt_time_start: string;
+  private txt_time_end: string ;
   public date = new FormControl(new Date());
 
   private txt_seach_date :any;
-  private weatherData: Weather[];
+  public weatherData: Weather[];
   private day = new Date();
   public dayEnd = new FormControl(this.day);
   /**
@@ -62,14 +70,15 @@ export class HuminityComponent implements OnInit {
    * @param datePipe 
    */
   constructor(private commoService: CommonService, private httpClient: HttpClient, private datePipe: DatePipe,
-    private translate: TranslateService, private weatherService: WeatherService) {
+    private translate: TranslateService, private weatherService: WeatherService,private intl: IntlService) {
   
-    let date = new Date();
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.sendTitle();
     });
-    
-    this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
+     this.selectToday = new Date();
+      let date = new Date();
+      this.enDate = new Date();
+      this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
   }
   /**
    * ng onit
@@ -83,7 +92,6 @@ export class HuminityComponent implements OnInit {
       }
 
     });
-    let date = new Date();
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
@@ -119,30 +127,7 @@ export class HuminityComponent implements OnInit {
       
     };
   }
-  /**
-  * event open date date end 
-  */
-  openDate() {
-
-    this.dateEnd.open();
-  }
-  /**
-   * event open date start
-   */
-  openStartDate() {
-    this.dateStart.open();
-  }
-  /**
-   * event click change date when select
-   * @param type 
-   * @param event 
-   */
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_start = this.datePipe.transform(event.value, "yyyy/MM/dd");
-    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-   
-
-  }
+ 
   showhiden = false;
   selectedRegion = "";
   pointClick(e: any) {
@@ -151,14 +136,58 @@ export class HuminityComponent implements OnInit {
     point.showTooltip();
     this.selectedRegion = point.argument;
 }
-  /**
-   * change date when click
-   * @param type 
-   * @param event 
+  
+/**
+   * event click change date when select
+   * @param value 
    */
-  endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeStartDay(value: Date) {
+    
+    this.txt_date_start = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_start === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagStart = false;
+    }else{
+      this.fplagStart = true;
+    }
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+
+  /**
+   * end date
+   * @param value 
+   */
+  onChangeEndDay(value: Date) {
+    this.txt_date_end = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_end === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagEnd = true;
+    }else{
+      this.fplagEnd = false;
+    }
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+   
+  }
+
+/**
+   * on change timer start
+   * @param value 
+   */
+  onChangeTimerStart(value: Date){
+    this.txt_time_start = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * change timer end
+   * @param value 
+   */
+  onChangeTimerEnd(value: Date){
+    this.txt_time_end = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * formar timer
+   */
+  private formatValue(value?: Date): string {
+    return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
   /**
     * show open menu in teamplerature

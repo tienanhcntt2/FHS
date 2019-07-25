@@ -1,16 +1,14 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormControl } from '@angular/forms';
+import {  FormControl } from '@angular/forms';
 
 
-import { MatDatepickerInputEvent, MatRadioButton } from '@angular/material';
+import {  MatRadioButton } from '@angular/material';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { CommonService } from 'src/app/service/CommonService';
 import { InfoService } from 'src/app/service/info.Servicer';
-import { Info } from 'src/app/model/Info';
-import { first } from 'rxjs/operators';
 import { NavComponent } from 'src/app/nav/nav.component';
 import { UserServicer } from 'src/app/service/user.Servicer';
 import { WindRose, WindDescription, WindValue, Service } from 'src/app/model/WindDescription';
@@ -36,18 +34,21 @@ export class SpeedComponent implements OnInit {
    * item chirld 
    */
   @ViewChild('drawer') drawer;
-  @ViewChild('end') dateEnd;
-  @ViewChild('start') dateStart;
   @ViewChild('chart') chart;
 
 
   @ViewChild(NavComponent)
   private nav: NavComponent;
 
-
+  private enDate: any;
+  private startDate:any;
   public timeStart: Date = new Date();
   public timeEnd: Date = new Date();
+  private timerCurrent: Date = new Date();
+  private fplagStart: boolean = true;
+  private fplagEnd: boolean = true;
   private checkData : boolean = false;
+  private checkSeach :boolean = false;
   /**
    * select date and timer
    */
@@ -69,7 +70,7 @@ export class SpeedComponent implements OnInit {
   public numberCheck: number = 0;
   public icon_val: string = "";
 
-  enDate: any;
+
 
 
   /*
@@ -111,7 +112,8 @@ export class SpeedComponent implements OnInit {
     });
     this.selectToday = new Date();
     let date = new Date();
-    this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate()-6)));
+    this.enDate = new Date();
+    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
   }
   /**
    * onint
@@ -134,9 +136,6 @@ export class SpeedComponent implements OnInit {
     //this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate()), "yyyy/MM/dd");
     this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-    // get data speed for server
-    //this.getdataSpeed(this.urlSpeed, this.getToken());
-
     // get data for open menu
     this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
@@ -166,40 +165,53 @@ export class SpeedComponent implements OnInit {
       series.show();
     }
   }
-  /**
-   * event open date date end 
-   */
-  openDate() {
 
-    this.dateEnd.open();
-  }
-  /**
-   * event open date start
-   */
-  openStartDate() {
-    this.dateStart.open();
-  }
   /**
    * event click change date when select
-   * @param type 
-   * @param event 
+   * @param value 
    */
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_start = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeStartDay(value: Date) {
+    
+    this.txt_date_start = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_start === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagStart = false;
+    }else{
+      this.fplagStart = true;
+    }
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
 
   /**
-   * change date when click
-   * @param type 
-   * @param event 
+   * end date
+   * @param value 
    */
-  endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeEndDay(value: Date) {
+    this.txt_date_end = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_end === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagEnd = true;
+    }else{
+      this.fplagEnd = false;
+    }
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+   
   }
 
-
+/**
+   * on change timer start
+   * @param value 
+   */
+  onChangeTimerStart(value: Date){
+    this.txt_time_start = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * change timer end
+   * @param value 
+   */
+  onChangeTimerEnd(value: Date){
+    this.txt_time_end = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
 
   // click show icon table show and hide
   showDetail() {
@@ -249,8 +261,10 @@ export class SpeedComponent implements OnInit {
     }
   }
   clickSeach() {
+    this.checkSeach = true;
     this.getdataSpeed(this.urlSpeed,this.getToken())
-   // this.checkValue();
+    
+    
   }
   getDataWindValue() {
     this.listWindValue = this.windRose;
@@ -471,26 +485,28 @@ export class SpeedComponent implements OnInit {
   }
 
 
-
-  public onChange(value: Date): void {
-    this.txt_time_start = this.formatValue(value) + ":00";
-    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-  }
-  public onChangeEnd(value: Date): void {
-    this.txt_time_end = this.formatValue(value) + ":00";
-    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-  }
-
-
   private formatValue(value?: Date): string {
     return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
   private selectEight(){
     this.txt_zhan ="eightwindrose?";
-    this.getdataSpeed(this.urlSpeed,this.getToken());
+    if(this.checkSeach == true){
+      this.getdataSpeed(this.urlSpeed,this.getToken());
+    }else{
+     
+      this.windRose = this.service.getWindRoseDateEight();
+      this.windSources = this.service.getWindSources();
+    }
+   
   }
   private selectSixteen(){
     this.txt_zhan ="sixteenwindrose?";
-    this.getdataSpeed(this.urlSpeed,this.getToken());
+    if(this.checkSeach == true){
+      this.getdataSpeed(this.urlSpeed,this.getToken());
+    }else{
+      this.windRose = this.service.getWindRoseData();
+      this.windSources = this.service.getWindSources();
+    }
+   
   }
 }

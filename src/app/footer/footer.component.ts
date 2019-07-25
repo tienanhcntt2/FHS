@@ -18,7 +18,6 @@ export class FooterComponent implements OnInit {
       map( (match) => match.matches),
       takeUntil(this.destory)
     );
-    console.log("anhtt","footer = " +this.isMobile$);
    }
 
   ngOnInit() {

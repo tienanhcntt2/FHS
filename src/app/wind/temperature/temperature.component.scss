@@ -18,6 +18,8 @@ $turquoise: #1abc9c;
   .example-sidenav{
     width: 12%;
     height: 100%;
+    overflow: hidden;
+    display: flex;
   }
 
   .example-sidenav-content {
@@ -53,39 +55,24 @@ $turquoise: #1abc9c;
     padding-left: 20px;
     font-family: "Microsoft YaHei","微软雅黑","黑体","宋体";
     height: 100%;
-  }
-  .detail .row mat-select{
-    padding: 3px;
-    width: 80%;
-     text-align: center;
-     vertical-align: middle;
-     background: white;
- 
-  }
-  .detail .row span{
     color: white;
   }
-  .detail .row input{
-    padding: 2px;
+
+  .detail .row kendo-timepicker{
+    width: 45%;
+    //padding: 3px 5px;
     text-align: center;
-    border: 1px solid #c9d9f0;
-    background-image: url("../../../assets/image/calendar.png");
-    background-position: 4px 3px;
-    background-repeat: no-repeat;
-    height: 25px;
-  }
-  .detail .row input[type ="date"] {
-   border: 1px solid #c9d9f0;
-   background-image: url("../../../assets/image/calendar.png");
-   background-position: 4px 3px;
-   background-repeat: no-repeat;
-   height: 25px;
-   padding-left: 20px;
- } 
-  .detail .row input[type ="time"]{
-    background: #0b3cb1;
     font-size: 12px;
-    color: white;
+    border-radius: 2px;
+    box-shadow: 1px 2px 10px 0 #031477 !important;
+  }
+  .detail .row kendo-datepicker{
+    //border: 1px solid #00ffff;
+    border-radius: 2px;
+    text-align: center;
+    box-shadow: 1px 2px 10px 0 #031477 !important;
+    width: 50%;
+    font-size: 12px;
   }
  
  .detail .row .dain{

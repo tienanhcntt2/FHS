@@ -27,7 +27,7 @@ export class NavComponent implements OnInit, OnDestroy {
   private txt_zhan : string;
 
   // value nav
-  private flagsShow: boolean = true;
+  public flagsShow: boolean = true;
   public showZhan: boolean = true;
   // value today
   private location: string =" Formosa Ha Tinh";

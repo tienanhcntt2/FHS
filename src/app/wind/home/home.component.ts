@@ -10,7 +10,7 @@ import { first } from 'rxjs/internal/operators/first';
 import { Paho } from 'ng2-mqtt/mqttws31'
 import { Winds } from 'src/app/model/Winds';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { LanguageService } from 'src/app/service/language.service';
+
 
 
 @Component({
@@ -32,22 +32,22 @@ export class HomeComponent implements OnInit, OnDestroy {
    private nav: NavComponent;
 
    public icon_val: string;
-   private flags : boolean = false;
-   private winds : Winds[] = [];
+   public flags : boolean = false;
+   public winds : Winds[] = [];
    private url_home: string ="http://10.199.15.95:80/mops/Meteorology/info";
    private _client: Paho.MQTT.Client;
-   private localtion : String ="Ha Tinh";
-   private shidu : number = 28;
-   private wendu : number = 10;
-   private fengxiang: String = "EAST";
-   private fengshi : number = 30;
+   public localtion : String ="Ha Tinh";
+   public shidu : number = 28;
+   public wendu : number = 10;
+   public fengxiang: String = "EAST";
+   public fengshi : number = 30;
 
-
+   private heightRigh :number;
    /**
     * change background
     */
-   private  imagSource: string ="../../assets/image/raingif.gif";
-   private imageIcon : string = "../../assets/image/1.png";
+   public  imagSource: string ="../../assets/image/raingif.gif";
+   public imageIcon : string = "../../assets/image/1.png";
   
 
    
@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
      
       this.getdataHome();
     });
+   
   }
 
   ngOnInit() {
@@ -148,7 +149,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.fengshi = obj.WindVelocity;
       this.wendu = obj.Humidity;
       this.localtion = obj.Location;
-      this.shidu = obj.Temperature;
+      var digits = obj.Temperature.toString().split('.');
+      this.shidu = parseInt(digits+"");
+      
       }
      
       };
@@ -186,7 +189,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.localtion = info.location;
       this.fengshi = info.windVelocity;
       this.wendu = info.humidity;
-      this.shidu = info.temperature;
+      var digits = info.temperature.toString().split('.');
+      this.shidu = parseInt(digits+"");
       this.setBackgound(info.humidity);
     })
   }
@@ -212,8 +216,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setShidu(humidity : number){
-    
+  private splitNumber(humidity : number,limit:number){
+    return humidity.toString().split(".",limit);
   }
  
 }

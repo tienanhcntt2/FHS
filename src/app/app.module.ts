@@ -43,7 +43,7 @@ import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartMo
 import { SlideMenuComponent } from './util/slide-menu/slide-menu.component';
 
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+
 import { UserServicer } from './service/user.Servicer';
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
@@ -58,9 +58,10 @@ import { WeatherService } from './model/Weather';
 
 import { DateAdapter, MAT_DATE_FORMATS } from "@angular/material";
 import { AppDateAdapter, APP_DATE_FORMATS } from './util/date.adapter';
-import { TimePickerModule } from '@progress/kendo-angular-dateinputs';
+import { TimePickerModule, DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import 'hammerjs';
 import { ClockService } from './service/ClockService';
+import { IntlModule } from '@progress/kendo-angular-intl';
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -78,7 +79,6 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     PageNotFoundComponent,
     SlideMenuComponent,
     LoginComponent,
-    RegisterComponent,
     TemperatureComponent,
     HuminityComponent,
     RanFallComponent
@@ -112,6 +112,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     DxTooltipModule,
     TimePickerModule,
     AppRoutingModule,
+    IntlModule, DateInputsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
