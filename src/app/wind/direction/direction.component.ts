@@ -40,7 +40,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
 
   private clickOpen: number = 0;
 
-  private okma :boolean = true;
+  public okma :boolean = true;
 
   // menu
   listmenu = listMenu;

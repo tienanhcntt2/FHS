@@ -43,7 +43,7 @@ import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartMo
 import { SlideMenuComponent } from './util/slide-menu/slide-menu.component';
 
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+
 import { UserServicer } from './service/user.Servicer';
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
@@ -79,7 +79,6 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     PageNotFoundComponent,
     SlideMenuComponent,
     LoginComponent,
-    RegisterComponent,
     TemperatureComponent,
     HuminityComponent,
     RanFallComponent

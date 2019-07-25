@@ -1,12 +1,9 @@
-FROM node:latest 
-
-## Install http-server
-RUN npm install http-server -g
+# stage 1
+FROM node:latest as node
 WORKDIR /app
 COPY . .
-
-CMD ["http-server","-p 80"]
-
+RUN npm install
+RUN npm run build --prod
 
 # stage 2
 FROM nginx:alpine

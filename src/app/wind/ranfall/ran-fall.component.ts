@@ -25,7 +25,7 @@ export class RanFallComponent implements OnInit {
   @ViewChild('drawer') drawer;
   @ViewChild(NavComponent)
   private nav: NavComponent;
-  private dataSource: RainFall[];
+  public dataSource: RainFall[];
 
   /**
    * get data ulr and number
@@ -46,9 +46,9 @@ export class RanFallComponent implements OnInit {
 
   // value right 
   private numbercheckShow: number = 0;
-  private widthleft: number = 60;
-  private widthright: number = 40;
-  private icon_show: string = "../../assets/image/icon_hiden.png";
+  public widthleft: number = 60;
+  public widthright: number = 40;
+  public icon_show: string = "../../assets/image/icon_hiden.png";
   okma: boolean = true;
 
   // value menu var

@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    private nav: NavComponent;
 
    public icon_val: string;
-   private flags : boolean = false;
+   public flags : boolean = false;
    public winds : Winds[] = [];
    private url_home: string ="http://10.199.15.95:80/mops/Meteorology/info";
    private _client: Paho.MQTT.Client;
