@@ -9,124 +9,63 @@ header{
     background-color: #032ea3;
     color: white;
 }
-.logo{
-    float: left;
-    justify-content: left;
-    width: 20%;
-    img{
-        height: 100%;
-        background-repeat: no-repeat;
-    }
-}
-.header-col{
-    float: right;
-    width: 80%;
-    display: flex;
-    right: 5%;
-    justify-content: flex-end;
-    position: relative;
+.vcenter {
     top: 50%;
     transform: translateY(-50%);
-    .login{
-        float: left;
-        text-transform: uppercase;
-        background-image: url(../../assets/image/user.png);
-        background-position: left center;
-        background-repeat: no-repeat;
-        margin-right: 20px;
-        padding-left: 50px;
+}
+.iconUser{
+    float: left;
+    height: 40px;
+    text-transform: uppercase;
+    background-image: url(/assets/image/user.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+
+    padding-left: 50px;
+    a{
+        text-decoration: none;
+        color: white;
         font-family:'UTM Avo';
-        a{
-            text-decoration: none;
-            color: white;
-            font-family:'UTM Avo';
-            height: 100%;
-            display: flex;
-            justify-content: center; /* align horizontal */
-            align-items: center; /* align vertical */
-            cursor: pointer;
-            
-        }
-        span{
-            color: white;
-            font-family:'UTM Avo';
-            height: 100%;
-            display: flex;
-            justify-content: center; /* align horizontal */
-            align-items: center; /* align vertical */
-            cursor: pointer;
-        }
-      a:hover{
-          color: red;
-      }
+        height: 100%;
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center; /* align vertical */
+        cursor: pointer;
+        
     }
     span{
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: center;
-        align-items: center;
-       
-    }
-    .language{
-        float: right;
-        margin: 15px;
-        text-align: center;
-        background-image: url(../../assets/image/icon_select.png);
-        background-position: right center;
-        background-repeat: no-repeat;
-
-        padding-right: 40px;
         color: white;
-        img{
-            width: 20px;
-            height: 20px;
-            float: left;
-            vertical-align:middle;
-            margin-right: 10px;
-        }
-        span{
-            float: right;
-            vertical-align:middle;
-            
-        }
-        :hover{
-            cursor: pointer;
-        }
+        font-family:'UTM Avo';
+        height: 100%;
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center; /* align vertical */
+        cursor: pointer;
     }
-    
+  a:hover{
+      color: red;
+  }
 }
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px){
-    header{
-        width: 100%;
-        padding: 10px 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 10%;
-        background-color: $color_072884;
-        color: white;
-    }
-    .logo{
-        float: left;
-        justify-content: left;
+.boder_center{
+    border-right: aqua 2px solid;
+    height: 100%;
+}
+.language{
+    display: table-cell;
+  vertical-align: middle;
+    height: 40px;
+    color: white;
+    img{
         
-        visibility: hidden;
-        width: 0%;
-        img{
-            width: 100%;
-            height: 100%;
-            background-repeat: no-repeat;
-        }
+        height: auto;
+        vertical-align:middle;
+        margin-right: 10px;
     }
-    .header-col{
-        float: right;
-        width: 100%;
-        display: flex;
-    
-        justify-content: flex-end;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
+    span{
+        vertical-align:middle;
+        
+    }
+    :hover{
+        cursor: pointer;
     }
 }

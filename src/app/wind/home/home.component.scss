@@ -8,9 +8,22 @@ $turquoise: #1abc9c;
     background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
     background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
     background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
-    width: 100%;
+    
     min-height: 65%;
   }
+  mat-drawer {
+    position: relative;
+    z-index: 4;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    outline: 0;
+    box-sizing: border-box;
+    overflow-y: visible;
+    transform: translate3d(-100%,0,0);
+}
   .example-sidenav{
     width: 12%;
   
@@ -46,7 +59,7 @@ $turquoise: #1abc9c;
             color:#1491d0; 
   }
   mat-card h1{
-            width: 200px;
+            
             font-size: 60px;
             color: #1491d0;
            

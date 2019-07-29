@@ -62,8 +62,10 @@ import { TimePickerModule, DateInputsModule } from '@progress/kendo-angular-date
 import 'hammerjs';
 import { ClockService } from './service/ClockService';
 import { IntlModule } from '@progress/kendo-angular-intl';
+import { environment } from 'src/environments/environment';
+
 export function translateHttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http,environment.Languager);
 }
 
 @NgModule({

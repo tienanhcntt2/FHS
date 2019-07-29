@@ -43,9 +43,6 @@ export class HeaderComponent implements OnInit {
     this.translateService.use(this.languages[i].title.toLowerCase());
     localStorage.setItem("language",this.languages[i].title.toLowerCase());
   }
-  functionCheck_show_hide() {
-
-  }
   // function logout
   functionlogout() {
     this.userSevice.logout();

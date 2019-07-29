@@ -15,5 +15,7 @@ export const environment = {
       'response_type': 'code id_token token',
       'nonce': 'n-0S6_WzA2Mj'
     }
-  }
+  },
+  Languager: '/weather/assets/i18n/'
+
 };

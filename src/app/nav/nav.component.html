@@ -1,4 +1,4 @@
-<div class="nav">
+<!-- <div class="nav">
     <div class="colum_left">
         <img  (click) ="checkLogin()" [src]="icon_val"/>
     </div>
@@ -19,5 +19,31 @@
         <div class="colum_one" ><img src="../../assets/image/lich.png"  width="100%" height="10%" width="10%"/>{{dateCurrent}}</div>
         <div class="colum_one"><img src="../../assets/image/o'clock.png"  width="100%" height="10%" width="10%"/>{{timerOk}}</div>
     </div>
+  </div> -->
+  <div class="nav container-fluid">
+      <div class="col-sm-5 col-xs-5 col-md-3 col-lg-3 col-xl-3 colums" style="height: 100%">
+            <div class="col-lg-6 iconMenu" >
+                    <img  (click) ="checkLogin()" [src]="icon_val"/>
+              </div>
+              <div class="col-lg-6 border_right" style="text-align: center">
+                    <span >{{title}}</span>
+                </div>
+      </div>
+      <div class="col-sm-7 col-xs-7 col-md-9 col-lg-9 col-xl-9" style="height: 100%">
+            <div class="row colums" *ngIf="flagsShow">
+      
+                    <div class="col-lg-4"> {{selectAdrees}}</div>
+                    <div class="col-lg-4" *ngIf="showZhan"> {{zhan}} {{txt_zhan}}</div>
+                    <div class="col-lg-4">{{txt_start_date}}</div>
+                    <div class="col-lg-4">{{txt_end_date}}</div>
+                    
+           </div>
+           <div class="row colums" *ngIf ="flagsShow == false">
+       
+                <div class="col-lg-4" > {{location}}</div>
+                <div class="col-lg-4" ><img src="/assets/image/lich.png"   width="30px" height="30xp"/>{{dateCurrent}}</div>
+                <div class="col-lg-4"><img src="/assets/image/o'clock.png"  width="30px" height="30xp"/>{{timerOk}}</div>
+            </div>
+      </div>
   </div>
   
