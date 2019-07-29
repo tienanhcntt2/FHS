@@ -59,7 +59,7 @@ export class SpeedComponent implements OnInit {
 
 
   public date = new FormControl(new Date());
-  public nameMaticon: string = "/assets/image/drop_down.png";
+  public nameMaticon: string = "assets/image/drop_down.png";
   public selectzhan: string = "";
 
   /*
@@ -149,9 +149,9 @@ export class SpeedComponent implements OnInit {
   checkOpenMenu() {
     this.clickOpen += 1;
     if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "/assets/image/icon_menu.png"
+      this.nav.icon_val = "assets/image/icon_menu.png"
     } else {
-      this.nav.icon_val = "/assets/image/drop_up.png"
+      this.nav.icon_val = "assets/image/drop_up.png"
     }
     this.drawer.toggle();
   }
@@ -218,10 +218,10 @@ export class SpeedComponent implements OnInit {
     this.numberCheck += 1;
     if (this.numberCheck % 2 == 0) {
       this.showTable = true;
-      this.nameMaticon = "/assets/image/drop_down.png"
+      this.nameMaticon = "assets/image/drop_down.png"
     } else {
       this.showTable = false;
-      this.nameMaticon = "/assets/image/drop_up.png"
+      this.nameMaticon = "assets/image/drop_up.png"
     }
   }
 
@@ -244,7 +244,7 @@ export class SpeedComponent implements OnInit {
   numbercheckShow: number = 0;
   widthleft: number = 60;
   widthright: number = 40;
-  public icon_show: string = "/assets/image/icon_hiden.png";
+  public icon_show: string = "assets/image/icon_hiden.png";
 
   functionShowHide() {
     this.numbercheckShow += 1;
@@ -252,12 +252,12 @@ export class SpeedComponent implements OnInit {
       this.okma = true;
       this.widthleft = 60;
       this.widthright = 40;
-      this.icon_show = "/assets/image/icon_hiden.png";
+      this.icon_show = "assets/image/icon_hiden.png";
     } else {
       this.okma = false;
       this.widthleft = 97;
       this.widthright = 3;
-      this.icon_show = "/assets/image/icon_show.png";
+      this.icon_show = "assets/image/icon_show.png";
     }
   }
   clickSeach() {

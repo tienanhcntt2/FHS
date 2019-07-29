@@ -35,7 +35,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public show: boolean = true;
   public numberCheck: number = 0;
-  public nameMaticon: string = "/assets/image/drop_down.png";
+  public nameMaticon: string = "assets/image/drop_down.png";
 
 
   private clickOpen: number = 0;

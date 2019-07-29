@@ -2,7 +2,7 @@
   <header>
 
     <div>
-      <img src="/assets/image/logo_fhs.png" />
+      <img src="assets/image/logo_fhs.png" />
     </div>
     <!-- <input id="menu-toggle" type="checkbox" />
         <label class='menu-button-container' for="menu-toggle">
@@ -19,12 +19,12 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="center">
         <span>
-          <img src="/assets/image/iconng.png" />
+          <img src="assets/image/iconng.png" />
           <p>--{{ 'login.txt_login' | translate }}--</p>
         </span>
         <div style="text-align:center; color: red" *ngIf="erroMessage">{{message}}</div>
         <div class="input-container">
-          <i class="icon"><img src="/assets/image/name.png" /></i>
+          <i class="icon"><img src="assets/image/name.png" /></i>
           <input class="input-field" type="text" placeholder="{{ 'login.txt_username' | translate }}"
             formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
         </div>
@@ -33,7 +33,7 @@
         </h5>
 
         <div class="input-container">
-          <i class="icon"><img src="/assets/image/password.png" /></i>
+          <i class="icon"><img src="assets/image/password.png" /></i>
           <input class="input-field" type="password" placeholder="{{ 'login.txt_password' | translate }}"
             formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
         </div>
