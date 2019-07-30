@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
   }
   // click login
   functionLogin() {
-   window.location.href = this.EntryPoint;
+  // window.location.href = this.EntryPoint;
     this.EntryPoint;
   }
 
