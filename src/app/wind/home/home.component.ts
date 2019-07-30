@@ -10,7 +10,8 @@ import { first } from 'rxjs/internal/operators/first';
 import { Paho } from 'ng2-mqtt/mqttws31'
 import { Winds } from 'src/app/model/Winds';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { LanguageService } from 'src/app/service/language.service';
+import { stringify } from 'querystring';
+
 
 
 @Component({
@@ -32,22 +33,22 @@ export class HomeComponent implements OnInit, OnDestroy {
    private nav: NavComponent;
 
    public icon_val: string;
-   private flags : boolean = false;
-   private winds : Winds[] = [];
+   public flags : boolean = false;
+   public winds : Winds[] = [];
    private url_home: string ="http://10.199.15.95:80/mops/Meteorology/info";
    private _client: Paho.MQTT.Client;
-   private localtion : String ="Ha Tinh";
-   private shidu : number = 28;
-   private wendu : number = 10;
-   private fengxiang: String = "EAST";
-   private fengshi : number = 30;
+   public localtion : String ="Ha Tinh";
+   public shidu : number = 28;
+   public wendu : number = 10;
+   public fengxiang: String = "EAST";
+   public fengshi : number = 30;
 
-
+   private heightRigh :number;
    /**
     * change background
     */
-   private  imagSource: string ="../../assets/image/raingif.gif";
-   private imageIcon : string = "../../assets/image/1.png";
+   public  imagSource: string ="assets/image/raingif.gif";
+   public imageIcon : string = "assets/image/1.png";
   
 
    
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
      
       this.getdataHome();
     });
+   
   }
 
   ngOnInit() {
@@ -92,9 +94,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.clickOpen += 1;
     if(this.flags === false){
       if(this.clickOpen %2 ==0){
-        this.nav.icon_val = "../../assets/image/icon_menu.png"
+        this.nav.icon_val = "assets/image/icon_menu.png"
       }else{
-        this.nav.icon_val = "../../assets/image/drop_up.png"
+        this.nav.icon_val = "assets/image/drop_up.png"
       }
       this.drawer.toggle();
     }else{
@@ -180,6 +182,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       name :this.translateService.instant("home.Humidity"), number: Humidity, donvi: "%", min: Humidity+" %",max: Humidity +" %"
      }
     ];
+    console.log("sdksdsjdskj : " +this.splitNumber(WindVelocity,1));
   }
 
   private getdataHome(){
@@ -197,26 +200,32 @@ export class HomeComponent implements OnInit, OnDestroy {
   private setBackgound(humidity: number){
     if(humidity <=30){
       //this.imagSource = "../../assets/image/troinang.jpg";
-      this.imageIcon = "../../assets/image/1.png";
+      this.imageIcon = "assets/image/1.png";
     }else if(humidity <=40 && humidity >=31){
       //this.imagSource = "../../assets/image/trongxanh.jpg";
-      this.imageIcon = "../../assets/image/2.png";
+      this.imageIcon = "assets/image/2.png";
     }else if(humidity <=50 && humidity >=41){
       //this.imagSource = "../../assets/image/amu.jpg";
-      this.imageIcon = "../../assets/image/5.png";
+      this.imageIcon = "assets/image/5.png";
     }else if(humidity <=60 && humidity >=51){
      
      // this.imagSource = "../../assets/image/tiaset.gif";
-      this.imageIcon = "../../assets/image/7.png";
+      this.imageIcon = "assets/image/7.png";
     }else{
       
-      this.imagSource = "../../assets/image/raingif.gif";
-      this.imageIcon = "../../assets/image/3.png";
+      this.imagSource = "assets/image/raingif.gif";
+      this.imageIcon = "assets/image/3.png";
     }
   }
 
-  private setShidu(humidity : number){
-    
+  private splitNumber(humidity : number,limit:number){
+    var str=humidity.toString();
+     var numarray=str.split('.');
+     var a=new Array();
+     a=numarray;
+     let numberTwo =a[1].toString;
+     
+    return a[0].toString+"."+numberTwo.sub; 
   }
  
 }

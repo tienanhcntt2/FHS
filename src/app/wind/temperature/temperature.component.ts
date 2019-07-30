@@ -40,9 +40,9 @@ export class TemperatureComponent implements OnInit {
   private selectToday : Date;
   // value right 
   private numbercheckShow: number = 0;
-  private widthleft: number = 60;
-  private widthright: number = 40;
-  private icon_show: string = "../../assets/image/icon_hiden.png";
+  public widthleft: number = 60;
+  public widthright: number = 40;
+  public icon_show: string = "assets/image/icon_hiden.png";
   okma: boolean = true;
 
   // value menu var
@@ -51,10 +51,10 @@ export class TemperatureComponent implements OnInit {
   private subscription: Subscription;
 
   // value table detail
-  private nameMaticon: string = "../../assets/image/drop_down.png";
+  private nameMaticon: string = "assets/image/drop_down.png";
   private numberCheck: number = 0;
   private show: boolean = true;
-  private weatherData: Weather[];
+  public weatherData: Weather[];
   private valueText: string;
 
   /**
@@ -193,9 +193,9 @@ export class TemperatureComponent implements OnInit {
   checkOpenMenu() {
     this.clickOpen += 1;
     if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "../../assets/image/icon_menu.png"
+      this.nav.icon_val = "assets/image/icon_menu.png"
     } else {
-      this.nav.icon_val = "../../assets/image/drop_up.png"
+      this.nav.icon_val = "assets/image/drop_up.png"
     }
   
     this.drawer.toggle();
@@ -216,13 +216,13 @@ export class TemperatureComponent implements OnInit {
       this.okma = true;
       this.widthleft = 60;
       this.widthright = 40;
-      this.icon_show = "../../assets/image/icon_hiden.png";
+      this.icon_show = "assets/image/icon_hiden.png";
       this.chart.instance.render();
     } else {
       this.okma = false;
       this.widthleft = 97;
       this.widthright = 3; 
-      this.icon_show = "../../assets/image/icon_show.png";
+      this.icon_show = "assets/image/icon_show.png";
       
       
     }
@@ -240,10 +240,10 @@ export class TemperatureComponent implements OnInit {
     this.numberCheck += 1;
     if (this.numberCheck % 2 == 0) {
       this.show = true;
-      this.nameMaticon = "../../assets/image/drop_down.png"
+      this.nameMaticon = "assets/image/drop_down.png"
     } else {
       this.show = false;
-      this.nameMaticon = "../../assets/image/drop_up.png"
+      this.nameMaticon = "assets/image/drop_up.png"
     }
   }
   /**

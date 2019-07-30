@@ -18,7 +18,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
 
   // menu click open
-  icon_val: string = "../../assets/image/icon_menu.png";
+  icon_val: string = "assets/image/icon_menu.png";
   title: string = "Home";
   public txt_start_date: string = "2019/03/03T00:00";
   public txt_end_date: string = "2019/03/03T00:30";
@@ -27,7 +27,7 @@ export class NavComponent implements OnInit, OnDestroy {
   private txt_zhan : string;
 
   // value nav
-  private flagsShow: boolean = true;
+  public flagsShow: boolean = true;
   public showZhan: boolean = true;
   // value today
   private location: string =" Formosa Ha Tinh";

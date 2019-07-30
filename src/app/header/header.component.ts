@@ -17,9 +17,9 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
 
-  private languages = ListLanguage;
-  private lag: Language;
-  private show: boolean = true;
+  public languages = ListLanguage;
+  public lag: Language;
+  public show: boolean = true;
   private userName: string = "";
   private lg : string ="";
   
@@ -43,9 +43,6 @@ export class HeaderComponent implements OnInit {
     this.translateService.use(this.languages[i].title.toLowerCase());
     localStorage.setItem("language",this.languages[i].title.toLowerCase());
   }
-  functionCheck_show_hide() {
-
-  }
   // function logout
   functionlogout() {
     this.userSevice.logout();
@@ -60,8 +57,8 @@ export class HeaderComponent implements OnInit {
   }
   // click login
   functionLogin() {
-   window.location.href = this.EntryPoint;
-    this.EntryPoint;
+    window.location.href = this.EntryPoint;
+
   }
 
   // click login

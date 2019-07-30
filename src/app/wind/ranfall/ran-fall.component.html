@@ -4,9 +4,9 @@
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="example-sidenav-content no-gutter" >
     <!-- colum left -->
-    <div class="colum_left" [style.width.%]="widthleft">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-7 col-xl-8" >
       <dx-chart id="chart" [dataSource]="dataSource">
         <dxi-series valueField="value" name="00:00 - 07:59" color="#07ccd9">
 
@@ -33,7 +33,7 @@
       </dx-chart>
     </div>
     <!-- colum right  -->
-    <div class="colum_right" [style.width.%]="widthright">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-5 col-xl-4 colum_right" >
       <img src={{icon_show}} (click)="functionShowHide()" />
       <!-- select date -->
       <div class="detail" *ngIf="okma">

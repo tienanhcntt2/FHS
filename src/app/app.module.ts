@@ -43,7 +43,7 @@ import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartMo
 import { SlideMenuComponent } from './util/slide-menu/slide-menu.component';
 
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+
 import { UserServicer } from './service/user.Servicer';
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
@@ -62,8 +62,10 @@ import { TimePickerModule, DateInputsModule } from '@progress/kendo-angular-date
 import 'hammerjs';
 import { ClockService } from './service/ClockService';
 import { IntlModule } from '@progress/kendo-angular-intl';
+import { environment } from 'src/environments/environment';
+
 export function translateHttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http,environment.Languager);
 }
 
 @NgModule({
@@ -79,7 +81,6 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     PageNotFoundComponent,
     SlideMenuComponent,
     LoginComponent,
-    RegisterComponent,
     TemperatureComponent,
     HuminityComponent,
     RanFallComponent

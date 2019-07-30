@@ -35,12 +35,12 @@ export class DirectionComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public show: boolean = true;
   public numberCheck: number = 0;
-  public nameMaticon: string = "../../assets/image/drop_down.png";
+  public nameMaticon: string = "assets/image/drop_down.png";
 
 
   private clickOpen: number = 0;
 
-  private okma :boolean = true;
+  public okma :boolean = true;
 
   // menu
   listmenu = listMenu;
@@ -121,10 +121,10 @@ private printfChart(){
     this.numberCheck += 1;
     if (this.numberCheck % 2 == 0) {
       this.show = true;
-      this.nameMaticon = "../../assets/image/drop_down.png"
+      this.nameMaticon = "/assets/image/drop_down.png"
     } else {
       this.show = false;
-      this.nameMaticon = "../../assets/image/drop_up.png"
+      this.nameMaticon = "/assets/image/drop_up.png"
     }
   }
 /**
@@ -186,9 +186,9 @@ private printfChart(){
   checkOpenMenu() {
     this.clickOpen += 1;
     if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "../../assets/image/icon_menu.png"
+      this.nav.icon_val = "/assets/image/icon_menu.png"
     } else {
-      this.nav.icon_val = "../../assets/image/drop_up.png"
+      this.nav.icon_val = "/assets/image/drop_up.png"
     }
   
     this.drawer.toggle();
@@ -205,14 +205,14 @@ private printfChart(){
   numbercheckShow : number = 0;
   widthleft: number = 60;
   widthright: number = 40;
-  public icon_show: string ="../../assets/image/icon_hiden.png";
+  public icon_show: string ="/assets/image/icon_hiden.png";
   functionShowHide(){
     this.numbercheckShow += 1;
     if(this.numbercheckShow %2 ==0 ){
       this.okma = true;
       this.widthleft = 60;
       this.widthright = 40;
-      this.icon_show ="../../assets/image/icon_hiden.png";
+      this.icon_show ="/assets/image/icon_hiden.png";
     }else{
       this.okma = false;
       this.widthleft = 97;
