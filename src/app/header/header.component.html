@@ -5,7 +5,7 @@
       <div class="row h-100">
         <div class="col-md-7 col-sm-6 col-xs-6 col-lg-9 col-xl-9 boder_center">
           <div style ="float: right;" class="iconUser">
-              <a  routerLink ="/login" (click) ="functionLogin()" *ngIf="show">{{ 'login.txt_login' | translate }}</a>
+              <a  (click) ="functionLogin()" *ngIf="show">{{ 'login.txt_login' | translate }}</a>
               <span *ngIf="show === false"  mat-button [matMenuTriggerFor]="logout">{{userName}}</span>
               <mat-menu #logout="matMenu">
                <button (click) = "functionlogout()" mat-menu-item >LOGOUT</button>
