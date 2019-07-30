@@ -300,14 +300,14 @@ export class SpeedComponent implements OnInit {
 
   private checkValue() {
     this.windSources = [
-      { valueField: "val1", name: this.min(this.listWindValue) + "-" + this.max(this.listWindValue) + " m/s" },
-      { valueField: "val2", name: this.min2(this.listWindValue) + "-" + this.max2(this.listWindValue) + " m/s" },
-      { valueField: "val3", name: this.min3(this.listWindValue) + "-" + this.max3(this.listWindValue) + " m/s" },
-      { valueField: "val4", name: this.min4(this.listWindValue) + "-" + this.max4(this.listWindValue) + " m/s" },
-      { valueField: "val5", name: this.min5(this.listWindValue) + "-" + this.max5(this.listWindValue) + " m/s" },
-      { valueField: "val6", name: this.min6(this.listWindValue) + "-" + this.max6(this.listWindValue) + " m/s" },
-      { valueField: "val7", name: this.min7(this.listWindValue) + "-" + this.max7(this.listWindValue) + " m/s" },
-      { valueField: "val8", name: this.min8(this.listWindValue) + "-" + this.max8(this.listWindValue) + " m/s" }
+      { valueField: "val1", name: this.min(this.listWindValue) + "-" + this.max(this.listWindValue) + " m/s" ,color:"#FF0000"},
+      { valueField: "val2", name: this.min2(this.listWindValue) + "-" + this.max2(this.listWindValue) + " m/s",color:"#00FF00" },
+      { valueField: "val3", name: this.min3(this.listWindValue) + "-" + this.max3(this.listWindValue) + " m/s",color:"#0000FF" },
+      { valueField: "val4", name: this.min4(this.listWindValue) + "-" + this.max4(this.listWindValue) + " m/s",color:"#FF0000" },
+      { valueField: "val5", name: this.min5(this.listWindValue) + "-" + this.max5(this.listWindValue) + " m/s",color:"#FF0000" },
+      { valueField: "val6", name: this.min6(this.listWindValue) + "-" + this.max6(this.listWindValue) + " m/s" ,color:"#FF0000"},
+      { valueField: "val7", name: this.min7(this.listWindValue) + "-" + this.max7(this.listWindValue) + " m/s" ,color:"#FF0000"},
+      { valueField: "val8", name: this.min8(this.listWindValue) + "-" + this.max8(this.listWindValue) + " m/s",color:"#FF0000" }
     ]
 
 

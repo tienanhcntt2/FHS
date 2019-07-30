@@ -20,16 +20,17 @@ export interface WindRose {
 export class WindDescription {
     valueField: string;
     name: string;
+    color :string;
 }
 let windSources: WindDescription[] = [
-    { valueField: "val1", name: "0-0 m/s" },
-    { valueField: "val2", name: "0-0 m/s" },
-    { valueField: "val3", name: "0-0 m/s" },
-    { valueField: "val4", name: "0-0 m/s" },
-    { valueField: "val5", name: "0-0 m/s" },
-    { valueField: "val6", name: "0-0 m/s" },
-    { valueField: "val7", name: "0-0 m/s" },
-    { valueField: "val8", name: "0-0 m/s" }
+    { valueField: "val1", name: "0-0 m/s",color:"#FF0000" },
+    { valueField: "val2", name: "0-0 m/s",color:"#00FF00"  },
+    { valueField: "val3", name: "0-0 m/s",color:"#0000FF"  },
+    { valueField: "val4", name: "0-0 m/s" ,color:"#FF0000" },
+    { valueField: "val5", name: "0-0 m/s" ,color:"#FF0000" },
+    { valueField: "val6", name: "0-0 m/s" ,color:"#FF0000" },
+    { valueField: "val7", name: "0-0 m/s" ,color:"#FF0000" },
+    { valueField: "val8", name: "0-0 m/s" ,color:"#FF0000" }
 ]
 let WindRoseDate : WindValue []=[{
     arg: "N",
