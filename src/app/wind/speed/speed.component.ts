@@ -15,6 +15,7 @@ import { WindRose, WindDescription, WindValue, Service } from 'src/app/model/Win
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { Router } from '@angular/router';
+import { FhsAuthorizeService } from '@fhs/authorize';
 
 
 @Component({
@@ -104,7 +105,8 @@ export class SpeedComponent implements OnInit {
    * @param userService 
    */
   constructor(private datePipe: DatePipe, private commoService: CommonService, private infoService: InfoService, private userService: UserServicer,
-    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private router:Router,private service: Service) {
+    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private router:Router,private service: Service,
+    private auth:FhsAuthorizeService) {
 
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
@@ -271,7 +273,7 @@ export class SpeedComponent implements OnInit {
   }
 
   getToken() {
-    return localStorage.getItem("access_token");
+    return this.auth.AccessToken;
   }
   /**
    * get date fengsu

@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild,  HostListener } from '@angular/core';
 import { NavComponent } from 'src/app/nav/nav.component';
 import { listMenu } from 'src/app/config/listmenu';
 import { CommonService } from 'src/app/service/CommonService';
-import { RainFall, Service, ValueRain, ListRainFall } from 'src/app/model/rainFall';
+import { RainFall, Service,  ListRainFall } from 'src/app/model/rainFall';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { MatDatepickerInputEvent } from '@angular/material';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
+import { FhsAuthorizeService } from '@fhs/authorize';
 
 
 @Component({
@@ -75,8 +75,9 @@ export class RanFallComponent implements OnInit {
    * @param service 
    * @param datePipe
    */
-  constructor(private datePipe: DatePipe, private commoService: CommonService, service: Service,
-    private http: HttpClient, private translate: TranslateService,private intl: IntlService) {
+  constructor(private datePipe: DatePipe, private commoService: CommonService,
+    private http: HttpClient, private translate: TranslateService,private intl: IntlService,
+    private auth :FhsAuthorizeService) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
      
       this.sendTitle();
@@ -286,6 +287,6 @@ onResize(event?) {
    * get access token when login
    */
   getToken() {
-    return localStorage.getItem("access_token");
+    return this.auth.AccessToken;
   }
 }

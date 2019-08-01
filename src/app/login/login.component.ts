@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
        this.auther.FetchEndpoint(this.url,this.user).subscribe(data =>{
         this.erroMessage = false;
         window.location.href = this.auther.RedirectUri;
-        localStorage.setItem("access_token", data.access_token);
+    
         this.loading = false;
       },error => {
         this.erroMessage = true;

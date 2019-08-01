@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
 import { ClockService } from '../service/ClockService';
+import { FhsAuthorizeService } from '@fhs/authorize';
 
 @Component({
   selector: 'app-nav',
@@ -36,7 +37,8 @@ export class NavComponent implements OnInit, OnDestroy {
   private timerOk : string;
   private _clockSubscription: Subscription;
 
-  constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService) {
+  constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService,
+    private auth:FhsAuthorizeService) {
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.selectAdrees = translateService.instant("nav.adrress");
@@ -60,8 +62,8 @@ export class NavComponent implements OnInit, OnDestroy {
     });
   }
   checkLogin() {
-    localStorage.setItem("access_token","access_token");
-    if (localStorage.getItem("access_token").length > 0) {
+  
+    if (this.auth.AccessToken.length > 0) {
       this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
     } else {
       alert("PLEASE LOGIN");
