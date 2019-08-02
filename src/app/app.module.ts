@@ -65,7 +65,7 @@ import { IntlModule } from '@progress/kendo-angular-intl';
 import { environment } from 'src/environments/environment';
 
 export function translateHttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http,environment.Languager);
+  return new TranslateHttpLoader(http, environment.Languager);
 }
 
 @NgModule({
@@ -125,13 +125,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [
-    DatePipe, CommonService, UserServicer, Service, ServiceHuminity, TeamperatureService, WeatherService,ClockService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MyInterceptor,
-      multi: true,
-    }
-    ,
+    DatePipe, CommonService, UserServicer, Service, ServiceHuminity, TeamperatureService, WeatherService, ClockService,
     {
       provide: DateAdapter, useClass: AppDateAdapter
     },

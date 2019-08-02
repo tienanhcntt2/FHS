@@ -1,5 +1,5 @@
 
-FROM node:latest 
+FROM node:stretch-slim 
 
 ## Install http-server
 RUN npm install http-server -g

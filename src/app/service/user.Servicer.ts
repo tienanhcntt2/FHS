@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FhsAuthorizeService, UserInfoResponse } from '@fhs/authorize';
+import {  UserInfoResponse } from '@fhs/authorize';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class UserServicer {
     user: UserInfoResponse;
+    flagLogout: boolean = false;
     constructor(private router:Router) {
         
     }
@@ -13,7 +14,7 @@ export class UserServicer {
     }
 
     logout(){
-        localStorage.setItem("access_token","");
+        
         this.router.navigateByUrl("/wind/home"); 
         location.reload();
     }

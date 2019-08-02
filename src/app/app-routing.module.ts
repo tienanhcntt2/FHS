@@ -43,11 +43,8 @@ const routes: Routes = [
             component: RanFallComponent
         }
     ]
-  },
-  {
-    path: 'login',
-    component : LoginComponent
-  },
+  }, 
+ 
   {
     path: '',
     redirectTo: 'wind/home',
@@ -56,7 +53,7 @@ const routes: Routes = [
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

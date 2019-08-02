@@ -1,18 +1,17 @@
 export const environment = {
   production: true,
   OIDC: {
-    baseUrl: 'http://10.199.15.95/weather',
-    authorizationEndpoint: '/#/login',
+    baseUrl: 'http://10.199.15.95/fhsoidc',
+    authorizationEndpoint: '/login',
     tokenEndpoint: '/connect/token',
     urlUser: 'http://10.199.15.95/authorize',
     userinfoEndpoint: '/connect/userinfo',
-    Paramaters: {
-    'url': 'http://10.199.15.95/weather/',
+    Paramaters: {   
     'scope': 'openid',
-    'client_id': 'adss',
+    'client_id': 'weather',
     'clientSecret': '',
     'redirect_uri': 'http://10.199.15.95/weather/',
-    'response_type': 'code id_token token',
+    'response_type': 'id_token token',
     'nonce': 'n-0S6_WzA2Mj'
     }
     },
