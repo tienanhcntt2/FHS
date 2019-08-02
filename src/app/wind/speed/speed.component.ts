@@ -273,7 +273,7 @@ export class SpeedComponent implements OnInit {
   }
 
   getToken() {
-    return this.auth.AccessToken;
+    return localStorage.getItem("access_token");
   }
   /**
    * get date fengsu

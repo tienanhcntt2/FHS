@@ -93,8 +93,11 @@ export class HeaderComponent implements OnInit {
       this.auth.FetchUserEndpoint(new URL(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint)).subscribe(response => {
         this.userName = response.name;
         this.showNameuser(response.name);
+        localStorage.setItem("access_token",this.auth.AccessToken);
       })
   
+    }else{
+      localStorage.setItem("access_token","");
     }
 
 

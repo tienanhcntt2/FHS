@@ -63,7 +63,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
   checkLogin() {
   
-    if (this.auth.AccessToken.length > 0) {
+    if (localStorage.getItem("access_token").length > 0) {
       this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
     } else {
       alert("PLEASE LOGIN");

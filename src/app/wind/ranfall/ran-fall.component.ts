@@ -287,6 +287,6 @@ onResize(event?) {
    * get access token when login
    */
   getToken() {
-    return this.auth.AccessToken;
+    return localStorage.getItem("access_token");
   }
 }

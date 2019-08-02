@@ -320,7 +320,7 @@ valueCustomizeText(arg: any) {
       });
   }
   getToken() {
-    return this.auth.AccessToken;
+    return localStorage.getItem("access_token");
   }
   clickSeach(){
     this.getDataWinddirection(this.urlData,this.getToken());
