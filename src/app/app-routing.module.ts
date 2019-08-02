@@ -12,42 +12,67 @@ import { HuminityComponent } from './wind/huminity/huminity.component';
 
 
 const routes: Routes = [
-  {
-    path: 'wind',
-    component: WindComponent,
-    children: [
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'speed',
-        component: SpeedComponent
+  
+  //   path: 'wind',
+  //   component: WindComponent,
+  //   children: [
+  //     {
+  //       path: 'home',
+  //       component: HomeComponent
+  //     },
+  //     {
+  //       path: 'speed',
+  //       component: SpeedComponent
 
-      },
-      {
-        path: 'direction',
-        component: DirectionComponent
-      },
-          {
-            path: 'temperature',
-            component: TemperatureComponent
-        },
-        {
-            path : 'humidity',
-            component : HuminityComponent
+  //     },
+  //     {
+  //       path: 'direction',
+  //       component: DirectionComponent
+  //     },
+  //         {
+  //           path: 'temperature',
+  //           component: TemperatureComponent
+  //       },
+  //       {
+  //           path : 'humidity',
+  //           component : HuminityComponent
     
-        },
-        {
-            path: 'rainfall',
-            component: RanFallComponent
-        }
-    ]
-  }, 
- 
+  //       },
+  //       {
+  //           path: 'rainfall',
+  //           component: RanFallComponent
+  //       }
+  //   ]
+  // }, 
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'speed',
+    component: SpeedComponent
+
+  },
+  {
+    path: 'direction',
+    component: DirectionComponent
+  },
+      {
+        path: 'temperature',
+        component: TemperatureComponent
+    },
+    {
+        path : 'humidity',
+        component : HuminityComponent
+
+    },
+    {
+        path: 'rainfall',
+        component: RanFallComponent
+    },
   {
     path: '',
-    redirectTo: 'wind/home',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   { path: '**', component: PageNotFoundComponent }
