@@ -127,7 +127,7 @@ export class SpeedComponent implements OnInit {
     this.txt_time_start = this.formatValue(this.timeStart) + ":00";
     this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
     this.txt_time_end = this.formatValue(this.timeEnd) +":00";
-    this.userService.chienchalogin();
+   // this.userService.chienchalogin();
     this.windRose = this.service.getWindRoseData();
     this.windSources = this.service.getWindSources();
 
@@ -273,7 +273,7 @@ export class SpeedComponent implements OnInit {
   }
 
   getToken() {
-    return this.auth.AccessToken;
+    return localStorage.getItem("access_token");
   }
   /**
    * get date fengsu

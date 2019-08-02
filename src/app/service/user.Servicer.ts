@@ -22,7 +22,7 @@ export class UserServicer {
        
         if(localStorage.getItem("access_token").length <= 0){
             alert("Please Login");
-            this.router.navigateByUrl('/wind/home');
+            this.router.navigateByUrl('/home');
         }
     }
 }

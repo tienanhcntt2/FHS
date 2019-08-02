@@ -92,7 +92,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
     this.txt_time_end = this.formatValue(this.timeEnd) +":00";
     //this.txt_time_end = "15:00:00";
     // check login
-    this.userService.chienchalogin();
+   // this.userService.chienchalogin();
 
     this.txt_date_start = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
@@ -320,7 +320,7 @@ valueCustomizeText(arg: any) {
       });
   }
   getToken() {
-    return this.auth.AccessToken;
+    return localStorage.getItem("access_token");
   }
   clickSeach(){
     this.getDataWinddirection(this.urlData,this.getToken());
