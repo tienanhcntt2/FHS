@@ -1,12 +1,12 @@
 <app-nav></app-nav>
 
-<mat-drawer-container class="content_full" autosize>
+<mat-drawer-container class="content_full" autosize >
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
   <div class="container-fluid">
-      <div class="row">
+      <div class="row justify-content-center h-100">
           <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6 h-100" style="padding: 20px;" > 
               <mat-card>
                   <mat-card-header>
@@ -15,7 +15,7 @@
                   </mat-card-header>
                   <div class="row">
                     <div class="col-xs-6 col-md-6 col-sm-6 col-lg-6">
-                      <img class ="img-responsive"src="{{imageIcon}}" width="100%" height="auto" />
+                      <img class ="img-responsive"src="{{imageIcon}}" width="80%" height="auto" />
                     </div>
                     <div class="col-xs-6 col-md-6 col-sm-6 col-lg-6">
                       <h1>{{shidu}} ⁰C</h1>
@@ -51,31 +51,32 @@
                   </div>
                 </mat-card>
           </div>
-          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6 h-100" style="padding: 20px;">
-            <div class="col-md-3 col-sm-6 col-xs-6 col-lg-3 detail" *ngFor="let wind of winds" >
-                <mat-card>
-                  <div class="row">
-                      <h3>{{wind.name}}</h3>
-                  </div>
-           
-                  <div class="row">
-                      <h1>
-                          {{wind.number}}
-                        </h1>
-                  </div>
-                  <div class="row">
-                      <p >{{wind.donvi}}</p>
-                  </div>
-                  <div class="row">
-                      <span >
-                          <p>Min : {{wind.min}}</p>
-                          <p>Max : {{wind.max}}</p>
-                        </span>
-                  </div>
-                    
+          <div class="col-sm-12 col-xs-12 col-md-12 col-lg-6 col-xl-6 h-100">
+              <div class="row h-100">
+                <div class="col-md-3 col-sm-6 col-xs-6 detail align-self-center" *ngFor="let wind of winds">
+                  <mat-card>
+                    <div class="row">
+                      <h3 class="col-md-12">{{wind.name}}</h3>
+                    </div>
+        
+                    <div class="row">
+                      <h1 class="col-md-12 h-50">
+                        {{wind.number}}
+                      </h1>
+                    </div>
+                    <div class="row">
+                      <p class="col-md-12">{{wind.donvi}}</p>
+                    </div>
+                    <div class="row">
+                      <span class="col">Min:{{wind.min}}</span>
+                      <span class="col">Max:{{wind.max}}</span>
+                   
+                    </div>
+        
                   </mat-card>
-            </div>
-          </div>
+                </div>
+              </div>
+        </div>
         </div>
       
   </div>
