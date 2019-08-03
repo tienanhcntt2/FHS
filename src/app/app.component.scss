@@ -1,0 +1,64 @@
+#content{
+    width: 100%;
+    height: 100%;
+    
+}
+.container-full{
+ background-color:#052762;
+ 
+}
+.page-wrapper {
+  min-height: 100vh;
+    background-color:#052762;
+    overflow: hidden;
+    .page-content {
+      display: inline-block;
+      width: 100%;
+      transition: padding-left .3s ease;
+      min-height: 100vh;
+      //overflow-y: auto;
+      @media screen and (min-width: 768px) {
+        padding-left: 265px;
+      }
+  
+      .overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 998;
+        background: #000;
+        opacity: .5;
+        display: none;
+  
+        &.show {
+  
+          @media screen and (max-width: 768px) {
+            display: block;
+          }
+        }
+      }
+    }
+  
+    .sidebar {
+      left: 0px;
+    }
+  
+    &.toggled {
+  
+      .page-content {
+        padding-left: 0;
+      }
+    }
+  
+    .attribution{
+      position: fixed;
+      bottom: 0;
+      right: 0;
+   
+      letter-spacing: 1px;
+    }
+  }
+  
+  

@@ -63,6 +63,15 @@ import 'hammerjs';
 import { ClockService } from './service/ClockService';
 import { IntlModule } from '@progress/kendo-angular-intl';
 import { environment } from 'src/environments/environment';
+import { SidebarComponent } from './sidebar/sidebar.component';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.Languager);
@@ -83,7 +92,8 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     TemperatureComponent,
     HuminityComponent,
-    RanFallComponent
+    RanFallComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -114,6 +124,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     DxTooltipModule,
     TimePickerModule,
     AppRoutingModule,
+    PerfectScrollbarModule,
     IntlModule, DateInputsModule,
     TranslateModule.forRoot({
       loader: {
@@ -131,7 +142,12 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     },
     {
       provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS
+    },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
+    
   ],
   bootstrap: [AppComponent]
 })

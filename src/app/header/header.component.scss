@@ -1,12 +1,26 @@
+// $color_072884 :  #032ea3;
+// header{
+//     min-height: 10vh;
+//     background-color: #032ea3;
+//     color: white;
+// }
 $color_072884 :  #032ea3;
-.header{
-    min-height: 10%;
+header{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    min-height: 10vh;
     background-color: #032ea3;
     color: white;
 }
+// .vcenter {
+//     top: 50%;
+//     transform: translateY(-50%);
+// }
 .vcenter {
-    top: 50%;
-    transform: translateY(-50%);
+    display: flex;
+    align-items: center;    
+    justify-content: center
 }
 .iconUser{
     float: left;
@@ -16,7 +30,7 @@ $color_072884 :  #032ea3;
     background-position: left center;
     background-repeat: no-repeat;
 
-    padding-left: 50px;
+    padding-left: 40px;
     a{
         text-decoration: none;
         color: white;
@@ -42,8 +56,8 @@ $color_072884 :  #032ea3;
   }
 }
 .boder_center{
-    border-right: aqua 2px solid;
-    height: 100%;
+    border-left: aqua 2px solid;
+    max-height: 100%;
 }
 .language{
     display: table-cell;

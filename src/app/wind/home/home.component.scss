@@ -3,13 +3,27 @@ $turquoise: #1abc9c;
 
 
 /* Clear floats after the columns */
+
+#content{
+  background : linear-gradient(to bottom,#0048ff 0%, #ffffff 100%);
+  background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
+  background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
+  background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
+  min-height: 60%;
+  
+}
+
 .content_full{
     background : linear-gradient(to bottom,#0048ff 0%, #ffffff 100%);
     background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
     background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
     background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
-    
-    min-height: 65%;
+    min-height: 60%;
+    overflow-y: visible;
+
+  }
+  .content{
+    min-height: 100%;
   }
   mat-drawer {
     position: relative;
@@ -26,7 +40,7 @@ $turquoise: #1abc9c;
 }
   .example-sidenav{
     width: 12%;
-  
+    
   }
   .example-sidenav-content {
     width: 100%;

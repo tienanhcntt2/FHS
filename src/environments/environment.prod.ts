@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   OIDC: {
     baseUrl: 'http://10.199.15.95/fhsoidc',
-    authorizationEndpoint: '/login',
+    authorizationEndpoint: '/',
     tokenEndpoint: '/connect/token',
     urlUser: 'http://10.199.15.95/authorize',
     userinfoEndpoint: '/connect/userinfo',
