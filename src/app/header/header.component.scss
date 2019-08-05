@@ -6,17 +6,15 @@
 // }
 $color_072884 :  #032ea3;
 header{
-    width: 100%;
     justify-content: center;
     align-items: center;
     min-height: 10vh;
+    padding: 10px 15px;
+    
     background-color: #032ea3;
     color: white;
 }
-// .vcenter {
-//     top: 50%;
-//     transform: translateY(-50%);
-// }
+
 .vcenter {
     display: flex;
     align-items: center;    

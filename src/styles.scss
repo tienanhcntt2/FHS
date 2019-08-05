@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '~bootstrap/scss/bootstrap';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html,body {
     font-family: 'UTM Avo';
@@ -7,7 +7,6 @@ html,body {
    margin:0;
    padding:0;
    height:100%;
-   background-color:#052762;
 }
 @font-face {
     font-family: 'UTM Avo';

@@ -83,8 +83,7 @@ export class RanFallComponent implements OnInit {
       this.sendTitle();
     });
     if(window.innerWidth <770){
-     this.widthleft = 100;
-     this.widthright = 100;
+    ;
     }
     this.selectToday = new Date();
     let date = new Date();
@@ -126,8 +125,7 @@ export class RanFallComponent implements OnInit {
  @HostListener('window:resize', ['$event'])
 onResize(event?) {
   if(window.innerWidth <=770){
-    this.widthleft = 100;
-    this.widthright = 100;
+   
   }
 }
   /**
@@ -208,14 +206,14 @@ onResize(event?) {
     this.numbercheckShow += 1;
     if (this.numbercheckShow % 2 == 0) {
       this.okma = true;
-      // this.widthleft = 60;
-      // this.widthright = 40;
+      this.widthleft = 60;
+      this.widthright = 40;
       this.icon_show = "assets/image/icon_hiden.png";
 
     } else {
       this.okma = false;
-      // this.widthleft = 97;
-      // this.widthright = 3;
+      this.widthleft = 97;
+      this.widthright = 3;
       this.icon_show = "assets/image/icon_show.png";
     }
 

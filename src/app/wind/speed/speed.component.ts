@@ -104,7 +104,7 @@ export class SpeedComponent implements OnInit {
    * @param infoService 
    * @param userService 
    */
-  constructor(private datePipe: DatePipe, private commoService: CommonService, private infoService: InfoService, private userService: UserServicer,
+  constructor(private datePipe: DatePipe, private commoService: CommonService, private infoService: InfoService,
     private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private router:Router,private service: Service,
     private auth:FhsAuthorizeService) {
 
