@@ -4,9 +4,9 @@
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="example-sidenav-content row no-gutters">
     <!-- colum left -->
-    <div class="colum_left" [style.width.%]="widthleft">
+    <div class="col-sm-12 col-md-7" id="second">
         <dx-chart #chart [dataSource]="stockPrices" id="chart">
             <!-- See details in the "Bind Series to Data" topic -->
             <dxo-zoom-and-pan argumentAxis="both"></dxo-zoom-and-pan>
@@ -25,14 +25,14 @@
         </dx-chart>
     </div>
     <!-- colum right  -->
-    <div class="colum_right" [style.width.%]="widthright">
-      <img src={{icon_show}} (click)="functionShowHide()" />
+    <div id="first" class="col-sm-12 col-md-5 colum_right">
+      <!-- <img src={{icon_show}} (click)="functionShowHide()" /> -->
       <!-- select date -->
       <div class="detail" *ngIf="okma">
 
         <!-- select datetimer -->
-        <div class="row" style="margin-top:10px;">
-          <div class="col-md-6">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
 
               <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)">
                 </kendo-datepicker>
@@ -44,7 +44,7 @@
                 (valueChange)="onChangeTimerStart($event)"
                 [value]="timeStart"></kendo-timepicker>
           </div>
-          <div class="col-md-6">
+          <div class="col-xs-12 col-sm-6">
               <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)">
                 </kendo-datepicker>
                 <kendo-timepicker *ngIf="fplagEnd"
@@ -59,11 +59,12 @@
         </div>
 
         <div class="row">
-          <div class="col-md-6" style="margin-top:20px;">
+          <!-- <div class="col-md-6" style="margin-top:20px;">
             <button type="button" class="done" (click)="clickSeach()">搜索</button>
             <button type="button" class="dain" (click) ="printfChart">打印</button>
-          </div>
-
+          </div> -->
+          <button class="col-md-2 done" (click)="clickSeach()">搜索</button>
+          <button class="col-md-2 dain" (click) ="printfChart">打印</button>
         </div>
 
         <div class="row">
