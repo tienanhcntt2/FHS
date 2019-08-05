@@ -14,11 +14,12 @@ $turquoise: #1abc9c;
   
 }
 .nav{
-	width: 100%;
   background-color: white;
-  height: 5vh;
   box-shadow: 1px 2px 10px 0 #000d72 !important;
   font-family:'UTM Avo';
+}
+.bgMenu{
+  background-color: #000d72;
 }
 .colums{
   display: flex;
@@ -45,4 +46,14 @@ span{
 }
 .border_right{
   border-right:1px #1491d0 solid;
+}
+ul li p{
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family:'UTM Avo';
+}
+ul li p img{
+  margin-right: 5px;
 }

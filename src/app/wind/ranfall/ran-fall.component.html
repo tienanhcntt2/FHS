@@ -4,130 +4,123 @@
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
-  <div class="example-sidenav-content no-gutter" >
-    <!-- colum left -->
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-7 col-xl-8" >
-      <dx-chart id="chart" [dataSource]="dataSource">
-        <dxi-series valueField="value" name="00:00 - 07:59" color="#07ccd9">
-
-        </dxi-series>
-        <dxi-series valueField="value2" name="08:00 - 15:59" color="#07ccd9">
-
-        </dxi-series>
-        <dxi-series valueField="value3" name="16:00 - 23:59" color="#07ccd9">
-
-        </dxi-series>
-        <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"
-          selectionMode="allArgumentPoints">
-          <dxo-label [visible]="false" [format]="{
-                type: 'fixedPoint',
-                precision: '0'
-            }">
-          </dxo-label>
-        </dxo-common-series-settings>
-        <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-        </dxo-legend>
-        <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip">
-        </dxo-tooltip>
-        <dxo-legend [visible]="false"></dxo-legend>
-      </dx-chart>
-    </div>
-    <!-- colum right  -->
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-5 col-xl-4 colum_right" >
-      <img src={{icon_show}} (click)="functionShowHide()" />
-      <!-- select date -->
-      <div class="detail" *ngIf="okma">
-        <!-- select datetimer -->
-        <div class="row">
-          <div class="col-md-6">
-              <!-- <input style="width:50%;"  matInput [matDatepicker]="start" readonly (click)="start.open()"  [max]="selectToday"
-              [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)" />
-              <mat-datepicker #start></mat-datepicker> -->
-              <kendo-datepicker
-                [(value)]="startDate"
-                [max] ="selectToday"
-                (valueChange)="onChangeStartDay($event)"
-            ></kendo-datepicker>
-
-              <kendo-timepicker *ngIf="fplagStart"
-              (valueChange)="onChangeTimerStart($event)"
-              [value]="timeStart"></kendo-timepicker>
-              <kendo-timepicker *ngIf="fplagStart == false"
-              [max] ="timerCurrent"
-              (valueChange)="onChangeTimerStart($event)"
-              [value]="timeStart"></kendo-timepicker>
-          </div>
-          <div class="col-md-6">
-            <!-- <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()" [max]="selectToday"
-              (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)" [formControl]="date"
-              >
-            <mat-datepicker #end></mat-datepicker> -->
-            <kendo-datepicker
-            [(value)]="enDate"
-            [max] ="selectToday"
-            (valueChange)="onChangeEndDay($event)"
-            ></kendo-datepicker>
-            
-            <kendo-timepicker *ngIf="fplagEnd"
-            [max] ="timerCurrent"
-            (valueChange)="onChangeTimerEnd($event)"
-            [value]="timeEnd"></kendo-timepicker>
-            <kendo-timepicker *ngIf="fplagEnd == false"
-            (valueChange)="onChangeTimerEnd($event)"
-            [value]="timeEnd"></kendo-timepicker>
-          </div>
-
+  <div class="container-fuild">
+      <div class="row example-sidenav-content no-gutters" >
+          <div id="second" class="ccol-sm-12 col-md-7 " >
+              <dx-chart id="chart" [dataSource]="dataSource">
+                  <dxi-series valueField="value" name="00:00 - 07:59" color="#07ccd9">
+          
+                  </dxi-series>
+                  <dxi-series valueField="value2" name="08:00 - 15:59" color="#07ccd9">
+          
+                  </dxi-series>
+                  <dxi-series valueField="value3" name="16:00 - 23:59" color="#07ccd9">
+          
+                  </dxi-series>
+                  <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"
+                    selectionMode="allArgumentPoints">
+                    <dxo-label [visible]="false" [format]="{
+                          type: 'fixedPoint',
+                          precision: '0'
+                      }">
+                    </dxo-label>
+                  </dxo-common-series-settings>
+                  <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+                  </dxo-legend>
+                  <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip">
+                  </dxo-tooltip>
+                  <dxo-legend [visible]="false"></dxo-legend>
+                </dx-chart>
+            </div>
+            <div id="first" class="col-sm-12 col-md-5 colum_right">
+           
+                <!-- <img src={{icon_show}} (click)="functionShowHide()" /> -->
+                <!-- select date -->
+                <div class="detail" *ngIf="okma">
+                  <!-- select datetimer -->
+                  <div class="row no-gutters">
+                    <div class="col-md-6">
+      
+                        <kendo-datepicker
+                          [(value)]="startDate"
+                          [max] ="selectToday"
+                          (valueChange)="onChangeStartDay($event)"
+                      ></kendo-datepicker>
+          
+                        <kendo-timepicker *ngIf="fplagStart"
+                        (valueChange)="onChangeTimerStart($event)"
+                        [value]="timeStart"></kendo-timepicker>
+                        <kendo-timepicker *ngIf="fplagStart == false"
+                        [max] ="timerCurrent"
+                        (valueChange)="onChangeTimerStart($event)"
+                        [value]="timeStart"></kendo-timepicker>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+    
+                      <kendo-datepicker
+                      [(value)]="enDate"
+                      [max] ="selectToday"
+                      (valueChange)="onChangeEndDay($event)"
+                      ></kendo-datepicker>
+                      
+                      <kendo-timepicker *ngIf="fplagEnd"
+                      [max] ="timerCurrent"
+                      (valueChange)="onChangeTimerEnd($event)"
+                      [value]="timeEnd"></kendo-timepicker>
+                      <kendo-timepicker *ngIf="fplagEnd == false"
+                      (valueChange)="onChangeTimerEnd($event)"
+                      [value]="timeEnd"></kendo-timepicker>
+                    </div>
+          
+                  </div>
+          
+          
+                  <div class="row">
+                      <button class="col-md-2 done" (click)="clickSeach()">搜索</button>
+                      <button class="col-md-2 dain" (click) ="printfChart">打印</button>
+          
+                  </div>
+          
+                  <div class="row">
+                    <span class="title_table">{{'rainFall.showdata' | translate}} <img (click)="showDetail()"
+                        src={{nameMaticon}} />
+                      <div class="line"></div>
+                    </span>
+                  </div>
+                  <!-- table detail -->
+                  <div class="row" *ngIf="show" style="margin-top:20px;">
+                    <div class="tbl-header">
+                      <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>00:00 - 07:59</th>
+                            <th>08:00 - 15:59</th>
+                            <th>16:00 - 23:59</th>
+                            <!-- <th>TB</th> -->
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                    <div class="tbl-content">
+                      <table cellpadding="0" cellspacing="0" border="0">
+                        <tbody>
+          
+                          <tr *ngFor="let body of dataSource">
+                            <td>{{body.date}}</td>
+                            <td #value1>{{body.value}}</td>
+                            <td>{{body.value2}}</td>
+                            <td>{{body.value3}}</td>
+          
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
-
-
-        <div class="row">
-          <div class="col-md-6" style="margin-top:20px;">
-            <button type="button" class="done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-            <button type="button" class="dain">{{'rainFall.printf' | translate}}</button>
-          </div>
-
-        </div>
-
-        <div class="row">
-          <span class="title_table">{{'rainFall.showdata' | translate}} <img (click)="showDetail()"
-              src={{nameMaticon}} />
-            <div class="line"></div>
-          </span>
-        </div>
-        <!-- table detail -->
-        <div class="row" *ngIf="show" style="margin-top:20px;">
-          <div class="tbl-header">
-            <table cellpadding="0" cellspacing="0" border="0">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>00:00 - 07:59</th>
-                  <th>08:00 - 15:59</th>
-                  <th>16:00 - 23:59</th>
-                  <!-- <th>TB</th> -->
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <div class="tbl-content">
-            <table cellpadding="0" cellspacing="0" border="0">
-              <tbody>
-
-                <tr *ngFor="let body of dataSource">
-                  <td>{{body.date}}</td>
-                  <td #value1>{{body.value}}</td>
-                  <td>{{body.value2}}</td>
-                  <td>{{body.value3}}</td>
-
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- finish select date -->
-    </div>
-
   </div>
+  
 
 </mat-drawer-container>

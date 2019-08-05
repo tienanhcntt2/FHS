@@ -11,7 +11,7 @@ $turquoise: #1abc9c;
     background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
     background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
     background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
-    min-height: 65vh;
+    min-height: 63vh;
     //overflow:visible;
   }
 
@@ -92,8 +92,7 @@ $turquoise: #1abc9c;
  .detail{
         
         //padding: 0px 10px;
-      
-        height: 350px;
+       height: 330px;
  }
   .detail mat-card{
     font-family:'UTM Avo';
@@ -103,6 +102,7 @@ $turquoise: #1abc9c;
     height: 100%;
      overflow: hidden;
     color:#1491d0;
+  
     border-radius: 15px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -156,7 +156,8 @@ $turquoise: #1abc9c;
   .detail{
         
     //padding: 0px 10px;
-  
+    margin-top: 20px;
+    padding: 20px;
     height: 300px;
 }
 

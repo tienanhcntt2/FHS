@@ -1,26 +1,4 @@
-<!-- <div class="nav">
-    <div class="colum_left">
-        <img  (click) ="checkLogin()" [src]="icon_val"/>
-    </div>
-    <div class="colum_center">
-        <span >{{title}}</span>
-    </div>
-    <div class="colum_right" *ngIf="flagsShow">
-      
-        <div class="colum_one"> {{selectAdrees}}</div>
-        <div class="colum_two" *ngIf="showZhan"> {{zhan}} {{txt_zhan}}</div>
-        <div class="colum_one">{{txt_start_date}}</div>
-        <div class="colum_one">{{txt_end_date}}</div>
-        
-    </div>
-    <div class="colum_home" *ngIf ="flagsShow == false">
-       
-        <div class="colum_one" > {{location}}</div>
-        <div class="colum_one" ><img src="../../assets/image/lich.png"  width="100%" height="10%" width="10%"/>{{dateCurrent}}</div>
-        <div class="colum_one"><img src="../../assets/image/o'clock.png"  width="100%" height="10%" width="10%"/>{{timerOk}}</div>
-    </div>
-  </div> -->
-  <div class="nav container-fluid">
+<!-- <div class="nav container-fluid">
       <div class="col-sm-5 col-xs-5 col-md-3 col-lg-3 col-xl-3 colums" style="height: 100%" >
             <div class="col-lg-6 iconMenu" >
                     <img  (click) ="checkLogin()" [src]="icon_val"/>
@@ -45,5 +23,68 @@
                 <div class="col-lg-4"><img src="assets/image/o'clock.png"  width="30px" height="30xp"/>{{timerOk}}</div>
             </div>
       </div>
+  </div> -->
+<!-- <div class=" navbar navbar-expand-sm" style="border: solid">
+      
+      <ul class="navbar-nav">
+            <li class="nav-item col-2">
+               <div class="row">
+
+               </div>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#">Css</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#">Bootstrap</a>
+            </li>
+         </ul>
+  </div> -->
+<nav class="navbar navbar-expand-md navbar-dark nav">
+  <!-- <img  class="navbar-brand" (click) ="checkLogin()" [src]="icon_val"/> -->
+  <div class="col-3">
+    <div class="row">
+      <div class="col-6 d-flex justify-content-center">
+        <!-- <span (click)="checkLogin()" class="navbar-brand navbar-toggler-icon d-flex justify-content-center"></span> -->
+        <img   class="navbar-brand navbar-toggler-icon d-flex justify-content-center"(click) ="checkLogin()" [src]="icon_val"/>
+      </div>
+      <div class="col-6">
+        <span>{{title}}</span>
+      </div>
+    </div>
   </div>
+  <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbar1" style="cursor: pointer">
+      <!-- <span class="glyphicon glyphicon-tags"></span> -->
+      <img src="assets/image/icon_select.png"/>
+    </button>
+    <div class="collapse navbar-collapse " id="navbar1" style="margin-top: 6px">
+      <ul class="navbar-nav mr-auto row" *ngIf="flagsShow" style="width: 100%">
+        <li class="nav-item col">
+          <p class="text-center">{{selectAdrees}}</p>
+        </li> 
+        <li class="nav-item col" *ngIf="showZhan"><p>{{zhan}} {{txt_zhan}}</p></li>
+        <li class="nav-item col">
+            <p>{{txt_start_date}}</p>
+          </li> 
+          <li class="nav-item col">
+              <p>{{txt_end_date}}</p>
+          </li> 
+      </ul>
+      <ul class="navbar-nav mr-auto row" *ngIf="flagsShow==false" style="width: 100%">
+          <li class="nav-item col d-flex justify-content-center">
+            <p class="text-align">{{location}}</p>
+          </li> 
+         
+          <li class="nav-item col ">
+              <p class="align-self-center"><img src="assets/image/lich.png"   width="30px" height="30xp"/>{{dateCurrent}}</p>
+            </li> 
+            <li class="nav-item col">
+                <p><img src="assets/image/o'clock.png"  width="30px" height="30xp"/>{{timerOk}}</p>
+            </li> 
+        </ul>
+    </div>
+ 
   
+
+
+</nav>

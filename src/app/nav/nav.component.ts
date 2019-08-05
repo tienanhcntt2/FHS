@@ -63,12 +63,12 @@ export class NavComponent implements OnInit, OnDestroy {
   }
   checkLogin() {
   
-    if (localStorage.getItem("access_token").length > 0) {
-      this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
-    } else {
-      alert("PLEASE LOGIN");
-    }
-
+    // if (localStorage.getItem("access_token").length > 0) {
+    //   this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
+    // } else {
+    //   alert("PLEASE LOGIN");
+    // }
+    this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
   }
   showFunctionHeader() {
     //this.selectAdrees = this.translateService.instant("nav.adrress");

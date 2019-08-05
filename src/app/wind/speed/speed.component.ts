@@ -104,7 +104,7 @@ export class SpeedComponent implements OnInit {
    * @param infoService 
    * @param userService 
    */
-  constructor(private datePipe: DatePipe, private commoService: CommonService, private infoService: InfoService, private userService: UserServicer,
+  constructor(private datePipe: DatePipe, private commoService: CommonService, private infoService: InfoService,
     private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private router:Router,private service: Service,
     private auth:FhsAuthorizeService) {
 
@@ -127,7 +127,7 @@ export class SpeedComponent implements OnInit {
     this.txt_time_start = this.formatValue(this.timeStart) + ":00";
     this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
     this.txt_time_end = this.formatValue(this.timeEnd) +":00";
-    this.userService.chienchalogin();
+    
     this.windRose = this.service.getWindRoseData();
     this.windSources = this.service.getWindSources();
 
