@@ -115,7 +115,7 @@ export class SpeedComponent implements OnInit {
     this.selectToday = new Date();
     let date = new Date();
     this.enDate = new Date();
-    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
+    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 1)));
   }
   /**
    * onint
@@ -125,7 +125,7 @@ export class SpeedComponent implements OnInit {
     this.txt_zhan ="sixteenwindrose?";
     
     this.txt_time_start = this.formatValue(this.timeStart) + ":00";
-    this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
+    // this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
     this.txt_time_end = this.formatValue(this.timeEnd) +":00";
     
     this.windRose = this.service.getWindRoseData();
@@ -136,7 +136,7 @@ export class SpeedComponent implements OnInit {
     this.sendTitle();
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     //this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate()), "yyyy/MM/dd");
-    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
+    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
     // get data for open menu
     this.subscription = this.commoService.notifyObservable$.subscribe((res) => {

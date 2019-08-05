@@ -4,8 +4,7 @@
   background : -moz-linear-gradient(bottom, #015fb6 0%,#01324e 100%);
   background : -webkit-linear-gradient(bottom, #015fb6 0%, #01324e 100%);
   background : -o-linear-gradient(bottom,#015fb6 0%, #01324e 100%);
-  
-    min-height: 63vh;
+  height: auto;
   }
 
   .example-sidenav{
@@ -17,7 +16,7 @@
 
   .example-sidenav-content {
     width: 100%;
-    height: 63vh;
+    min-height: 63vh;
     overflow: hidden;
   }
 

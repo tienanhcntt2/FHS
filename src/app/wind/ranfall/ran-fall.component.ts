@@ -83,12 +83,12 @@ export class RanFallComponent implements OnInit {
       this.sendTitle();
     });
     if(window.innerWidth <770){
-    ;
+  
     }
     this.selectToday = new Date();
     let date = new Date();
     this.enDate = new Date();
-    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
+    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 1)));
   }
 
   ngOnInit() {
@@ -101,14 +101,14 @@ export class RanFallComponent implements OnInit {
     });
 
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
-    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
+    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1), "yyyy/MM/dd");
     this.txt_time_start = this.formatValue(this.timeStart) +":00";
     this.txt_time_end = this.formatValue(this.timeEnd) +":00";
 
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
      this.numberDate = this.getNumberDate(this.txt_date_start,this.txt_date_end);
     this.getDataRainFall(this.urlRainAPi(),this.getToken());
-    console.log("anhtt : " +this.urlRainAPi());
+  
   }
   
 
