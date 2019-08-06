@@ -29,7 +29,7 @@
     "@progress/kendo-angular-intl": "^2.0.0",
     "@progress/kendo-angular-l10n": "^2.0.0",
     "@progress/kendo-angular-popup": "^3.0.0",
-    "@progress/kendo-theme-default": "^4.0.0",
+    "@progress/kendo-theme-default": "^4.1.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "devextreme": "19.1.5-build-19191-0321",

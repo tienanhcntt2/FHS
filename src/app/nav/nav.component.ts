@@ -68,7 +68,7 @@ export class NavComponent implements OnInit, OnDestroy {
     } else {
       alert("PLEASE LOGIN");
     }
- 
+    
   }
   showFunctionHeader() {
     //this.selectAdrees = this.translateService.instant("nav.adrress");
