@@ -1,10 +1,5 @@
 <app-nav></app-nav>
-<mat-drawer-container class="container_full" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <app-slide-menu></app-slide-menu>
-  </mat-drawer>
-
-  <div class="example-sidenav-content row no-gutters">
+<div class="container_full example-sidenav-content row no-gutters">
     <!-- colum left -->
     <div class="col-sm-12 col-md-7 " id="second">
           <dx-chart #chartVar id="chart" [dataSource]="weatherData" defaultPane="bottomPane" title="" >
@@ -121,5 +116,3 @@
     </div>
 
   </div>
-
-</mat-drawer-container>
