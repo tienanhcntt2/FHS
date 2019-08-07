@@ -27,8 +27,8 @@ header{
     background-image: url(/assets/image/user.png);
     background-position: left center;
     background-repeat: no-repeat;
-
-    padding-left: 40px;
+    margin-right: 20px;
+    padding-left: 45px;
     a{
         text-decoration: none;
         color: white;
@@ -44,6 +44,7 @@ header{
         color: white;
         font-family:'UTM Avo';
         height: 100%;
+    
         display: flex;
         justify-content: center; /* align horizontal */
         align-items: center; /* align vertical */
@@ -62,6 +63,7 @@ header{
   vertical-align: middle;
     height: 40px;
     color: white;
+    padding-left: 20px;
     img{
         
         height: auto;

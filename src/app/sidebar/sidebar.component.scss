@@ -48,11 +48,53 @@
   }
 }
 
+.material-icons.orange600 { color: #FB8C00; }
+.siderbar_submenu_ll{
+  justify-content: center;
+  margin-top: 30px;
+  color: white;
+   ul{
+    left: 0;
+    font-family:'UTM Avo';
+    list-style: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    li{
+      
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+      padding-left: 20px;
+     // font-size: 18px;
+      cursor: pointer;
+      padding-top: 10px;
+      a{
+        text-decoration: none;
+        color:#00eaf9; 
+        padding-left: 10px;
+      }
+      img{
+        vertical-align: middle;
+        width: 32px;
+        height: 32px;
+      }
+    }
+    li:hover{
+      background: #2a34ff;
+    }
+    li.active {
+      background-color: #4693B8;
+      color: #ffff;
+    }
+   }
+}
+/*
+* css cu khong the thay doi no
+*/
 .sidebar {
-  width: auto;
+  width: 260px;
   height: 100%;
   max-height: 100%;
   position: fixed;
+ 
   top: 0;
   left: 0px;
   z-index: 999;
@@ -68,12 +110,13 @@
     height: calc(100% - 30px);
     overflow-y: auto;
     position: relative;
-
+    background: #032ea3;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
     .sidebar-header {
       padding: 10px 20px;
       display: flex;
       align-items: center;
-
+      min-height: 7.5vh;
       >a {
         text-transform: uppercase;
         font-weight: bold;
@@ -90,7 +133,9 @@
 
     .sidebar-profile {
       padding: 20px;
+      margin-top: 22px;
       overflow: hidden;
+      
 
       .user-pic {
         float: left;
@@ -145,7 +190,7 @@
 
     .sidebar-menu {
       padding-bottom: 10px;
-
+      
       .header-menu span {
         font-weight: bold;
         font-size: 14px;
@@ -219,8 +264,12 @@
           }
 
           li {
-            padding-left: 25px;
+           // padding-left: 25px;
             font-size: 13px;
+            border-bottom: 1px solid #1491d0;
+            cursor: pointer;
+          
+          }
 
             a {
               &:before {
@@ -235,7 +284,13 @@
                 -moz-osx-font-smoothing: grayscale;
                 margin-right: 10px;
                 font-size: 8px;
+                
               }
+              img {
+                vertical-align: middle;
+                margin-right: 10px;
+                width: 30px;
+                height: 30px;
 
               .badge,
               .label {
@@ -546,4 +601,9 @@ $img-shadow-color:rgba(0, 0, 0, 0.5);
 
   }
 
+}
+.sub_menuleft{
+  width: 100%;
+  list-style: none;
+ 
 }

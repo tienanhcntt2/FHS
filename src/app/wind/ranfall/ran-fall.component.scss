@@ -16,7 +16,7 @@ $color_2a34ff : #07ccd9;
   background : -webkit-linear-gradient(bottom, #015fb6 0%, #01324e 100%);
   background : -o-linear-gradient(bottom,#015fb6 0%, #01324e 100%);
   width: 100%;
-  min-height: 63vh;
+ height: auto;
   
   }
 
@@ -31,7 +31,7 @@ $color_2a34ff : #07ccd9;
 
   .example-sidenav-content {
     
-    height: 63vh;
+    min-height: 63vh;
     width: 100%;
     overflow: hidden;
    

@@ -101,7 +101,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     MatSelectModule,
     FormsModule,
     MatDatepickerModule, MatNativeDateModule,
-    ReactiveFormsModule,
+
     MatAutocompleteModule,
     MatCheckboxModule,
     MatRadioModule,

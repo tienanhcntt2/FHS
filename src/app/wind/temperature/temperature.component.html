@@ -4,9 +4,9 @@
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="example-sidenav-content row no-gutters">
     <!-- colum left -->
-    <div class="colum_left" [style.width.%]="widthleft" >
+    <div class="col-sm-12 col-md-7 " id="second">
           <dx-chart #chartVar id="chart" [dataSource]="weatherData" defaultPane="bottomPane" title="" >
               <dxo-size [width]="100+'%'"></dxo-size>
               <dxi-series pane="topPane" color="#b0daff" type="rangeArea" rangeValue1Field="avgLowT"
@@ -36,12 +36,12 @@
             </dx-chart>
     </div>
     <!-- colum right  -->
-    <div class="colum_right" [style.width.%]="widthright" >
-      <img src={{icon_show}} (click)="functionShowHide()" />
+    <div id="first" class="col-sm-12 col-md-5 colum_right">
+      <!-- <img src={{icon_show}} (click)="functionShowHide()" /> -->
       <!-- select date -->
       <div class="detail" *ngIf="okma">
         <!-- select datetimer -->
-        <div class="row" style="margin-top:10px;">
+        <div class="row no-gutters" >
             <div class="col-md-6">
 
                 <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)">
@@ -69,11 +69,8 @@
         </div>
 
         <div class="row">
-          <div class="col-md-6" style="margin-top:20px;">
-            <button type="button" class="done" (click)="functionSeachData()">{{'rainFall.search' | translate}}</button>
-            <button type="button" class="dain">{{'rainFall.printf' | translate}}</button>
-          </div>
-
+            <button class="col-md-2 done" (click)="clickSeach()">搜索</button>
+            <button class="col-md-2 dain" (click) ="printfChart">打印</button>
         </div>
 
         <div class="row">

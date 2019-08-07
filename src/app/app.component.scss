@@ -7,6 +7,12 @@
  background-color:#052762;
  
 }
+.content{
+  background : linear-gradient(to bottom,#0048ff 0%, #ffffff 100%);
+    background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
+    background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
+    background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
+}
 .page-wrapper {
   min-height: 100vh;
     background-color:#052762;
@@ -18,7 +24,7 @@
       min-height: 100vh;
       //overflow-y: auto;
       @media screen and (min-width: 768px) {
-        padding-left: 265px;
+        padding-left: 260px;
       }
   
       .overlay {

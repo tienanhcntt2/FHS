@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SidebarService } from '../service/sidebar.service';
+
+import { Menu } from '../model/menu';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -14,12 +18,19 @@ import { SidebarService } from '../service/sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
+  
+  public listmenu: Menu[] = [];
+  public activeState: string ;
   menus = [];
-  constructor(public sidebarservice: SidebarService) {
+  constructor(public sidebarservice: SidebarService,private translate: TranslateService, private router:Router) {
     this.menus = sidebarservice.getMenuList();
+    translate.onLangChange.subscribe((event: LangChangeEvent) =>{
+      this.addListMenu();
+    });
    }
 
   ngOnInit() {
+    this.addListMenu();
   }
 
   getSideBarState() {
@@ -50,5 +61,24 @@ export class SidebarComponent implements OnInit {
   hasBackgroundImage() {
     return this.sidebarservice.hasBackgroundImage;
   }
+  clickCloseMenu(){
+    this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
+  }
 
+  private addListMenu() {
+
+    this.listmenu = [
+      { id: 0, icon: "assets/image/today.png", title: this.translate.instant("menu.home"), path: "/home" },
+      { id: 1, icon: "assets/image/rain.png", title: this.translate.instant("home.rainfall"), path: "/rainfall" },
+      { id: 2, icon: "assets/image/windspd.png", title: this.translate.instant("home.windspeed"), path: "/speed" },
+      { id: 3, icon: "assets/image/winddec.png", title: this.translate.instant("home.winddriction"), path: "/direction" },
+      { id: 4, icon: "assets/image/temp.png", title:  this.translate.instant("menu.Temperature"), path: "/temperature" },
+      { id: 5, icon: "assets/image/hum.png", title: this.translate.instant("home.Humidity"), path: "/humidity" }
+    ];
+    this.activeState =this.listmenu[0].title;
+  }
+  setStateAsActive(i){
+    this.activeState = this.listmenu[i].title;
+    this.router.navigateByUrl(this.listmenu[i].path);
+  }
 }

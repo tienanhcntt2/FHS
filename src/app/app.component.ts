@@ -19,17 +19,7 @@ export class AppComponent implements OnInit {
     this.languageService.setInitState();
   }
 
-  toggleSidebar() {
-    this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
-  }
-  toggleBackgroundImage() {
-    this.sidebarservice.hasBackgroundImage = !this.sidebarservice.hasBackgroundImage;
-  }
   getSideBarState() {
     return this.sidebarservice.getSidebarState();
-  }
-
-  hideSidebar() {
-    this.sidebarservice.setSidebarState(true);
   }
 }

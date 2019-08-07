@@ -5,6 +5,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
 import { ClockService } from '../service/ClockService';
 import { FhsAuthorizeService } from '@fhs/authorize';
+import { SidebarService } from '../service/sidebar.service';
 
 @Component({
   selector: 'app-nav',
@@ -38,7 +39,7 @@ export class NavComponent implements OnInit, OnDestroy {
   private _clockSubscription: Subscription;
 
   constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService,
-    private auth:FhsAuthorizeService) {
+    private auth:FhsAuthorizeService,public sidebarservice: SidebarService) {
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.selectAdrees = translateService.instant("nav.adrress");
@@ -63,12 +64,12 @@ export class NavComponent implements OnInit, OnDestroy {
   }
   checkLogin() {
   
-    // if (localStorage.getItem("access_token").length > 0) {
-    //   this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
-    // } else {
-    //   alert("PLEASE LOGIN");
-    // }
-    this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
+    if (localStorage.getItem("access_token").length > 0) {
+      this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
+    } else {
+      alert("PLEASE LOGIN");
+    }
+    
   }
   showFunctionHeader() {
     //this.selectAdrees = this.translateService.instant("nav.adrress");
@@ -104,5 +105,17 @@ export class NavComponent implements OnInit, OnDestroy {
 
     });
   }
+  toggleSidebar() {
+    this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
+  }
+  toggleBackgroundImage() {
+    this.sidebarservice.hasBackgroundImage = !this.sidebarservice.hasBackgroundImage;
+  }
+  getSideBarState() {
+    return this.sidebarservice.getSidebarState();
+  }
 
+  hideSidebar() {
+    this.sidebarservice.setSidebarState(true);
+  }
 }

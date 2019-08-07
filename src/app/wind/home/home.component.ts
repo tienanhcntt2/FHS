@@ -21,14 +21,11 @@ import { stringify } from 'querystring';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
 
   // datecurrent
   today: number = Date.now();
 
-  // menu 
-  private clickOpen: number = 0;
-  @ViewChild('drawer') drawer;
+
   @ViewChild(NavComponent)
   private nav: NavComponent;
 
@@ -76,32 +73,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.functionCheckLogin();
 
     this.commonService.notifyOther({ option: 'callTitle', value: 'Home' });
-
-    this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
-      if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
-
-        this.checkOpenMenu();
-      }
-
-    });
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    
   }
 
-  checkOpenMenu() {
-    this.clickOpen += 1;
-    if (this.flags === false) {
-      if (this.clickOpen % 2 == 0) {
-        this.nav.icon_val = "assets/image/icon_menu.png"
-      } else {
-        this.nav.icon_val = "assets/image/drop_up.png"
-      }
-      this.drawer.toggle();
-    } else {
-      alert("Please Login");
-    }
-  }
   functionCheckLogin() {
     if (localStorage.getItem('userName') === '') {
       this.flags = false;
@@ -168,20 +144,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async setValueHome(Rainfall: number, WindVelocity: number, WindDegree: number, Humidity: number) {
 
+
     this.winds = [{
-      name: this.translateService.instant("home.rainfall"), number: Rainfall, donvi: "mm", min: Rainfall + " mm", max: Rainfall + " mm"
+      name: this.translateService.instant("home.rainfall"), number: this.splitNumber(Rainfall), donvi: "mm", min: this.splitNumber(Rainfall) + " mm", max: this.splitNumber(Rainfall) + " mm"
     },
     {
-      name: this.translateService.instant("home.windspeed"), number: WindVelocity, donvi: "km/h", min: WindVelocity + " km/h", max: WindVelocity + " km/h"
+      name: this.translateService.instant("home.windspeed"), number: this.splitNumber(WindVelocity), donvi: "km/h", min: this.splitNumber(WindVelocity) + " km/h", max: this.splitNumber(WindVelocity) + " km/h"
     },
     {
-      name: this.translateService.instant("home.winddriction"), number: WindDegree, donvi: "km/h", min: WindDegree + " km/h", max: WindDegree + " km/h"
+      name: this.translateService.instant("home.winddriction"), number: this.splitNumber(WindDegree) , donvi: "km/h", min: this.splitNumber(WindDegree) + " km/h", max: this.splitNumber(WindDegree) + " km/h"
     },
     {
-      name: this.translateService.instant("home.Humidity"), number: Humidity, donvi: "%", min: Humidity + " %", max: Humidity + " %"
+      name: this.translateService.instant("home.Humidity"), number: this.splitNumber(Humidity) , donvi: "%", min: this.splitNumber(Humidity) + " %", max: this.splitNumber(Humidity) + " %"
     }
     ];
-    console.log("sdksdsjdskj : " + this.splitNumber(WindVelocity, 1));
+   this.splitNumber(WindVelocity);
+    
   }
 
   private getdataHome() {
@@ -217,14 +195,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private splitNumber(humidity: number, limit: number) {
+  public splitNumber(humidity: number):string {
+    if(humidity == 0){
+      return 0+"";
+    }
     var str = humidity.toString();
     var numarray = str.split('.');
     var a = new Array();
     a = numarray;
-    let numberTwo = a[1].toString;
-
-    return a[0].toString + "." + numberTwo.sub;
+  
+    return a[0] +"."+this.numberFist(parseInt(a[1]));
+  }
+  private numberFist(n :number) : number{
+    var length = n.toString().length;
+    if(length>=1){
+      return  parseInt(n.toString().substring(0, 1));
+    }
+    return 0;
   }
 
 }
