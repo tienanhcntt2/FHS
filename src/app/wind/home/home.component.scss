@@ -12,6 +12,7 @@ $turquoise: #1abc9c;
     background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
     background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
     height: auto;
+    
     //overflow:visible;
   }
 
@@ -30,6 +31,7 @@ $turquoise: #1abc9c;
 }
   .example-sidenav{
     width: 12%;
+    min-height: 63vh;
     
   }
   .example-sidenav-content {
@@ -37,7 +39,7 @@ $turquoise: #1abc9c;
     min-height: 63vh;
     overflow: hidden;
     // display: flex;
-    margin: auto;
+  
   }
   mat-card{
     
@@ -114,6 +116,11 @@ $turquoise: #1abc9c;
       text-align: center;
       min-height: 150px;
       font-size: 50px
+     
+    }
+    p{
+      font-size: 15px;
+     
     }
     h3{
       text-align: center;
@@ -159,39 +166,18 @@ $turquoise: #1abc9c;
 
 // /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 768px) {
-  .detail{
-        
-    //padding: 0px 10px;
-    margin-top: 20px;
-    padding: 20px;
-    height: 300px;
+  
+mat-card{
+  margin-top: 10px;
+}
+.detail mat-card{
+  height: auto;
 }
 
-  // mat-card{
-  //   float: none;
-  //   display: block;
-  //   margin-left: auto;
-  //   margin-right: auto;      
-  //   width: 60%;
-  
-  //   box-shadow: 1px 2px 10px 0 #0623ff !important;
-  
-  //   background-position: center;
-  //   background-repeat: no-repeat;
-  //    border-radius: 20px;
-  //    -moz-border-radius: 20px;
-  //    -webkit-border-radius: 20px;
-  //    -ms-border-radius: 20px;
-  //    -o-border-radius: 20px;
-  // }
-  // mat-card-title{
-  //           font-family:'UTM Avo';
-  //           font-size: 20px;
-  //           color:#1491d0; 
-  // }
-  // mat-card h1{
-  //           font-size: 30px;
-  //           color: #1491d0;
-           
-  // }
+}
+
+// version css 2
+.my-auto{
+  margin-top: auto;
+  margin-bottom: auto;
 }

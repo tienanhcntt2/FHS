@@ -49,6 +49,7 @@ $color_2a34ff : #07ccd9;
      width: 24px;
      height: 24px;
      float: right;
+     
      cursor: pointer;
    }
   .colum_right .detail{
@@ -127,6 +128,7 @@ $color_2a34ff : #07ccd9;
   // table 
   .detail table{
    width:100%;
+  
    table-layout: fixed;
    margin-bottom: 20px;
   
@@ -138,10 +140,10 @@ $color_2a34ff : #07ccd9;
    font-family:'UTM Avo';
   }
  .tbl-content{
-   height:auto;
+   height:250px;
    overflow-x:auto;
    margin-top: 0px;
-   border-top: 1px solid rgba(8, 165, 185, 0.3);
+   border: 1px solid rgba(255,255,255,0.3);
   // border-left: 1px solid rgba(8, 165, 185, 0.3);
  }
  th{
@@ -149,7 +151,7 @@ $color_2a34ff : #07ccd9;
    text-align: center;
    
    font-size: 14px;
-   color: aqua;
+   color: #fff;
  }
  td{
    padding: 5px;
@@ -190,7 +192,9 @@ $color_2a34ff : #07ccd9;
     #fourth {
       order: 4;
     }
-    
+    .detail img{
+      visibility: hidden;
+    }
   }
   .k-datepicker .k-select {
     display: none;

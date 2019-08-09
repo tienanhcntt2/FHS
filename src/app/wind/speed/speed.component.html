@@ -5,10 +5,10 @@
   </mat-drawer>
 
   <div class="example-sidenav-content row no-gutters">
-    <div class="col-sm-12 col-md-7 " id="second">
+    <div ngClass={{nameColumnLeft}} id="second">
 
       <!-- chart cricel  -->
-      <div id="chart-demo">
+      
         <dx-polar-chart #chart id="radarChart" palette="soft" [dataSource]="windRose"
           (onLegendClick)="onLegendClick($event)">
           <!-- hien thi toc do gio -->
@@ -22,10 +22,10 @@
 
         </dx-polar-chart>
 
-      </div>
+      
     </div>
-    <div id="first" class="col-sm-12 col-md-5 colum_right">
-      <!-- <img src={{icon_show}} (click)="functionShowHide()" /> -->
+    <div id="first" ngClass={{nameColumnRight}}>
+      <img src={{icon_show}} (click)="functionShowHide()" />
 
       <div class="detail" *ngIf="okma">
         <div class="row no-gutters">

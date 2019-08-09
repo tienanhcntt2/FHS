@@ -54,10 +54,10 @@ $turquoise: #1abc9c;
      cursor: pointer;
    }
    .example-sidenav-content .colum_right .detail{
-    padding-top: 20px;
-    padding-left: 2%;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-family:'UTM Avo';
-    
     color: white;
   }
  
@@ -128,12 +128,13 @@ $turquoise: #1abc9c;
    .detail table{
     width:100%;
     table-layout: fixed;
+    margin-bottom: 20px;
   }
   .tbl-header{
     // background-color: rgba(255,255,255,0.3);
     background: transparent;
     margin-top: 10px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family:'UTM Avo';
    }
   .tbl-content{
     height:250px;
@@ -161,31 +162,17 @@ $turquoise: #1abc9c;
 
 
 
-::ng-deep #chart-demo {
-    height: auto;
-    width: 100%;
-    
-    margin-left: auto;
-    margin-right: auto;
-}
+
 ::ng-deep #radarChart {
     display: flex;
     justify-content: center;
     align-items: center; 
-    height: 600px;
+    min-height: 100%;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-::ng-deep #chart-demo > .center {
-	text-align: center;
-}
-::ng-deep #chart-demo > .center > div,
-::ng-deep #chart-demo > .center > .dx-widget {
-    display: inline-block;
-    vertical-align: middle;
-}
 
 @media only screen and (max-width: 768px) {
   #first {

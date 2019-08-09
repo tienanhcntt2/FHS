@@ -6,7 +6,7 @@
 
   <div class="example-sidenav-content row no-gutters">
     <!-- colum left -->
-    <div class="col-sm-12 col-md-7 " id="second">
+    <div ngClass={{nameColumnLeft}} id="second">
       <dx-chart id="chart" defaultPane="bottom" [dataSource]="weatherData" title="" [customizePoint]="customizePoint" (onPointClick)="pointClick($event)"> 
         <dxi-series pane="top" valueField="avgT" name="{{'temperature.vga_temperature' | translate}}, °C">
             <dxo-label [visible]="false" [customizeText]="precipitationCustomizeText" color="#000"></dxo-label>
@@ -47,7 +47,7 @@
 
     </div>
     <!-- colum right  -->
-    <div id="first" class="col-sm-12 col-md-5 colum_right">
+    <div id="first" ngClass={{nameColumnRight}}>
       <img src={{icon_show}} (click)="functionShowHide()" />
       <!-- select date -->
       <div class="detail" *ngIf="okma">

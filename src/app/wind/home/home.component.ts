@@ -11,6 +11,7 @@ import { Paho } from 'ng2-mqtt/mqttws31'
 import { Winds } from 'src/app/model/Winds';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { stringify } from 'querystring';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 
 
 
@@ -31,6 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer;
   @ViewChild(NavComponent)
   private nav: NavComponent;
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
 
   public icon_val: string;
   public flags: boolean = false;
@@ -112,6 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   sendTitle() {
     this.nav.title = 'TODAY';
+    this.slide.numberPosition = 0;
   }
 
 

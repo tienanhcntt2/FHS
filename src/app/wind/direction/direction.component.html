@@ -6,7 +6,7 @@
 
   <div class="example-sidenav-content row no-gutters">
     <!-- colum left -->
-    <div class="col-sm-12 col-md-7" id="second">
+    <div ngClass={{nameColumnLeft}} id="second">
         <dx-chart #chart [dataSource]="stockPrices" id="chart">
             <!-- See details in the "Bind Series to Data" topic -->
             <dxo-zoom-and-pan argumentAxis="both"></dxo-zoom-and-pan>
@@ -25,8 +25,8 @@
         </dx-chart>
     </div>
     <!-- colum right  -->
-    <div id="first" class="col-sm-12 col-md-5 colum_right">
-      <!-- <img src={{icon_show}} (click)="functionShowHide()" /> -->
+    <div id="first" ngClass={{nameColumnRight}}>
+      <img src={{icon_show}} (click)="functionShowHide()" />
       <!-- select date -->
       <div class="detail" *ngIf="okma">
 

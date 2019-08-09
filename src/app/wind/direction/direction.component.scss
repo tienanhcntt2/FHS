@@ -37,7 +37,10 @@
   }
   .example-sidenav-content .colum_right .detail{
     font-family:'UTM Avo';
-    padding: 20px;
+    padding-top: 30px;
+    padding-left: 2%;
+    padding-right: 2%;
+  
     color: white;
  }
  .detail .row .dain{
@@ -113,24 +116,18 @@ td{
 }
 
 ::ng-deep #chart {
-  margin-top: 5%;
-  height: 80%;
-  width: 95%;
-  margin-left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  svg {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    resize: 'horizontal';
-    overflow: 'hidden';
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
   
-    left: 0;
-    
-  }
 }
+
 @media only screen and (max-width: 768px) {
   #first {
     order: 1;

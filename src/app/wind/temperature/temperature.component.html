@@ -6,7 +6,7 @@
 
   <div class="example-sidenav-content row no-gutters">
     <!-- colum left -->
-    <div class="col-sm-12 col-md-7 " id="second">
+    <div ngClass={{nameColumnLeft}} id="second">
           <dx-chart #chartVar id="chart" [dataSource]="weatherData" defaultPane="bottomPane" title="" >
               <dxo-size [width]="100+'%'"></dxo-size>
               <dxi-series pane="topPane" color="#b0daff" type="rangeArea" rangeValue1Field="avgLowT"
@@ -36,8 +36,8 @@
             </dx-chart>
     </div>
     <!-- colum right  -->
-    <div id="first" class="col-sm-12 col-md-5 colum_right">
-      <!-- <img src={{icon_show}} (click)="functionShowHide()" /> -->
+    <div id="first" ngClass={{nameColumnRight}}>
+      <img src={{icon_show}} (click)="functionShowHide()" />
       <!-- select date -->
       <div class="detail" *ngIf="okma">
         <!-- select datetimer -->

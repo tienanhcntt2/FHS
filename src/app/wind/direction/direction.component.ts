@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { IntlService } from '@progress/kendo-angular-intl';
 import { Fengxiang } from 'src/app/model/fengxiang';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { FhsAuthorizeService } from '@fhs/authorize';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 
 @Component({
   selector: 'app-direction',
@@ -25,7 +26,8 @@ export class DirectionComponent implements OnInit, OnDestroy {
 
   @ViewChild(NavComponent)
   private nav: NavComponent;
-
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
   
   private enDate: any;
   private startDate:any;
@@ -59,6 +61,10 @@ export class DirectionComponent implements OnInit, OnDestroy {
   private selectToday : Date;
   public stockPrices: Fengxiang[];
   private urlData :string ="http://10.199.15.95/mops/Meteorology/winddirection?";
+  public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
+  public nameColumnLeft: string ="col-sm-12 col-md-7 ";
+  public icon_show: string = "assets/image/icon_hiden.png";
+  private numbercheckShow: number = 0;
   /**
    * constructor direction
    * @param commoService 
@@ -75,6 +81,11 @@ export class DirectionComponent implements OnInit, OnDestroy {
      
         this.sendTitle();
       });
+      if(window.innerWidth <=768){
+        this.showIconMobile();
+       }else{
+         this.showIconDesktop();
+       }
       this.selectToday = new Date();
       let date = new Date();
       this.enDate = new Date();
@@ -205,27 +216,30 @@ private printfChart(){
     ----------------------------------------------------- */
   sendTitle() {
     this.nav.title =this.translate.instant("home.winddriction");
+    this.slide.numberPosition =3;
   }
 
 
   // function show and hide
-  numbercheckShow : number = 0;
-  widthleft: number = 60;
-  widthright: number = 40;
-  public icon_show: string ="assets/image/icon_hiden.png";
-  functionShowHide(){
+
+  functionShowHide() {
     this.numbercheckShow += 1;
-    if(this.numbercheckShow %2 ==0 ){
+    if (this.numbercheckShow % 2 == 0) {
       this.okma = true;
-      this.widthleft = 60;
-      this.widthright = 40;
-      this.icon_show ="assets/image/icon_hiden.png";
-    }else{
+      this.nameColumnLeft = "col-sm-12 col-md-7";
+      this.nameColumnRight ="col-sm-12 col-md-5 colum_right";
+      
+    } else {
       this.okma = false;
-      this.widthleft = 97;
-      this.widthright = 3;
-      this.icon_show ="assets/image/icon_show.png";
+      this.nameColumnLeft = "col-sm-12 col-md-11 mx-auto";
+      this.nameColumnRight = "col-sm-12 col-md-1 colum_right";
+      
     }
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
   }
   /**
    * set value input for nav
@@ -242,10 +256,8 @@ private printfChart(){
   customizeText = (arg: any) => {
     let value = new Date(arg.value);
     if (arg.valueText.length < 2) {
-        // console.log(arg.valueText);
-        // console.log(value.toLocaleString());
         arg.valueText = value.toLocaleString().split(' ')[1];
-        // console.log(arg.valueText);
+
     }
     else if (arg.valueText.length > 8) {
        
@@ -325,5 +337,27 @@ valueCustomizeText(arg: any) {
   clickSeach(){
     this.getDataWinddirection(this.urlData,this.getToken());
   }
-
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    if(window.innerWidth <=768){
+     this.showIconMobile();
+    }else{
+      this.showIconDesktop();
+    }
+  }
+  private  showIconMobile(){
+    if(this.numbercheckShow %2 == 0){
+      this.icon_show ="assets/image/icon_in.png";
+    }else{
+     this.icon_show ="assets/image/icon_below.png";
+    }
+  }
+  private  showIconDesktop(){
+    if(this.numbercheckShow %2 == 0){
+      this.icon_show ="assets/image/icon_hiden.png";
+    }else{
+     this.icon_show ="assets/image/icon_show.png";
+    }
+    
+  }
 }
