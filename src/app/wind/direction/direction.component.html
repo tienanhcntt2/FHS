@@ -32,40 +32,44 @@
 
         <!-- select datetimer -->
         <div class="row">
-          <div class="col-xs-12 col-sm-6">
-
-              <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)">
-                </kendo-datepicker>
-                <kendo-timepicker *ngIf="fplagStart"
-                (valueChange)="onChangeTimerStart($event)"
-                [value]="timeStart"></kendo-timepicker>
-                <kendo-timepicker *ngIf="fplagStart == false"
-                [max] ="timerCurrent"
-                (valueChange)="onChangeTimerStart($event)"
-                [value]="timeStart"></kendo-timepicker>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-md-12 col-lg-6">
+                  <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)" [format]="'yyyy/MM/dd'">
+                  </kendo-datepicker>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                  <kendo-timepicker *ngIf="fplagStart" (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'">
+                  </kendo-timepicker>
+                  <kendo-timepicker *ngIf="fplagStart == false" [max]="timerCurrent"
+                    (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'"></kendo-timepicker>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-md-12 col-lg-6">
+                  <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)" [format]="'yyyy/MM/dd'">
+                  </kendo-datepicker>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                  <kendo-timepicker *ngIf="fplagEnd" [max]="timerCurrent" (valueChange)="onChangeTimerEnd($event)"
+                    [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
+                  <kendo-timepicker *ngIf="fplagEnd == false" (valueChange)="onChangeTimerEnd($event)"
+                    [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-xs-12 col-sm-6">
-              <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)">
-                </kendo-datepicker>
-                <kendo-timepicker *ngIf="fplagEnd"
-                [max] ="timerCurrent"
-                (valueChange)="onChangeTimerEnd($event)"
-                [value]="timeEnd"></kendo-timepicker>
-                <kendo-timepicker *ngIf="fplagEnd == false"
-                (valueChange)="onChangeTimerEnd($event)"
-                [value]="timeEnd"></kendo-timepicker>
+
+
+          <div class="row" style="margin-top: 20px">
+            <div class="col-6">
+              <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+              <button class="col-6 dain" (click)="printfChart">{{'rainFall.printf' | translate}}</button>
+            </div>
+
           </div>
-
-        </div>
-
-        <div class="row">
-          <!-- <div class="col-md-6" style="margin-top:20px;">
-            <button type="button" class="done" (click)="clickSeach()">搜索</button>
-            <button type="button" class="dain" (click) ="printfChart">打印</button>
-          </div> -->
-          <button class="col-md-2 done" (click)="clickSeach()">搜索</button>
-          <button class="col-md-2 dain" (click) ="printfChart">打印</button>
-        </div>
 
         <div class="row">
           <span class="title_table">显 示 详 细 数 据 <img (click)="showDetail()" src={{nameMaticon}} />

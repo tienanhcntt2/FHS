@@ -40,17 +40,17 @@
     padding: 20px;
     color: white;
  }
-
-.detail .row .dain{
-  margin: 20px;
+ .detail .row .dain{
+    
   background: transparent;
   color: white;
   border-radius: 2px;
+  
   border:  1px #3498db solid;
 }
 .detail .row .done{
-  margin: 20px;
-  background: #3498db;
+  
+background: #3498db;
   color: white;
  border-radius: 2px;
   border:  1px #3498db solid;
@@ -85,11 +85,13 @@
   // background-color: rgba(255,255,255,0.3);
   background: transparent;
   margin-top: 10px;
+
   font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 20px;
  }
 .tbl-content{
-  height:auto;
-  overflow-x:auto;
+  height:300px;
+  overflow: auto;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
 }
@@ -143,4 +145,21 @@ td{
     order: 4;
   }
   
+}
+kendo-timepicker{
+    
+  //padding: 3px 5px;
+  width: 100%;
+  font-size: 12px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 10px 0 #031477 !important;
+}
+kendo-datepicker{
+  //border: 1px solid #00ffff;
+  width: 100%;
+  border-radius: 2px;
+  text-align: center;
+  box-shadow: 1px 2px 10px 0 #031477 !important;
+
+  font-size: 12px;
 }

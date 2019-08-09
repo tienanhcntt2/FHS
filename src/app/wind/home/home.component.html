@@ -5,9 +5,9 @@
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6" style="padding: 20px;">
+  <div class="container-fluid example-sidenav-content">
+    <!-- <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-6" style="padding: 20px;">
         <mat-card>
           <mat-card-header>
             <mat-card-title>{{localtion}}</mat-card-title>
@@ -20,7 +20,7 @@
             <div class="col-xs-6 col-md-6 col-sm-6 col-lg-6">
               <h1>{{shidu}} ⁰C</h1>
 
-              <!-- <span>Min : {{shidu - 5}} / Max : {{shidu + 5}}</span> -->
+    
               <table>
                 <tr style="margin: 10px;">
                   <th>
@@ -51,12 +51,12 @@
           </div>
         </mat-card>
       </div>
-      <div class="col-sm-12 col-xs-12 col-md-12 col-lg-6 col-xl-6" style="padding: 20px;">
-        <div class="row">
+      <div class="col-sm-12 col-md-6" style="padding: 20px;">
+        <div class="row justify-content-center">
           <div class="col-md-3 col-sm-6 col-xs-6 detail align-self-center" *ngFor="let wind of winds">
             <mat-card>
               <div class="row">
-                <h3 class="col-md-12">{{wind.name}}</h3>
+                <h3 class="col-md-12"><a href={{wind.link}}>{{wind.name}}</a></h3>
               </div>
 
               <div class="row">
@@ -68,14 +68,92 @@
                 <p class="col-md-12">{{wind.donvi}}</p>
               </div>
               <div class="row">
-                <span class="col">Min:{{wind.min}}</span>
-                <span class="col">Max:{{wind.max}}</span>
+                <span class="col-12">Min:{{wind.min}}</span>
+                <span class="col-12">Max:{{wind.max}}</span>
 
               </div>
 
             </mat-card>
           </div>
         </div>
+      </div>
+    </div> -->
+    <div class="row justify-content-center" style="padding: 20px;">
+      <div class="col-md-5 col-sm-12">
+        <div class="col-8  mx-auto">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{localtion}}</mat-card-title>
+              <mat-card-subtitle>{{today| date:'EEEE'}}</mat-card-subtitle>
+            </mat-card-header>
+            <div class="row">
+              <div class="col-5">
+                <img class="img-responsive" src="{{imageIcon}}" width="80%" height="auto" />
+              </div>
+              <div class="col-7">
+                <h1>{{shidu}} ⁰C</h1>
+  
+      
+                <table>
+                  <tr style="margin: 10px;">
+                    <th>
+                      <img src="assets/image/ichum.png" />
+                    </th>
+                    <th style="padding-left:10px;">
+                      {{wendu}}%
+                    </th>
+                  </tr>
+                  <tr style="margin: 10px;">
+                    <th>
+                      <img src="assets/image/icwindspd.png" />
+                    </th>
+                    <th style="padding-left:10px;">
+                      {{fengxiang}}, {{fengshi}}
+                    </th>
+                  </tr>
+                  <tr style="margin: 10px;">
+                    <th>
+                      <img src="assets/image/icrain.png" />
+                    </th>
+                    <th style="padding-left:10px;">
+                      0mm
+                    </th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      <div class="col-md-7 col-sm-12" >
+        <div class="col-10 mx-auto">
+          <div class="row justify-content-center" >
+            <div class="col-md-3 col-sm-6 detail" *ngFor="let wind of winds">
+              <mat-card>
+                <div class="row">
+                  <h3 class="col-md-12"><a href={{wind.link}}>{{wind.name}}</a></h3>
+                </div>
+  
+                <div class="row">
+                  <h1 class="col-md-12 h-50">
+                    {{wind.number}}
+                  </h1>
+                </div>
+                <div class="row">
+                  <p class="col-md-12">{{wind.donvi}}</p>
+                </div>
+                <div class="row">
+                  <span class="col-12">Min:{{wind.min}}</span>
+                  <span class="col-12">Max:{{wind.max}}</span>
+  
+                </div>
+  
+              </mat-card>
+            </div>
+            
+          </div>
+        </div>
+
       </div>
     </div>
 

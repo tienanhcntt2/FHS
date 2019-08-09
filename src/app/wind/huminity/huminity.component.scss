@@ -70,34 +70,35 @@ $turquoise: #1abc9c;
     justify-items: center;
   }
 
-  .detail .row kendo-timepicker{
+  kendo-timepicker{
     
     //padding: 3px 5px;
-    text-align: center;
-    
+    width: 100%;
     font-size: 12px;
     border-radius: 2px;
     box-shadow: 1px 2px 10px 0 #031477 !important;
   }
-  .detail .row kendo-datepicker{
+  kendo-datepicker{
     //border: 1px solid #00ffff;
+    width: 100%;
     border-radius: 2px;
     text-align: center;
     box-shadow: 1px 2px 10px 0 #031477 !important;
-
+  
     font-size: 12px;
   }
   
   .detail .row .dain{
-    margin: 20px;
+    
     background: transparent;
     color: white;
     border-radius: 2px;
+    
     border:  1px #3498db solid;
   }
   .detail .row .done{
-    margin: 20px;
-    background: #3498db;
+    
+  background: #3498db;
     color: white;
    border-radius: 2px;
     border:  1px #3498db solid;

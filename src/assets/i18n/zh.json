@@ -23,10 +23,7 @@
         "phone" : "電話",
         "email" : "郵件",
         "fax" : "傳真",
-        "detailAdress" :"Vung Ang經濟區，Ky Long Ward，Ky Anh Town，HaTinh Provice",
-        "xa" :"Vung Ang Economic Zone",
-        "phuong" :"Ky Long Ward Ky Anh Town",
-        "ting" :"HaTinh Provice"
+        "detailAdress" :"河靜省奇英市奇龍坊永安經濟區"
     },
     "rainFall" :{
         "search" :"搜索",
