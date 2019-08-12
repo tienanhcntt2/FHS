@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class SlideMenuComponent implements OnInit {
   // menu
   public listmenu: Menu[] = [];
+  public activeState: string ;
+  public numberPosition :number;
   //Contrustor
   constructor(private translate: TranslateService, private router:Router) {
     translate.onLangChange.subscribe((event: LangChangeEvent) =>{
@@ -35,8 +37,11 @@ export class SlideMenuComponent implements OnInit {
       { id: 4, icon: "assets/image/temp.png", title:  this.translate.instant("menu.Temperature"), path: "/wind/temperature" },
       { id: 5, icon: "assets/image/hum.png", title: this.translate.instant("home.Humidity"), path: "/wind/humidity" }
     ];
+    this.activeState =this.listmenu[this.numberPosition].title;
   }
   sendUrl(i){
+    this.numberPosition = i;
+    this.activeState = this.listmenu[i].title;
     this.router.navigateByUrl(this.listmenu[i].path);
   }
 }

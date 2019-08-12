@@ -11,6 +11,7 @@ import { Paho } from 'ng2-mqtt/mqttws31'
 import { Winds } from 'src/app/model/Winds';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { stringify } from 'querystring';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 
 
 
@@ -31,6 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') drawer;
   @ViewChild(NavComponent)
   private nav: NavComponent;
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
 
   public icon_val: string;
   public flags: boolean = false;
@@ -112,6 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   sendTitle() {
     this.nav.title = 'TODAY';
+    this.slide.numberPosition = 0;
   }
 
 
@@ -169,19 +173,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   async setValueHome(Rainfall: number, WindVelocity: number, WindDegree: number, Humidity: number) {
 
     this.winds = [{
-      name: this.translateService.instant("home.rainfall"), number: Rainfall, donvi: "mm", min: Rainfall + " mm", max: Rainfall + " mm"
+      name: this.translateService.instant("home.rainfall"), number: this.splitNumber(Rainfall), donvi: "mm", min: this.splitNumber(Rainfall) + " mm", max: this.splitNumber(Rainfall) + " mm", link:"/wind/rainfall"
     },
     {
-      name: this.translateService.instant("home.windspeed"), number: WindVelocity, donvi: "km/h", min: WindVelocity + " km/h", max: WindVelocity + " km/h"
+      name: this.translateService.instant("home.windspeed"), number:this.splitNumber(WindVelocity) , donvi: "km/h", min: this.splitNumber(WindVelocity) + " km/h", max: this.splitNumber(WindVelocity) + " km/h", link:"/wind/speed"
     },
     {
-      name: this.translateService.instant("home.winddriction"), number: WindDegree, donvi: "km/h", min: WindDegree + " km/h", max: WindDegree + " km/h"
+      name: this.translateService.instant("home.winddriction"), number: this.splitNumber(WindDegree), donvi: "km/h", min: this.splitNumber(WindDegree) + " km/h", max: this.splitNumber(WindDegree) + " km/h", link:"/wind/direction"
     },
     {
-      name: this.translateService.instant("home.Humidity"), number: Humidity, donvi: "%", min: Humidity + " %", max: Humidity + " %"
+      name: this.translateService.instant("home.Humidity"), number: this.splitNumber(Humidity), donvi: "%", min: this.splitNumber(Humidity) + " %", max: this.splitNumber(Humidity) + " %", link:"/wind/humidity"
     }
     ];
-    console.log("sdksdsjdskj : " + this.splitNumber(WindVelocity, 1));
+    
   }
 
   private getdataHome() {
@@ -217,16 +221,25 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private splitNumber(humidity: number, limit: number) {
+
+
+  public splitNumber(humidity: number):string {
+    if(humidity == 0){
+      return 0+"";
+    }
     var str = humidity.toString();
     var numarray = str.split('.');
     var a = new Array();
     a = numarray;
-    let numberTwo = a[1].toString;
-
-    return a[0].toString + "." + numberTwo.sub;
+    return a[0] +"."+this.numberFist(parseInt(a[1],10));
   }
-
+  private numberFist(n :number) : number{
+    var length = n.toString().length;
+    if(length>=1){
+      return  parseInt(n.toString().substring(0, 1));
+    }
+    return 0;
+  }
 }
 
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 export interface WindValue {
     arg: string;
     val1: number;
@@ -274,7 +275,7 @@ let WindRoseDateEight : WindValue []=[{
     val8: 0
 }]
 @Injectable()
-export class Service {
+export class ConfigDataSpeed {
     getWindRoseData() {
         
         return WindRoseDate;

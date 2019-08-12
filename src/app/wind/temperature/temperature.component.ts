@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { NavComponent } from 'src/app/nav/nav.component';
 import { listMenu } from 'src/app/config/listmenu';
 import { CommonService } from 'src/app/service/CommonService';
@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 
 import {  DxChartComponent } from 'devextreme-angular';
 import { IntlService } from '@progress/kendo-angular-intl';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
@@ -27,8 +28,9 @@ export class TemperatureComponent implements OnInit {
 
   @ViewChild(NavComponent)
   private nav: NavComponent;
-
-  @ViewChild("chartVar") chart: DxChartComponent;
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
 
   private enDate: any;
   private startDate:any;
@@ -65,6 +67,8 @@ export class TemperatureComponent implements OnInit {
   private txt_time_start: string ;
   private txt_time_end: string ;
   private txt_seach_date: any;
+  public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
+  public nameColumnLeft: string ="col-sm-12 col-md-7 ";
   /**
    * constructor
    * @param commoService 
@@ -82,6 +86,11 @@ export class TemperatureComponent implements OnInit {
       this.sendTitle();
 
     });
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
     this.selectToday = new Date();
     let date = new Date();
     this.enDate = new Date();
@@ -205,32 +214,30 @@ export class TemperatureComponent implements OnInit {
    */
   sendTitle() {
     this.nav.title = this.translate.instant("menu.Temperature");
+    this.slide.numberPosition = 4;
   }
   /*
   * function show icon left and right
   */
-  functionShowHide() {
-    this.numbercheckShow += 1;
-    //this.chart.instance.dispose();
-    if (this.numbercheckShow % 2 == 0) {
-      this.okma = true;
-      this.widthleft = 60;
-      this.widthright = 40;
-      this.icon_show = "assets/image/icon_hiden.png";
-      this.chart.instance.render();
-    } else {
-      this.okma = false;
-      this.widthleft = 97;
-      this.widthright = 3; 
-      this.icon_show = "assets/image/icon_show.png";
-      
-      
-    }
-  
-
+ functionShowHide() {
+  this.numbercheckShow += 1;
+  if (this.numbercheckShow % 2 == 0) {
+    this.okma = true;
+    this.nameColumnLeft = "col-sm-12 col-md-7";
+    this.nameColumnRight ="col-sm-12 col-md-5 colum_right";
+    
+  } else {
+    this.okma = false;
+    this.nameColumnLeft = "col-sm-12 col-md-11 mx-auto";
+    this.nameColumnRight = "col-sm-12 col-md-1 colum_right";
+    
   }
-
-
+  if(window.innerWidth <=768){
+    this.showIconMobile();
+   }else{
+     this.showIconDesktop();
+   }
+  }
   /**
    * function show detail table
    * icon change and item
@@ -280,6 +287,12 @@ export class TemperatureComponent implements OnInit {
     }
 
   }
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.chart.instance.print();
+    }
   /**
   * get data
   */
@@ -288,5 +301,28 @@ export class TemperatureComponent implements OnInit {
     this.weatherData = this.weatherService.getDataWeather(
       this.getNumberDate(this.txt_date_start, this.txt_date_end
         ), this.txt_seach_date, this.datePipe);
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    if(window.innerWidth <=768){
+     this.showIconMobile();
+    }else{
+      this.showIconDesktop();
+    }
+  }
+  private  showIconMobile(){
+    if(this.numbercheckShow %2 == 0){
+      this.icon_show ="assets/image/icon_in.png";
+    }else{
+     this.icon_show ="assets/image/icon_below.png";
+    }
+  }
+  private  showIconDesktop(){
+    if(this.numbercheckShow %2 == 0){
+      this.icon_show ="assets/image/icon_hiden.png";
+    }else{
+     this.icon_show ="assets/image/icon_show.png";
+    }
+    
   }
 }

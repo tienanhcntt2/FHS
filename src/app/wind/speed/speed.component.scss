@@ -18,7 +18,7 @@ $turquoise: #1abc9c;
   }
   .example-sidenav{
     width: 12%;
-    height: 100%;
+    min-height: 65vh;
     overflow: hidden;
     display: flex;
   }
@@ -26,7 +26,7 @@ $turquoise: #1abc9c;
 
  .example-sidenav-content {
     width: 100%;
-    min-height: 63vh;
+    min-height: 65vh;
     overflow: hidden;
    
   }
@@ -54,10 +54,10 @@ $turquoise: #1abc9c;
      cursor: pointer;
    }
    .example-sidenav-content .colum_right .detail{
-    padding-top: 20px;
-    padding-left: 2%;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-family:'UTM Avo';
-    
     color: white;
   }
  
@@ -71,33 +71,33 @@ $turquoise: #1abc9c;
     justify-items: center;
   }
 
-  .detail .row kendo-timepicker{
+  kendo-timepicker{
     
     //padding: 3px 5px;
-    text-align: center;
-    
+    width: 100%;
     font-size: 12px;
     border-radius: 2px;
     box-shadow: 1px 2px 10px 0 #031477 !important;
   }
-  .detail .row kendo-datepicker{
+  kendo-datepicker{
     //border: 1px solid #00ffff;
+    width: 100%;
     border-radius: 2px;
     text-align: center;
     box-shadow: 1px 2px 10px 0 #031477 !important;
-
+  
     font-size: 12px;
   }
   
   .detail .row .dain{
-    margin: 20px;
+    
     background: transparent;
     color: white;
     border-radius: 2px;
     border:  1px #3498db solid;
   }
   .detail .row .done{
-    margin: 20px;
+    
     background: #3498db;
     color: white;
    border-radius: 2px;
@@ -128,15 +128,16 @@ $turquoise: #1abc9c;
    .detail table{
     width:100%;
     table-layout: fixed;
+    margin-bottom: 20px;
   }
   .tbl-header{
     // background-color: rgba(255,255,255,0.3);
     background: transparent;
     margin-top: 10px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family:'UTM Avo';
    }
   .tbl-content{
-    height:300px;
+    height:250px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
@@ -161,31 +162,17 @@ $turquoise: #1abc9c;
 
 
 
-::ng-deep #chart-demo {
-    height: auto;
-    width: 100%;
-    
-    margin-left: auto;
-    margin-right: auto;
-}
+
 ::ng-deep #radarChart {
     display: flex;
     justify-content: center;
     align-items: center; 
-    height: 600px;
+    min-height: 100%;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-::ng-deep #chart-demo > .center {
-	text-align: center;
-}
-::ng-deep #chart-demo > .center > div,
-::ng-deep #chart-demo > .center > .dx-widget {
-    display: inline-block;
-    vertical-align: middle;
-}
 
 @media only screen and (max-width: 768px) {
   #first {

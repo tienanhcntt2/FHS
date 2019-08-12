@@ -10,6 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { FhsAuthorizeService } from '@fhs/authorize';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { DxChartComponent } from 'devextreme-angular';
 
 
 @Component({
@@ -25,6 +27,9 @@ export class RanFallComponent implements OnInit {
   @ViewChild('drawer') drawer;
   @ViewChild(NavComponent)
   private nav: NavComponent;
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
   public dataSource: RainFall[];
 
   /**
@@ -46,8 +51,7 @@ export class RanFallComponent implements OnInit {
 
   // value right 
   private numbercheckShow: number = 0;
-  public widthleft: number = 60;
-  public widthright: number = 40;
+
   public icon_show: string = "assets/image/icon_hiden.png";
   okma: boolean = true;
 
@@ -69,6 +73,9 @@ export class RanFallComponent implements OnInit {
   private timerCurrent: Date = new Date();
   private fplagStart: boolean = true;
   private fplagEnd: boolean = true;
+
+  public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
+  public nameColumnLeft: string ="col-sm-12 col-md-7 ";
   /**
    * constructor ranfall
    * @param commoService 
@@ -82,13 +89,16 @@ export class RanFallComponent implements OnInit {
      
       this.sendTitle();
     });
-    if(window.innerWidth <770){
-  
-    }
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
     this.selectToday = new Date();
     let date = new Date();
     this.enDate = new Date();
     this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 1)));
+
   }
 
   ngOnInit() {
@@ -124,9 +134,26 @@ export class RanFallComponent implements OnInit {
 
  @HostListener('window:resize', ['$event'])
 onResize(event?) {
-  if(window.innerWidth <=770){
-   
+  if(window.innerWidth <=768){
+   this.showIconMobile();
+  }else{
+    this.showIconDesktop();
   }
+}
+private  showIconMobile(){
+  if(this.numbercheckShow %2 == 0){
+    this.icon_show ="assets/image/icon_in.png";
+  }else{
+   this.icon_show ="assets/image/icon_below.png";
+  }
+}
+private  showIconDesktop(){
+  if(this.numbercheckShow %2 == 0){
+    this.icon_show ="assets/image/icon_hiden.png";
+  }else{
+   this.icon_show ="assets/image/icon_show.png";
+  }
+  
 }
   /**
     * show open menu in teamplerature
@@ -198,6 +225,7 @@ onResize(event?) {
    */
   sendTitle() {
     this.nav.title = this.translate.instant("home.rainfall");
+    this.slide.numberPosition =1;
   }
   /*
   * function show icon left and right
@@ -206,17 +234,21 @@ onResize(event?) {
     this.numbercheckShow += 1;
     if (this.numbercheckShow % 2 == 0) {
       this.okma = true;
-      this.widthleft = 60;
-      this.widthright = 40;
-      this.icon_show = "assets/image/icon_hiden.png";
-
+      this.nameColumnLeft = "col-sm-12 col-md-7";
+      this.nameColumnRight ="col-sm-12 col-md-5 colum_right";
+      
     } else {
       this.okma = false;
-      this.widthleft = 97;
-      this.widthright = 3;
-      this.icon_show = "assets/image/icon_show.png";
+      this.nameColumnLeft = "col-sm-12 col-md-11 mx-auto";
+      this.nameColumnRight = "col-sm-12 col-md-1 colum_right";
+      
     }
-
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
+     
   }
   /**
    * function show detail table
@@ -265,7 +297,15 @@ onResize(event?) {
     
     this.getDataRainFall(this.urlRainAPi(),this.getToken());
   }
-
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.chart.instance.print();
+      
+    
+    }
+  
   /**
    * get data rainFall
    * @param numberDate 

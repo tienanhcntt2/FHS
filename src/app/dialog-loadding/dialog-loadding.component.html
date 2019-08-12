@@ -1,0 +1,19 @@
+<div *ngIf ="key===1" >
+        <div class="row justify-content-center">
+            <div class="col-6">
+                    <div class="loader"></div>
+                    <h2>Loadding</h2>
+            </div>
+        </div>
+        
+
+</div>
+<div *ngIf ="key===2">
+        <div class="row justify-content-center">
+                <h4 class="col-12" style="text-align: center">Please Login</h4>
+                    <div class="col-12">
+                            <button class="col-6 done" (click)="onNoClick()">Cancel</button>
+                            <button class="col-6 dain" (click)="login()">LOGIN</button>
+                    </div>
+            </div> 
+</div>
