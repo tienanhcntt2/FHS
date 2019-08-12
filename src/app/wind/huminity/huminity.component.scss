@@ -17,7 +17,7 @@ $turquoise: #1abc9c;
   }
   .example-sidenav{
     width: 12%;
-    height: 100%;
+    min-height: 65vh;
     overflow: hidden;
     display: flex;
   }
@@ -25,7 +25,7 @@ $turquoise: #1abc9c;
 
  .example-sidenav-content {
     width: 100%;
-    min-height: 63vh;
+    min-height: 65vh;
     overflow: hidden;
    
   }

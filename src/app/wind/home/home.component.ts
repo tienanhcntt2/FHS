@@ -231,8 +231,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     var numarray = str.split('.');
     var a = new Array();
     a = numarray;
-  
-    return a[0] +"."+this.numberFist(parseInt(a[1]));
+    return a[0] +"."+this.numberFist(parseInt(a[1],10));
   }
   private numberFist(n :number) : number{
     var length = n.toString().length;

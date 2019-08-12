@@ -11,6 +11,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { FhsAuthorizeService } from '@fhs/authorize';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { DxChartComponent } from 'devextreme-angular';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class RanFallComponent implements OnInit {
   private nav: NavComponent;
   @ViewChild(SlideMenuComponent)
   private slide:SlideMenuComponent;
- 
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
   public dataSource: RainFall[];
 
   /**
@@ -247,6 +248,7 @@ private  showIconDesktop(){
      }else{
        this.showIconDesktop();
      }
+     
   }
   /**
    * function show detail table
@@ -295,7 +297,15 @@ private  showIconDesktop(){
     
     this.getDataRainFall(this.urlRainAPi(),this.getToken());
   }
-
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.chart.instance.print();
+      
+    
+    }
+  
   /**
    * get data rainFall
    * @param numberDate 

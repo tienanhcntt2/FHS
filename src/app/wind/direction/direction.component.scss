@@ -16,7 +16,7 @@
 
   .example-sidenav-content {
     width: 100%;
-    min-height: 63vh;
+    min-height: 65vh;
     overflow: hidden;
   }
 
@@ -36,24 +36,23 @@
     cursor: pointer;
   }
   .example-sidenav-content .colum_right .detail{
-    font-family:'UTM Avo';
     padding-top: 30px;
     padding-left: 2%;
     padding-right: 2%;
-  
+    font-family:'UTM Avo';
+    
     color: white;
- }
+  }
  .detail .row .dain{
     
   background: transparent;
   color: white;
   border-radius: 2px;
-  
   border:  1px #3498db solid;
 }
 .detail .row .done{
   
-background: #3498db;
+  background: #3498db;
   color: white;
  border-radius: 2px;
   border:  1px #3498db solid;

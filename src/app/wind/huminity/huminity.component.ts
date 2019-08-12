@@ -11,6 +11,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Weather, WeatherService } from 'src/app/model/Weather';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { DxChartComponent } from 'devextreme-angular';
 
 
 
@@ -26,6 +27,9 @@ export class HuminityComponent implements OnInit {
   private nav: NavComponent;
   @ViewChild(SlideMenuComponent)
   private slide:SlideMenuComponent;
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
+
+
   private enDate: any;
   private startDate:any;
   public timeStart: Date = new Date();
@@ -73,7 +77,7 @@ export class HuminityComponent implements OnInit {
    * @param httpClient 
    * @param datePipe 
    */
-  constructor(private commoService: CommonService, private httpClient: HttpClient, private datePipe: DatePipe,
+  constructor(private commoService: CommonService, private datePipe: DatePipe,
     private translate: TranslateService, private weatherService: WeatherService,private intl: IntlService) {
   
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -315,6 +319,13 @@ export class HuminityComponent implements OnInit {
       this.getData();
     }
   }
+ /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.chart.instance.print();
+    }
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     if(window.innerWidth <=768){

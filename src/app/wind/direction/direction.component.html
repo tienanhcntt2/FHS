@@ -66,7 +66,7 @@
           <div class="row" style="margin-top: 20px">
             <div class="col-6">
               <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-              <button class="col-6 dain" (click)="printfChart">{{'rainFall.printf' | translate}}</button>
+              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
             </div>
 
           </div>
@@ -102,7 +102,7 @@
               <tbody>
                 <tr *ngFor='let dt of stockPrices'>
 
-                  <td >{{dt.timestamp | date: 'yyyy/MM/dd : HH:mm:ss'}}</td>
+                  <td >{{dt.timestamp}}</td>
                   <td >{{dt.direction}}</td>
                   <td >AST</td>
                 </tr>

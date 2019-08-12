@@ -30,7 +30,7 @@ export class TemperatureComponent implements OnInit {
   private nav: NavComponent;
   @ViewChild(SlideMenuComponent)
   private slide:SlideMenuComponent;
-  @ViewChild("chartVar") chart: DxChartComponent;
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
 
   private enDate: any;
   private startDate:any;
@@ -287,6 +287,12 @@ export class TemperatureComponent implements OnInit {
     }
 
   }
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.chart.instance.print();
+    }
   /**
   * get data
   */

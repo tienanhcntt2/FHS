@@ -9,7 +9,7 @@
 
       <!-- chart cricel  -->
       
-        <dx-polar-chart #chart id="radarChart" palette="soft" [dataSource]="windRose"
+        <dx-polar-chart id="radarChart" palette="soft" [dataSource]="windRose"
           (onLegendClick)="onLegendClick($event)">
           <!-- hien thi toc do gio -->
           <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name">
@@ -19,7 +19,7 @@
           </dxo-margin>
           <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true">
           </dxo-argument-axis>
-
+          
         </dx-polar-chart>
 
       
@@ -76,7 +76,7 @@
           <div class="row" style="margin-top: 20px">
             <div class="col-6">
               <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-              <button class="col-6 dain" (click)="printfChart">{{'rainFall.printf' | translate}}</button>
+              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
             </div>
 
           </div>

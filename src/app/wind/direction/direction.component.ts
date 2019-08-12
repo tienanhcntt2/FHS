@@ -12,6 +12,9 @@ import { Fengxiang } from 'src/app/model/fengxiang';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { FhsAuthorizeService } from '@fhs/authorize';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { DxChartComponent } from 'devextreme-angular';
+import { MatDialog } from '@angular/material';
+import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
 
 @Component({
   selector: 'app-direction',
@@ -22,12 +25,12 @@ export class DirectionComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer') drawer;
 
-  @ViewChild('chart') chart;
 
   @ViewChild(NavComponent)
   private nav: NavComponent;
   @ViewChild(SlideMenuComponent)
   private slide:SlideMenuComponent;
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
   
   private enDate: any;
   private startDate:any;
@@ -65,6 +68,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
   public nameColumnLeft: string ="col-sm-12 col-md-7 ";
   public icon_show: string = "assets/image/icon_hiden.png";
   private numbercheckShow: number = 0;
+  
   /**
    * constructor direction
    * @param commoService 
@@ -76,7 +80,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
    */
   constructor(private commoService: CommonService,  private datePipe: DatePipe,
     private userService: UserServicer,private translate:TranslateService, private intl: IntlService,private http: HttpClient,
-    private auth : FhsAuthorizeService ) {
+    public dialog: MatDialog) {
       translate.onLangChange.subscribe((event: LangChangeEvent) => {
      
         this.sendTitle();
@@ -316,12 +320,14 @@ valueCustomizeText(arg: any) {
    * @param auth_token 
    */
   private getDataWinddirection(url: string, auth_token: string) {
+    this.openDialog(1);
     url = url +"start="+this.nav.txt_start_date +"&end="+this.nav.txt_end_date;
   
     return this.http.get<Fengxiang[]>(url, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + auth_token)
     }).subscribe(
       result => {
+        this.dialog.closeAll();
         this.stockPrices = result;
 
       },
@@ -335,7 +341,13 @@ valueCustomizeText(arg: any) {
     return localStorage.getItem("access_token");
   }
   clickSeach(){
-    this.getDataWinddirection(this.urlData,this.getToken());
+   
+    if(this.getToken() ===""){
+      this.openDialog(2);
+    }else{
+      this.getDataWinddirection(this.urlData,this.getToken());
+    }
+    
   }
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -359,5 +371,19 @@ valueCustomizeText(arg: any) {
      this.icon_show ="assets/image/icon_show.png";
     }
     
+  }
+  animal: string;
+  name: string;
+
+  openDialog(position:number): void {
+    const dialogRef = this.dialog.open(DialogLoaddingComponent, {
+       width:"400px",
+       height :"auto",
+      data: {name: this.name, animal: this.animal,key:position},disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

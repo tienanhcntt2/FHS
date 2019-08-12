@@ -17,6 +17,7 @@
           <dxi-series valueField="value3" name="16:00 - 23:59" color="#07ccd9">
 
           </dxi-series>
+         
           <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"
             selectionMode="allArgumentPoints">
             <dxo-label [visible]="false" [format]="{
@@ -73,7 +74,7 @@
           <div class="row" style="margin-top: 20px">
             <div class="col-6">
               <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-              <button class="col-6 dain" (click)="printfChart">{{'rainFall.printf' | translate}}</button>
+              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
             </div>
 
           </div>

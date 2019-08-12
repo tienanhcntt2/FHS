@@ -23,6 +23,7 @@ import {
   MatCardModule,
   MatListModule,
   MatExpansionModule,
+  MatDialogModule,
   MatFormFieldModule
 } from '@angular/material';
 
@@ -63,6 +64,8 @@ import 'hammerjs';
 import { ClockService } from './service/ClockService';
 import { IntlModule } from '@progress/kendo-angular-intl';
 import { environment } from 'src/environments/environment';
+import { ConfigDataSpeed } from './model/WindDescription';
+import { DialogLoaddingComponent } from './dialog-loadding/dialog-loadding.component';
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.Languager);
@@ -83,7 +86,8 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     TemperatureComponent,
     HuminityComponent,
-    RanFallComponent
+    RanFallComponent,
+    DialogLoaddingComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +113,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     DxCircularGaugeModule,
     DxPolarChartModule,
     CommonModule,
+    MatDialogModule,
     DxSelectBoxModule,
     DxChartModule,
     DxTooltipModule,
@@ -125,7 +130,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [
-    DatePipe, CommonService, UserServicer, Service, ServiceHuminity, TeamperatureService, WeatherService, ClockService,
+    DatePipe, CommonService, UserServicer,ConfigDataSpeed, ServiceHuminity, TeamperatureService, WeatherService, ClockService,
     {
       provide: DateAdapter, useClass: AppDateAdapter
     },
@@ -133,6 +138,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
       provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS
     }
   ],
+  entryComponents: [DialogLoaddingComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

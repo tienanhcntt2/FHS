@@ -8,22 +8,19 @@ import { FormControl } from '@angular/forms';
 import { MatRadioButton } from '@angular/material';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { CommonService } from 'src/app/service/CommonService';
-import { InfoService } from 'src/app/service/info.Servicer';
 import { NavComponent } from 'src/app/nav/nav.component';
 
-import { WindRose, WindDescription, WindValue, Service } from 'src/app/model/WindDescription';
+import { WindRose, WindDescription, WindValue, ConfigDataSpeed } from 'src/app/model/WindDescription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
-import { Router } from '@angular/router';
-import { FhsAuthorizeService } from '@fhs/authorize';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { DxChartComponent, DxComponent, DxPolarChartComponent } from 'devextreme-angular';
 
 
 @Component({
   selector: 'app-speed',
   templateUrl: './speed.component.html',
-  styleUrls: ['./speed.component.scss'],
-  providers: [Service]
+  styleUrls: ['./speed.component.scss']
 })
 export class SpeedComponent implements OnInit {
 
@@ -31,19 +28,18 @@ export class SpeedComponent implements OnInit {
   //  value item 
   private subscription: Subscription;
   private showTable: boolean = true;
-
+  
   /**
    * item chirld 
    */
   @ViewChild('drawer') drawer;
-  @ViewChild('chart') chart;
-
 
   @ViewChild(NavComponent)
   private nav: NavComponent;
   @ViewChild(SlideMenuComponent)
   private slide:SlideMenuComponent;
-  
+  @ViewChild(DxPolarChartComponent) radarChart: DxPolarChartComponent;
+
   private enDate: any;
   private startDate: any;
   public timeStart: Date = new Date();
@@ -73,10 +69,6 @@ export class SpeedComponent implements OnInit {
   public clickOpen: number = 0;
   public numberCheck: number = 0;
   public icon_val: string = "";
-
-
-
-
   /*
    * data windrose for serve
    */
@@ -108,9 +100,8 @@ export class SpeedComponent implements OnInit {
    * @param infoService 
    * @param userService 
    */
-  constructor(private datePipe: DatePipe, private commoService: CommonService, private infoService: InfoService,
-    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private router: Router, private service: Service,
-    private auth: FhsAuthorizeService) {
+  constructor(private datePipe: DatePipe, private commoService: CommonService, 
+    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private dataConfig: ConfigDataSpeed) {
 
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
@@ -137,8 +128,8 @@ export class SpeedComponent implements OnInit {
     // this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
     this.txt_time_end = this.formatValue(this.timeEnd) + ":00";
 
-    this.windRose = this.service.getWindRoseData();
-    this.windSources = this.service.getWindSources();
+    this.windRose = this.dataConfig.getWindRoseData();
+    this.windSources = this.dataConfig.getWindSources();
 
 
     // speding
@@ -176,7 +167,12 @@ export class SpeedComponent implements OnInit {
       series.show();
     }
   }
-
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.radarChart.instance.print();
+    }
   /**
    * event click change date when select
    * @param value 
@@ -307,7 +303,6 @@ export class SpeedComponent implements OnInit {
         this.checkData = true;
       },
       err => {
-        console.log("Error- something is wrong!")
         //this.router.navigateByUrl("**");
         this.checkData = false;
 
@@ -510,8 +505,8 @@ export class SpeedComponent implements OnInit {
       this.getdataSpeed(this.urlSpeed, this.getToken());
     } else {
 
-      this.windRose = this.service.getWindRoseDateEight();
-      this.windSources = this.service.getWindSources();
+      this.windRose = this.dataConfig.getWindRoseDateEight();
+      this.windSources = this.dataConfig.getWindSources();
     }
 
   }
@@ -520,8 +515,8 @@ export class SpeedComponent implements OnInit {
     if (this.checkSeach == true) {
       this.getdataSpeed(this.urlSpeed, this.getToken());
     } else {
-      this.windRose = this.service.getWindRoseData();
-      this.windSources = this.service.getWindSources();
+      this.windRose = this.dataConfig.getWindRoseData();
+      this.windSources = this.dataConfig.getWindSources();
     }
 
   }
