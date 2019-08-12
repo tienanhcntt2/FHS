@@ -6,7 +6,6 @@ import { WindComponent } from './wind/wind/wind.component';
 import { HomeComponent } from './wind/home/home.component';
 import { PageNotFoundComponent } from './util/page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { RanFallComponent } from './wind/ranfall/ran-fall.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
@@ -44,15 +43,8 @@ const routes: Routes = [
             component: RanFallComponent
         }
     ]
-  },
-  {
-    path: 'login',
-    component : LoginComponent
-  },
-  {
-    path: 'register',
-    component : RegisterComponent
-  },
+  }, 
+ 
   {
     path: '',
     redirectTo: 'wind/home',

@@ -28,9 +28,16 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/devextreme/dist/css/dx.common.css",
+              "node_modules/devextreme/dist/css/dx.light.css",
+              "node_modules/@progress/kendo-theme-default/dist/all.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -53,8 +60,16 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
                 }
               ]
             }
@@ -68,6 +83,9 @@
           "configurations": {
             "production": {
               "browserTarget": "fhs:build:production"
+            },
+            "staging": {
+              "browserTarget": "your-project-name:build:staging"
             }
           }
         },

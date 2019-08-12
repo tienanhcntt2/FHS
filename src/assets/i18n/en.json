@@ -23,7 +23,7 @@
         "phone" : "Phone",
         "email" : "Email",
         "fax" : "Fax",
-        "detailAdress" :"Vung Ang Economic Zone,Ky Long Ward, Ky Anh Town,HaTinh Provice"
+        "detailAdress" :"Vung Ang Economic Zone, Ky Long Ward,\n Ky Anh Town, Ha Tinh Province"
     },
     "rainFall" :{
         "search" :"Search",

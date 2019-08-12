@@ -13,209 +13,53 @@ $turquoise: #1abc9c;
   display: table;
   
 }
-nav{
-  width: 100%;
+.nav{
   background-color: white;
-  height: 5%;
- box-shadow: 1px 2px 10px 0 #000d72 !important;
-  clear: both;
-  display: flex;
-  align-items: center;
+  box-shadow: 1px 2px 10px 0 #000d72 !important;
   font-family:'UTM Avo';
-  justify-content: center;
- }
-  
-  nav .menu{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  nav .menu .colum_left{
-      width: 12%;
-      float: left;
-      height: 100%;
-      display: flex;
-      background-color: #032ea3;
-      align-items: center;
-      justify-content: center;
-      img{
-        cursor: pointer;
-      }
-  } 
-  nav .menu .colum_center{
-      width: 12%;
-      float: left;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-right:2px #1491d0 solid;
-      span{
-        color: #00eaf9;
-        font-size: 20px;
-        font-family: 'UTMAvoBold';
-      }
-  }
-  nav .menu .colum_right{
-      width: 70%;
-      float: right;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      
-    
-      .colum_one{
-        width: 30%;
-        float: left;
-        text-align: center;
-        font-size: 18px;
-        
-      }
-      .colum_two{
-        width: 10%;
-        float: left;
-        text-align: center;
-        font-size: 18px;
-      }
-    }
-    nav .menu .colum_home{
-      width: 50%;
-      float: right;
-      display: flex;
-      margin-left: 20px;
-      align-items: center;
-      .colum_one{
-        width: 30%;
-        float: left;
-        text-align: center;
-       
-        font-size: 18px;
-      }
-    }
-  
-@media only screen and (max-width : 600px){
-  nav .menu .colum_left{
-    width: 20%;
-    float: left;
-    height: 100%;
-    display: flex;
-    background-color: #0b3cb1;
-    align-items: center;
-    justify-content: center;
-    img{
-      cursor: pointer;
-    }
-} 
-nav .menu .colum_center{
-    width: 20%;
-    float: left;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    span{
-      color: #3498db;
-      font-size: 18px;
-    }
+  background-color: #032ea3;
+  min-height: 5vh;
+  margin: 0;
 }
-nav .menu .colum_right{
-  width: 60%;
+.bgMenu{
+  background: white;
+  min-height: 5vh;
+  margin-top: 0px
+}
+.colums{
   display: flex;
+  height: 100%;
+  align-items: center;
+  font-size: 16px;
+}
+.iconMenu{
+  height: 100%;
+  
+  display: flex;
+ 
   align-items: center;
   justify-content: center;
-}
-nav .menu .colum_home{
-  width: 70%;
-  float: right;
-  display: flex;
-  margin-left: 10px;
-  align-items: center;
-  .colum_one{
-    width: 20%;
-    float: left;
-    text-align: center;
-   
-    font-size: 18px;
+  img{
+    cursor: pointer;
   }
 }
-}
-@media (min-width: 1025px) and (max-width: 1280px) {
-  nav .menu .colum_home{
-    width: 70%;
-    float: right;
-    display: flex;
-    margin-left: 20px;
-    align-items: center;
-    .colum_one{
-      width: 30%;
-      float: left;
-      text-align: center;
-     
-      font-size: 18px;
-    }
-  }
+span{
+  color: #00eaf9;
+  font-size: 20px;
+  font-family: 'UTMAvoBold';
 
 }
-@media only screen
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (-webkit-min-device-pixel-ratio: 1) {
-
-  nav .menu .colum_left{
-    width: 15%;
-    float: left;
-    height: 100%;
-    display: flex;
-    background-color: #0b3cb1;
-    align-items: center;
-    justify-content: center;
-    img{
-      cursor: pointer;
-    }
-} 
-nav .menu .colum_center{
-    width: 15%;
-    float: left;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    span{
-      color: #3498db;
-      font-size: 18px;
-    }
+.border_right{
+  border-right:1px #1491d0 solid;
 }
-nav .menu .colum_right{
-  width: 70%;
-  float: right;
-  display: flex;
+ul li p{
+  font-size: 20px;
+ 
   align-items: center;
   justify-content: center;
-  
-
-  .colum_one{
-    width: 30%;
-    float: left;
-    text-align: center;
-    font-size: 18px;
-  }
-  .colum_two{
-    width: 10%;
-    float: left;
-    text-align: center;
-    font-size: 18px;
-  }
+  font-family:'UTM Avo';
 }
-nav .menu .colum_home{
-  width: 60%;
-  float: right;
-  display: flex;
-  margin-left: 10px;
-  align-items: center;
-  .colum_one{
-    width: 30%;
-    float: left;
-    text-align: center;
-   
-    font-size: 18px;
-  }
-}
+ul li p img{
+  margin-right: 5px;
+  vertical-align: middle;
 }

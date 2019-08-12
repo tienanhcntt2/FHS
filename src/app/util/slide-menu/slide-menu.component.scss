@@ -13,10 +13,11 @@ $turquoise: #1abc9c;
 .listmenu{
   
     background:$color_0b3cb1;
-    height: 100%;
+    height: auto;
  }
 .listmenu .menu{
       list-style: none;
+      min-height: 65vh;
 }
 .listmenu .menu li {
         padding: 16px 32px;
@@ -39,6 +40,7 @@ $turquoise: #1abc9c;
   text-decoration: none;
   color:#00eaf9; 
 }
-.listmenu .menu li .active {
-  background-color: #00eaf9;
+li.active {
+  background-color: $color_2a34ff;
 }
+

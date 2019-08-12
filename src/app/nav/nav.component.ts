@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
 import { ClockService } from '../service/ClockService';
+import { FhsAuthorizeService } from '@fhs/authorize';
 
 @Component({
   selector: 'app-nav',
@@ -18,7 +19,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
 
   // menu click open
-  icon_val: string = "../../assets/image/icon_menu.png";
+  icon_val: string = "assets/image/icon_menu.png";
   title: string = "Home";
   public txt_start_date: string = "2019/03/03T00:00";
   public txt_end_date: string = "2019/03/03T00:30";
@@ -27,7 +28,7 @@ export class NavComponent implements OnInit, OnDestroy {
   private txt_zhan : string;
 
   // value nav
-  private flagsShow: boolean = true;
+  public flagsShow: boolean = true;
   public showZhan: boolean = true;
   // value today
   private location: string =" Formosa Ha Tinh";
@@ -36,7 +37,8 @@ export class NavComponent implements OnInit, OnDestroy {
   private timerOk : string;
   private _clockSubscription: Subscription;
 
-  constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService) {
+  constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService,
+    private auth:FhsAuthorizeService) {
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.selectAdrees = translateService.instant("nav.adrress");
@@ -60,13 +62,13 @@ export class NavComponent implements OnInit, OnDestroy {
     });
   }
   checkLogin() {
-    localStorage.setItem("access_token","access_token");
-    if (localStorage.getItem("access_token").length > 0) {
-      this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
-    } else {
-      alert("PLEASE LOGIN");
-    }
-
+  
+    // if (localStorage.getItem("access_token").length > 0) {
+    //   this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
+    // } else {
+    //   alert("PLEASE LOGIN");
+    // }
+    this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
   }
   showFunctionHeader() {
     //this.selectAdrees = this.translateService.instant("nav.adrress");

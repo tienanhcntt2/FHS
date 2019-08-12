@@ -23,6 +23,7 @@ import {
   MatCardModule,
   MatListModule,
   MatExpansionModule,
+  MatDialogModule,
   MatFormFieldModule
 } from '@angular/material';
 
@@ -43,7 +44,7 @@ import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartMo
 import { SlideMenuComponent } from './util/slide-menu/slide-menu.component';
 
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+
 import { UserServicer } from './service/user.Servicer';
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
@@ -58,11 +59,16 @@ import { WeatherService } from './model/Weather';
 
 import { DateAdapter, MAT_DATE_FORMATS } from "@angular/material";
 import { AppDateAdapter, APP_DATE_FORMATS } from './util/date.adapter';
-import { TimePickerModule } from '@progress/kendo-angular-dateinputs';
+import { TimePickerModule, DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import 'hammerjs';
 import { ClockService } from './service/ClockService';
+import { IntlModule } from '@progress/kendo-angular-intl';
+import { environment } from 'src/environments/environment';
+import { ConfigDataSpeed } from './model/WindDescription';
+import { DialogLoaddingComponent } from './dialog-loadding/dialog-loadding.component';
+
 export function translateHttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, environment.Languager);
 }
 
 @NgModule({
@@ -78,10 +84,10 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     PageNotFoundComponent,
     SlideMenuComponent,
     LoginComponent,
-    RegisterComponent,
     TemperatureComponent,
     HuminityComponent,
-    RanFallComponent
+    RanFallComponent,
+    DialogLoaddingComponent
   ],
   imports: [
     BrowserModule,
@@ -107,11 +113,13 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     DxCircularGaugeModule,
     DxPolarChartModule,
     CommonModule,
+    MatDialogModule,
     DxSelectBoxModule,
     DxChartModule,
     DxTooltipModule,
     TimePickerModule,
     AppRoutingModule,
+    IntlModule, DateInputsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -122,13 +130,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [
-    DatePipe, CommonService, UserServicer, Service, ServiceHuminity, TeamperatureService, WeatherService,ClockService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MyInterceptor,
-      multi: true,
-    }
-    ,
+    DatePipe, CommonService, UserServicer,ConfigDataSpeed, ServiceHuminity, TeamperatureService, WeatherService, ClockService,
     {
       provide: DateAdapter, useClass: AppDateAdapter
     },
@@ -136,6 +138,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
       provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS
     }
   ],
+  entryComponents: [DialogLoaddingComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

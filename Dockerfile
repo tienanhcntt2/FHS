@@ -1,11 +1,11 @@
-# stage 1
-FROM node:latest as node
-WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm run build --prod
+FROM node:stretch-slim 
 
-# stage 2
-FROM nginx:alpine
-COPY --from=node /app/dist/fhs /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+## Install http-server
+RUN npm install -g superstatic
+
+WORKDIR /app
+COPY /dist/fhs .
+
+# EXPOSE $PORT
+ENTRYPOINT superstatic --host 0.0.0.0 --port 80 --gzip $USE_GZIP --debug $LOG_REQUESTS
+# CMD ["superstatic" ,"--port 80"]

@@ -20,14 +20,14 @@
     },
     "footer" :{
         "address" : "Địa chỉ",
-        "phone" : "Phone",
+        "phone" : "Điện thoại",
         "email" : "Email",
         "fax" : "Fax",
-        "detailAdress" :"Khu kinh tế Vũng Áng, Phường Kỳ Long, thị xã Kỳ Anh, Tỉnh Hà"
+        "detailAdress" :"Khu kinh tế Vũng Áng, Phường Kỳ Long, Thị xã Kỳ Anh, Tỉnh Hà Tĩnh."
     },
     "rainFall" :{
         "search" :"Tìm kiếm",
-        "printf" : "In",
+        "printf" : "Printf",
         "showdata" :"Hiển thị dữ liệu chi tiết",
         "show%" :"Hiển thị theo %",
         "showspeed" :"Hiển thị theo km/h",

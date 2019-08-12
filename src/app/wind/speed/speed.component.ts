@@ -1,29 +1,26 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 
-import { MatDatepickerInputEvent, MatRadioButton } from '@angular/material';
+import { MatRadioButton } from '@angular/material';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { CommonService } from 'src/app/service/CommonService';
-import { InfoService } from 'src/app/service/info.Servicer';
-import { Info } from 'src/app/model/Info';
-import { first } from 'rxjs/operators';
 import { NavComponent } from 'src/app/nav/nav.component';
-import { UserServicer } from 'src/app/service/user.Servicer';
-import { WindRose, WindDescription, WindValue, Service } from 'src/app/model/WindDescription';
+
+import { WindRose, WindDescription, WindValue, ConfigDataSpeed } from 'src/app/model/WindDescription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
-import { Router } from '@angular/router';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { DxChartComponent, DxComponent, DxPolarChartComponent } from 'devextreme-angular';
 
 
 @Component({
   selector: 'app-speed',
   templateUrl: './speed.component.html',
-  styleUrls: ['./speed.component.scss'],
-  providers: [Service]
+  styleUrls: ['./speed.component.scss']
 })
 export class SpeedComponent implements OnInit {
 
@@ -31,23 +28,27 @@ export class SpeedComponent implements OnInit {
   //  value item 
   private subscription: Subscription;
   private showTable: boolean = true;
-
+  
   /**
    * item chirld 
    */
   @ViewChild('drawer') drawer;
-  @ViewChild('end') dateEnd;
-  @ViewChild('start') dateStart;
-  @ViewChild('chart') chart;
-
 
   @ViewChild(NavComponent)
   private nav: NavComponent;
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
+  @ViewChild(DxPolarChartComponent) radarChart: DxPolarChartComponent;
 
-
+  private enDate: any;
+  private startDate: any;
   public timeStart: Date = new Date();
   public timeEnd: Date = new Date();
-  private checkData : boolean = false;
+  private timerCurrent: Date = new Date();
+  private fplagStart: boolean = true;
+  private fplagEnd: boolean = true;
+  private checkData: boolean = false;
+  private checkSeach: boolean = false;
   /**
    * select date and timer
    */
@@ -58,7 +59,7 @@ export class SpeedComponent implements OnInit {
 
 
   public date = new FormControl(new Date());
-  public nameMaticon: string = "../../assets/image/drop_down.png";
+  public nameMaticon: string = "assets/image/drop_down.png";
   public selectzhan: string = "";
 
   /*
@@ -68,10 +69,6 @@ export class SpeedComponent implements OnInit {
   public clickOpen: number = 0;
   public numberCheck: number = 0;
   public icon_val: string = "";
-
-  enDate: any;
-
-
   /*
    * data windrose for serve
    */
@@ -84,16 +81,17 @@ export class SpeedComponent implements OnInit {
   private windRoseData: WindRose[];
   // show hide
   public okma: boolean = true;
-  private selectToday : Date;
+  private selectToday: Date;
 
   /**
    * list table 
    */
   private listNametable: string[] = ['ARG', 'Val 1', 'Val 2', 'Val 3', 'Val 4', 'Val 5', 'Val 6', 'Val 7', 'Val 8'];
   private urlSpeed: string = "http://10.199.15.95/mops/Meteorology/";
-  private txt_zhan :string;
+  private txt_zhan: string;
 
-
+  public nameColumnRight: string = "col-sm-12 col-md-5 colum_right";
+  public nameColumnLeft: string = "col-sm-12 col-md-7 ";
   /**
    * 
    * @param datePipe 
@@ -102,41 +100,44 @@ export class SpeedComponent implements OnInit {
    * @param infoService 
    * @param userService 
    */
-  constructor(private datePipe: DatePipe, private commoService: CommonService, private infoService: InfoService, private userService: UserServicer,
-    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private router:Router,private service: Service) {
+  constructor(private datePipe: DatePipe, private commoService: CommonService, 
+    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private dataConfig: ConfigDataSpeed) {
 
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.sendTitle();
     });
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
     this.selectToday = new Date();
     let date = new Date();
-    this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate()-6)));
+    this.enDate = new Date();
+    this.startDate = new Date(this.datePipe.transform(date.setDate(date.getDate() - 1)));
   }
   /**
    * onint
    */
   ngOnInit() {
     // chien cha
-    this.txt_zhan ="sixteenwindrose?";
-    
+    this.txt_zhan = "sixteenwindrose?";
+
     this.txt_time_start = this.formatValue(this.timeStart) + ":00";
-    this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
-    this.txt_time_end = this.formatValue(this.timeEnd) +":00";
-    this.userService.chienchalogin();
-    this.windRose = this.service.getWindRoseData();
-    this.windSources = this.service.getWindSources();
+    // this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
+    this.txt_time_end = this.formatValue(this.timeEnd) + ":00";
+
+    this.windRose = this.dataConfig.getWindRoseData();
+    this.windSources = this.dataConfig.getWindSources();
 
 
     // speding
     this.sendTitle();
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     //this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate()), "yyyy/MM/dd");
-    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
+    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-    // get data speed for server
-    //this.getdataSpeed(this.urlSpeed, this.getToken());
-
     // get data for open menu
     this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
@@ -150,9 +151,9 @@ export class SpeedComponent implements OnInit {
   checkOpenMenu() {
     this.clickOpen += 1;
     if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "../../assets/image/icon_menu.png"
+      this.nav.icon_val = "assets/image/icon_menu.png"
     } else {
-      this.nav.icon_val = "../../assets/image/drop_up.png"
+      this.nav.icon_val = "assets/image/drop_up.png"
     }
     this.drawer.toggle();
   }
@@ -166,50 +167,68 @@ export class SpeedComponent implements OnInit {
       series.show();
     }
   }
-  /**
-   * event open date date end 
-   */
-  openDate() {
-
-    this.dateEnd.open();
-  }
-  /**
-   * event open date start
-   */
-  openStartDate() {
-    this.dateStart.open();
-  }
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.radarChart.instance.print();
+    }
   /**
    * event click change date when select
-   * @param type 
-   * @param event 
+   * @param value 
    */
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_start = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeStartDay(value: Date) {
+
+    this.txt_date_start = this.datePipe.transform(value, "yyyy/MM/dd");
+    if (this.txt_date_start === this.datePipe.transform(new Date(), "yyyy/MM/dd")) {
+      this.fplagStart = false;
+    } else {
+      this.fplagStart = true;
+    }
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
 
   /**
-   * change date when click
-   * @param type 
-   * @param event 
+   * end date
+   * @param value 
    */
-  endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeEndDay(value: Date) {
+    this.txt_date_end = this.datePipe.transform(value, "yyyy/MM/dd");
+    if (this.txt_date_end === this.datePipe.transform(new Date(), "yyyy/MM/dd")) {
+      this.fplagEnd = true;
+    } else {
+      this.fplagEnd = false;
+    }
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+
   }
 
-
+  /**
+     * on change timer start
+     * @param value 
+     */
+  onChangeTimerStart(value: Date) {
+    this.txt_time_start = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * change timer end
+   * @param value 
+   */
+  onChangeTimerEnd(value: Date) {
+    this.txt_time_end = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
 
   // click show icon table show and hide
   showDetail() {
     this.numberCheck += 1;
     if (this.numberCheck % 2 == 0) {
       this.showTable = true;
-      this.nameMaticon = "../../assets/image/drop_down.png"
+      this.nameMaticon = "assets/image/drop_down.png"
     } else {
       this.showTable = false;
-      this.nameMaticon = "../../assets/image/drop_up.png"
+      this.nameMaticon = "assets/image/drop_up.png"
     }
   }
 
@@ -217,7 +236,7 @@ export class SpeedComponent implements OnInit {
   // send title
   sendTitle() {
     this.nav.title = this.translateService.instant("home.windspeed");
-
+    this.slide.numberPosition =2;
   }
   // send data
   private sendValue(title: string, value: string) {
@@ -232,25 +251,32 @@ export class SpeedComponent implements OnInit {
   numbercheckShow: number = 0;
   widthleft: number = 60;
   widthright: number = 40;
-  public icon_show: string = "../../assets/image/icon_hiden.png";
+  public icon_show: string = "assets/image/icon_hiden.png";
 
   functionShowHide() {
     this.numbercheckShow += 1;
     if (this.numbercheckShow % 2 == 0) {
       this.okma = true;
-      this.widthleft = 60;
-      this.widthright = 40;
-      this.icon_show = "../../assets/image/icon_hiden.png";
+      this.nameColumnLeft = "col-sm-12 col-md-7";
+      this.nameColumnRight = "col-sm-12 col-md-5 colum_right";
+
     } else {
       this.okma = false;
-      this.widthleft = 97;
-      this.widthright = 3;
-      this.icon_show = "../../assets/image/icon_show.png";
+      this.nameColumnLeft = "col-sm-12 col-md-11 mx-auto";
+      this.nameColumnRight = "col-sm-12 col-md-1 colum_right";
+
+    }
+    if (window.innerWidth <= 768) {
+      this.showIconMobile();
+    } else {
+      this.showIconDesktop();
     }
   }
   clickSeach() {
-    this.getdataSpeed(this.urlSpeed,this.getToken())
-   // this.checkValue();
+    this.checkSeach = true;
+    this.getdataSpeed(this.urlSpeed, this.getToken())
+
+
   }
   getDataWindValue() {
     this.listWindValue = this.windRose;
@@ -265,22 +291,21 @@ export class SpeedComponent implements OnInit {
    * @param auth_token 
    */
   private getdataSpeed(url: string, auth_token: string) {
-    url = url +this.txt_zhan+"start="+this.nav.txt_start_date +"&end="+this.nav.txt_end_date;
+    url = url + this.txt_zhan + "start=" + this.nav.txt_start_date + "&end=" + this.nav.txt_end_date;
     return this.http.get<WindRose>(url, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + auth_token)
     }).subscribe(
       result => {
-    
+
         this.windRose = result.values;
         this.getDataWindValue();
         this.checkValue();
         this.checkData = true;
       },
       err => {
-        console.log("Error- something is wrong!")
         //this.router.navigateByUrl("**");
         this.checkData = false;
-        
+
       });
   }
 
@@ -471,26 +496,51 @@ export class SpeedComponent implements OnInit {
   }
 
 
-
-  public onChange(value: Date): void {
-    this.txt_time_start = this.formatValue(value) + ":00";
-    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-  }
-  public onChangeEnd(value: Date): void {
-    this.txt_time_end = this.formatValue(value) + ":00";
-    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-  }
-
-
   private formatValue(value?: Date): string {
     return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
-  private selectEight(){
-    this.txt_zhan ="eightwindrose?";
-    this.getdataSpeed(this.urlSpeed,this.getToken());
+  private selectEight() {
+    this.txt_zhan = "eightwindrose?";
+    if (this.checkSeach == true) {
+      this.getdataSpeed(this.urlSpeed, this.getToken());
+    } else {
+
+      this.windRose = this.dataConfig.getWindRoseDateEight();
+      this.windSources = this.dataConfig.getWindSources();
+    }
+
   }
-  private selectSixteen(){
-    this.txt_zhan ="sixteenwindrose?";
-    this.getdataSpeed(this.urlSpeed,this.getToken());
+  private selectSixteen() {
+    this.txt_zhan = "sixteenwindrose?";
+    if (this.checkSeach == true) {
+      this.getdataSpeed(this.urlSpeed, this.getToken());
+    } else {
+      this.windRose = this.dataConfig.getWindRoseData();
+      this.windSources = this.dataConfig.getWindSources();
+    }
+
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    if (window.innerWidth <= 768) {
+      this.showIconMobile();
+    } else {
+      this.showIconDesktop();
+    }
+  }
+  private showIconMobile() {
+    if (this.numbercheckShow % 2 == 0) {
+      this.icon_show = "assets/image/icon_in.png";
+    } else {
+      this.icon_show = "assets/image/icon_below.png";
+    }
+  }
+  private showIconDesktop() {
+    if (this.numbercheckShow % 2 == 0) {
+      this.icon_show = "assets/image/icon_hiden.png";
+    } else {
+      this.icon_show = "assets/image/icon_show.png";
+    }
+
   }
 }

@@ -1,14 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild,  HostListener } from '@angular/core';
 import { NavComponent } from 'src/app/nav/nav.component';
 import { listMenu } from 'src/app/config/listmenu';
 import { CommonService } from 'src/app/service/CommonService';
-import { RainFall, Service, ValueRain } from 'src/app/model/rainFall';
+import { RainFall, Service,  ListRainFall } from 'src/app/model/rainFall';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { MatDatepickerInputEvent } from '@angular/material';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { IntlService } from '@progress/kendo-angular-intl';
+import { FhsAuthorizeService } from '@fhs/authorize';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { DxChartComponent } from 'devextreme-angular';
+
 
 @Component({
   selector: 'app-ran-fall',
@@ -21,17 +25,18 @@ export class RanFallComponent implements OnInit {
    * item child
    */
   @ViewChild('drawer') drawer;
-  @ViewChild('end') dateEnd;
-  @ViewChild('start') dateStart;
   @ViewChild(NavComponent)
   private nav: NavComponent;
-  private dataSource: RainFall[];
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
+  public dataSource: RainFall[];
 
   /**
    * get data ulr and number
    */
   private numberDate : number;
-  private urlRainFall: string ="http://10.199.15.95/mops/Meteorology/rainfall?days=";
+  private urlRainFall: string ="http://10.199.15.95/mops/Meteorology/cumulativerainfall?";
 
 
 
@@ -40,45 +45,60 @@ export class RanFallComponent implements OnInit {
    */
   private txt_date_start: string;
   private txt_date_end: string;
-  private txt_time_start: string = "00:00:00";
-  private txt_time_end: string = "00:30:00";
+  private txt_time_start: string;
+  private txt_time_end: string;
   public date = new FormControl(new Date());
 
   // value right 
   private numbercheckShow: number = 0;
-  private widthleft: number = 60;
-  private widthright: number = 40;
-  private icon_show: string = "../../assets/image/icon_hiden.png";
+
+  public icon_show: string = "assets/image/icon_hiden.png";
   okma: boolean = true;
 
   // value menu var
   private listmenu = listMenu;
   private clickOpen: number = 0;
   private subscription: Subscription;
+  private selectToday : Date;
 
   // value table detail
-  private nameMaticon: string = "../../assets/image/drop_down.png";
+  private nameMaticon: string = "assets/image/drop_down.png";
   private numberCheck: number = 0;
   private show: boolean = true;
-  email: string;
-  enDate: any;
+  private email: string;
+  private enDate: any;
+  private startDate:any;
   public timeStart: Date = new Date();
   public timeEnd: Date = new Date();
+  private timerCurrent: Date = new Date();
+  private fplagStart: boolean = true;
+  private fplagEnd: boolean = true;
+
+  public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
+  public nameColumnLeft: string ="col-sm-12 col-md-7 ";
   /**
    * constructor ranfall
    * @param commoService 
    * @param service 
    * @param datePipe
    */
-  constructor(private datePipe: DatePipe, private commoService: CommonService, service: Service,
-    private http: HttpClient, private translate: TranslateService) {
-    this.dataSource = service.getData();
+  constructor(private datePipe: DatePipe, private commoService: CommonService,
+    private http: HttpClient, private translate: TranslateService,private intl: IntlService,
+    private auth :FhsAuthorizeService) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
      
       this.sendTitle();
     });
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
+    this.selectToday = new Date();
     let date = new Date();
-    this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
+    this.enDate = new Date();
+    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 1)));
+
   }
 
   ngOnInit() {
@@ -91,12 +111,16 @@ export class RanFallComponent implements OnInit {
     });
 
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
-    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
+    this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1), "yyyy/MM/dd");
+    this.txt_time_start = this.formatValue(this.timeStart) +":00";
+    this.txt_time_end = this.formatValue(this.timeEnd) +":00";
+
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
      this.numberDate = this.getNumberDate(this.txt_date_start,this.txt_date_end);
-    this.urlRainFall = this.urlRainFall +this.numberDate;
-    this.getDataRainFall(this.urlRainFall,this.getToken());
+    this.getDataRainFall(this.urlRainAPi(),this.getToken());
+  
   }
+  
 
   customizeTooltip(arg: any) {
     return {
@@ -104,57 +128,104 @@ export class RanFallComponent implements OnInit {
     };
    }
 
+   private urlRainAPi() :string{
+     return this.urlRainFall +"start="+this.txt_date_start+"T"+this.txt_time_start +"&end="+this.txt_date_end+"T"+this.txt_time_end;
+   }
+
+ @HostListener('window:resize', ['$event'])
+onResize(event?) {
+  if(window.innerWidth <=768){
+   this.showIconMobile();
+  }else{
+    this.showIconDesktop();
+  }
+}
+private  showIconMobile(){
+  if(this.numbercheckShow %2 == 0){
+    this.icon_show ="assets/image/icon_in.png";
+  }else{
+   this.icon_show ="assets/image/icon_below.png";
+  }
+}
+private  showIconDesktop(){
+  if(this.numbercheckShow %2 == 0){
+    this.icon_show ="assets/image/icon_hiden.png";
+  }else{
+   this.icon_show ="assets/image/icon_show.png";
+  }
+  
+}
   /**
     * show open menu in teamplerature
     */
   checkOpenMenu() {
     this.clickOpen += 1;
     if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "../../assets/image/icon_menu.png"
+      this.nav.icon_val = "assets/image/icon_menu.png"
     } else {
-      this.nav.icon_val = "../../assets/image/drop_up.png"
+      this.nav.icon_val = "assets/image/drop_up.png"
     }
 
     this.drawer.toggle();
   }
-  /**
-   * function open date when click
-   */
-  openDate() {
 
-    this.dateEnd.open();
-  }
-   /**
-   * function open date when click
-   */
-  openStartDate() {
-    this.dateStart.open();
-  }
-  /**
-   * event click change date when select
-   * @param type 
-   * @param event 
-   */
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_start = this.datePipe.transform(event.value, "yyyy/MM/dd");
+ /**
+  * start day
+  * @param value 
+  */
+  onChangeStartDay(value: Date) {
+    
+    this.txt_date_start = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_start === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagStart = false;
+    }else{
+      this.fplagStart = true;
+    }
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
   /**
-   * change date when click
-   * @param type 
-   * @param event 
+   * end date
+   * @param value 
    */
-  endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeEndDay(value: Date) {
+    this.txt_date_end = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_end === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagEnd = true;
+    }else{
+      this.fplagEnd = false;
+    }
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
    
   }
-
+  /**
+   * on change timer start
+   * @param value 
+   */
+  onChangeTimerStart(value: Date){
+    this.txt_time_start = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * change timer end
+   * @param value 
+   */
+  onChangeTimerEnd(value: Date){
+    this.txt_time_end = this.formatValue(value) + ":00";
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * forma value timer
+   * @param value 
+   */
+  private formatValue(value?: Date): string {
+    return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
+  }
   /**
    * funciont send title for nav
    */
   sendTitle() {
     this.nav.title = this.translate.instant("home.rainfall");
+    this.slide.numberPosition =1;
   }
   /*
   * function show icon left and right
@@ -163,17 +234,21 @@ export class RanFallComponent implements OnInit {
     this.numbercheckShow += 1;
     if (this.numbercheckShow % 2 == 0) {
       this.okma = true;
-      this.widthleft = 60;
-      this.widthright = 40;
-      this.icon_show = "../../assets/image/icon_hiden.png";
-
+      this.nameColumnLeft = "col-sm-12 col-md-7";
+      this.nameColumnRight ="col-sm-12 col-md-5 colum_right";
+      
     } else {
       this.okma = false;
-      this.widthleft = 97;
-      this.widthright = 3;
-      this.icon_show = "../../assets/image/icon_show.png";
+      this.nameColumnLeft = "col-sm-12 col-md-11 mx-auto";
+      this.nameColumnRight = "col-sm-12 col-md-1 colum_right";
+      
     }
-
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
+     
   }
   /**
    * function show detail table
@@ -184,10 +259,10 @@ export class RanFallComponent implements OnInit {
     this.numberCheck += 1;
     if (this.numberCheck % 2 == 0) {
       this.show = true;
-      this.nameMaticon = "../../assets/image/drop_down.png"
+      this.nameMaticon = "assets/image/drop_down.png"
     } else {
       this.show = false;
-      this.nameMaticon = "../../assets/image/drop_up.png"
+      this.nameMaticon = "assets/image/drop_up.png"
     }
   }
 
@@ -218,24 +293,29 @@ export class RanFallComponent implements OnInit {
    * function seach rainFall
    */
   clickSeach(){
-    this.numberDate = this.getNumberDate(this.txt_date_start,this.txt_date_end);
-    this.urlRainFall = "http://10.199.15.95/mops/Meteorology/rainfall?days=";
-    this.urlRainFall = this.urlRainFall +this.numberDate;
-    this.getDataRainFall(this.urlRainFall,this.getToken());
+    //this.numberDate = this.getNumberDate(this.txt_date_start,this.txt_date_end);
+    
+    this.getDataRainFall(this.urlRainAPi(),this.getToken());
   }
-
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.chart.instance.print();
+      
+    
+    }
+  
   /**
    * get data rainFall
    * @param numberDate 
    */
   private getDataRainFall( url: string,auth_token :string){
-    return this.http.get<RainFall[]>(url, {
+    return this.http.get<ListRainFall>(url, {
       headers: new HttpHeaders().set('Authorization', 'Bearer '+auth_token)
   }).subscribe(
       result => {
-         this.dataSource = result;
-         
-         
+        this.dataSource = result.rainfalls;
       },
       err => {
         console.log("Error- something is wrong!")

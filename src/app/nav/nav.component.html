@@ -1,26 +1,48 @@
-<nav class="clearfix">
-     
-  <div class="menu">
-    <div class="colum_left">
-        <img  (click) ="checkLogin()" [src]="icon_val"/>
-    </div>
-    <div class="colum_center">
-        <span >{{title}}</span>
-    </div>
-    <div class="colum_right" *ngIf="flagsShow">
-      
-        <div class="colum_one"> {{selectAdrees}}</div>
-        <div class="colum_two" *ngIf="showZhan"> {{zhan}} {{txt_zhan}}</div>
-        <div class="colum_one">{{txt_start_date}}</div>
-        <div class="colum_one">{{txt_end_date}}</div>
-        
-    </div>
-    <div class="colum_home" *ngIf ="flagsShow == false">
-       
-        <div class="colum_one" > {{location}}</div>
-        <div class="colum_one" ><img src="../../assets/image/lich.png"  width="100%" height="10%" width="10%"/>{{dateCurrent}}</div>
-        <div class="colum_one"><img src="../../assets/image/o'clock.png"  width="100%" height="10%" width="10%"/>{{timerOk}}</div>
-    </div>
+
+<nav class="navbar navbar-dark py-0  navbar-expand-md nav z-depth-3 border-none ">
+  <!-- <img  class="navbar-brand" (click) ="checkLogin()" [src]="icon_val"/> -->
+  <div class="col-1 d-flex justify-content-center " >
+      <img class="navbar-brand"(click) ="checkLogin()" [src]="icon_val" />
+  
   </div>
+  <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbar1" style="cursor: pointer">
+      <!-- <span class="glyphicon glyphicon-tags"></span> -->
+      <img src="assets/image/icon_select.png"/>
+    </button>
+    <div class="col-11 collapse navbar-collapse " id="navbar1"style="background-color: white;" >
+      <ul class="col-12 navbar-nav mr-auto row justify-content-center" *ngIf="flagsShow" >
+        <li class="nav-item col-2">
+          <p class="text-center">{{title}}</p>
+        </li>
+        <li class="nav-item col">
+          <p class="text-center">{{selectAdrees}}</p>
+        </li> 
+        <li class="nav-item col" *ngIf="showZhan"><p>{{zhan}} {{txt_zhan}}</p></li>
+        <li class="nav-item col">
+            <p>{{txt_start_date}}</p>
+          </li> 
+          <li class="nav-item col">
+              <p>{{txt_end_date}}</p>
+          </li> 
+      </ul>
+      <ul class="col-12 navbar-nav row justify-content-center" *ngIf="flagsShow==false">
+          <li class="nav-item col-2">
+              <p class="text-center">{{title}}</p>
+            </li>
+          <li class="nav-item col">
+            <p class="text-align">{{location}}</p>
+          </li> 
+         
+          <li class="nav-item col">
+              <p class="align-self-center"><img src="assets/image/lich.png"   width="24px" height="24px"/>{{dateCurrent}}</p>
+            </li> 
+            <li class="nav-item col">
+                <p><img src="assets/image/o'clock.png"  width="24px" height="24px"/>{{timerOk}}</p>
+            </li> 
+        </ul>
+    </div>
+ 
+  
+
 
 </nav>

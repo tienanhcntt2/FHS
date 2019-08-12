@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { NavComponent } from 'src/app/nav/nav.component';
 import { listMenu } from 'src/app/config/listmenu';
 import { CommonService } from 'src/app/service/CommonService';
@@ -14,6 +14,8 @@ import { MatDatepickerInputEvent } from '@angular/material';
 import { DatePipe } from '@angular/common';
 
 import {  DxChartComponent } from 'devextreme-angular';
+import { IntlService } from '@progress/kendo-angular-intl';
+import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
@@ -23,20 +25,26 @@ export class TemperatureComponent implements OnInit {
 
   // child 
   @ViewChild('drawer') drawer;
-  @ViewChild('end') dateEnd;
-  @ViewChild('start') dateStart;
+
   @ViewChild(NavComponent)
   private nav: NavComponent;
+  @ViewChild(SlideMenuComponent)
+  private slide:SlideMenuComponent;
+  @ViewChild(DxChartComponent) chart: DxChartComponent;
 
-  @ViewChild("chartVar") chart: DxChartComponent;
-
-  enDate: any;
-
+  private enDate: any;
+  private startDate:any;
+  public timeStart: Date = new Date();
+  public timeEnd: Date = new Date();
+  private timerCurrent: Date = new Date();
+  private fplagStart: boolean = true;
+  private fplagEnd: boolean = true;
+  private selectToday : Date;
   // value right 
   private numbercheckShow: number = 0;
-  private widthleft: number = 60;
-  private widthright: number = 40;
-  private icon_show: string = "../../assets/image/icon_hiden.png";
+  public widthleft: number = 60;
+  public widthright: number = 40;
+  public icon_show: string = "assets/image/icon_hiden.png";
   okma: boolean = true;
 
   // value menu var
@@ -45,10 +53,10 @@ export class TemperatureComponent implements OnInit {
   private subscription: Subscription;
 
   // value table detail
-  private nameMaticon: string = "../../assets/image/drop_down.png";
+  private nameMaticon: string = "assets/image/drop_down.png";
   private numberCheck: number = 0;
   private show: boolean = true;
-  private weatherData: Weather[];
+  public weatherData: Weather[];
   private valueText: string;
 
   /**
@@ -56,10 +64,11 @@ export class TemperatureComponent implements OnInit {
 */
   private txt_date_start: string;
   private txt_date_end: string;
-  private txt_time_start: string = "00:00:00";
-  private txt_time_end: string = "23:59:00";
-  public date = new FormControl(new Date());
+  private txt_time_start: string ;
+  private txt_time_end: string ;
   private txt_seach_date: any;
+  public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
+  public nameColumnLeft: string ="col-sm-12 col-md-7 ";
   /**
    * constructor
    * @param commoService 
@@ -69,16 +78,23 @@ export class TemperatureComponent implements OnInit {
    * @param datePipe 
    */
   constructor(private commoService: CommonService, private httpClient: HttpClient,
-    private translate: TranslateService, private weatherService: WeatherService, private datePipe: DatePipe) {
+    private translate: TranslateService, private weatherService: WeatherService, private datePipe: DatePipe,
+    private intl: IntlService) {
 
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.sendTitle();
 
     });
-
+    if(window.innerWidth <=768){
+      this.showIconMobile();
+     }else{
+       this.showIconDesktop();
+     }
+    this.selectToday = new Date();
     let date = new Date();
-    this.enDate = new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
+    this.enDate = new Date();
+    this.startDate =  new Date(this.datePipe.transform(date.setDate(date.getDate() - 6)));
   }
 
   /**
@@ -93,7 +109,8 @@ export class TemperatureComponent implements OnInit {
       }
 
     });
-    let date = new Date();
+    this.txt_time_start = this.formatValue(this.timeStart) +":00";
+    this.txt_time_end = this.formatValue(this.timeEnd) +":00";
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
@@ -125,36 +142,59 @@ export class TemperatureComponent implements OnInit {
   precipitationCustomizeText() {
     return this.valueText + " mm";
   }
-  /**
-  * event open date date end 
-  */
-  openDate() {
-
-    this.dateEnd.open();
-  }
-  /**
-   * event open date start
-   */
-  openStartDate() {
-    this.dateStart.open();
-  }
+  
+  
   /**
    * event click change date when select
-   * @param type 
-   * @param event 
+   * @param value 
    */
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_start = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeStartDay(value: Date) {
+    
+    this.txt_date_start = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_start === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagStart = false;
+    }else{
+      this.fplagStart = true;
+    }
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+
+  /**
+   * end date
+   * @param value 
+   */
+  onChangeEndDay(value: Date) {
+    this.txt_date_end = this.datePipe.transform(value, "yyyy/MM/dd");
+    if(this.txt_date_end === this.datePipe.transform(new Date(), "yyyy/MM/dd")){
+      this.fplagEnd = true;
+    }else{
+      this.fplagEnd = false;
+    }
+    this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+   
+  }
+
+/**
+   * on change timer start
+   * @param value 
+   */
+  onChangeTimerStart(value: Date){
+    this.txt_time_start = this.formatValue(value) + ":00";
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
   }
   /**
-   * change date when click
-   * @param type 
-   * @param event 
+   * change timer end
+   * @param value 
    */
-  endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.txt_date_end = this.datePipe.transform(event.value, "yyyy/MM/dd");
+  onChangeTimerEnd(value: Date){
+    this.txt_time_end = this.formatValue(value) + ":00";
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
+  }
+  /**
+   * formar timer
+   */
+  private formatValue(value?: Date): string {
+    return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
   /**
    * show open menu in teamplerature
@@ -162,9 +202,9 @@ export class TemperatureComponent implements OnInit {
   checkOpenMenu() {
     this.clickOpen += 1;
     if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "../../assets/image/icon_menu.png"
+      this.nav.icon_val = "assets/image/icon_menu.png"
     } else {
-      this.nav.icon_val = "../../assets/image/drop_up.png"
+      this.nav.icon_val = "assets/image/drop_up.png"
     }
   
     this.drawer.toggle();
@@ -174,32 +214,30 @@ export class TemperatureComponent implements OnInit {
    */
   sendTitle() {
     this.nav.title = this.translate.instant("menu.Temperature");
+    this.slide.numberPosition = 4;
   }
   /*
   * function show icon left and right
   */
-  functionShowHide() {
-    this.numbercheckShow += 1;
-    //this.chart.instance.dispose();
-    if (this.numbercheckShow % 2 == 0) {
-      this.okma = true;
-      this.widthleft = 60;
-      this.widthright = 40;
-      this.icon_show = "../../assets/image/icon_hiden.png";
-      this.chart.instance.render();
-    } else {
-      this.okma = false;
-      this.widthleft = 97;
-      this.widthright = 3; 
-      this.icon_show = "../../assets/image/icon_show.png";
-      
-      
-    }
-  
-
+ functionShowHide() {
+  this.numbercheckShow += 1;
+  if (this.numbercheckShow % 2 == 0) {
+    this.okma = true;
+    this.nameColumnLeft = "col-sm-12 col-md-7";
+    this.nameColumnRight ="col-sm-12 col-md-5 colum_right";
+    
+  } else {
+    this.okma = false;
+    this.nameColumnLeft = "col-sm-12 col-md-11 mx-auto";
+    this.nameColumnRight = "col-sm-12 col-md-1 colum_right";
+    
   }
-
-
+  if(window.innerWidth <=768){
+    this.showIconMobile();
+   }else{
+     this.showIconDesktop();
+   }
+  }
   /**
    * function show detail table
    * icon change and item
@@ -209,10 +247,10 @@ export class TemperatureComponent implements OnInit {
     this.numberCheck += 1;
     if (this.numberCheck % 2 == 0) {
       this.show = true;
-      this.nameMaticon = "../../assets/image/drop_down.png"
+      this.nameMaticon = "assets/image/drop_down.png"
     } else {
       this.show = false;
-      this.nameMaticon = "../../assets/image/drop_up.png"
+      this.nameMaticon = "assets/image/drop_up.png"
     }
   }
   /**
@@ -249,6 +287,12 @@ export class TemperatureComponent implements OnInit {
     }
 
   }
+  /* ---------------------------------------------------
+    printf
+    ----------------------------------------------------- */
+    private printfChart(){
+      this.chart.instance.print();
+    }
   /**
   * get data
   */
@@ -257,5 +301,28 @@ export class TemperatureComponent implements OnInit {
     this.weatherData = this.weatherService.getDataWeather(
       this.getNumberDate(this.txt_date_start, this.txt_date_end
         ), this.txt_seach_date, this.datePipe);
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    if(window.innerWidth <=768){
+     this.showIconMobile();
+    }else{
+      this.showIconDesktop();
+    }
+  }
+  private  showIconMobile(){
+    if(this.numbercheckShow %2 == 0){
+      this.icon_show ="assets/image/icon_in.png";
+    }else{
+     this.icon_show ="assets/image/icon_below.png";
+    }
+  }
+  private  showIconDesktop(){
+    if(this.numbercheckShow %2 == 0){
+      this.icon_show ="assets/image/icon_hiden.png";
+    }else{
+     this.icon_show ="assets/image/icon_show.png";
+    }
+    
   }
 }

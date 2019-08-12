@@ -4,9 +4,9 @@
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="example-sidenav-content row no-gutters">
     <!-- colum left -->
-    <div class="colum_left" [style.width.%]="widthleft" >
+    <div ngClass={{nameColumnLeft}} id="second">
           <dx-chart #chartVar id="chart" [dataSource]="weatherData" defaultPane="bottomPane" title="" >
               <dxo-size [width]="100+'%'"></dxo-size>
               <dxi-series pane="topPane" color="#b0daff" type="rangeArea" rangeValue1Field="avgLowT"
@@ -36,36 +36,50 @@
             </dx-chart>
     </div>
     <!-- colum right  -->
-    <div class="colum_right" [style.width.%]="widthright" >
+    <div id="first" ngClass={{nameColumnRight}}>
       <img src={{icon_show}} (click)="functionShowHide()" />
       <!-- select date -->
       <div class="detail" *ngIf="okma">
         <!-- select datetimer -->
-        <div class="row" style="margin-top:10px;">
-          <div class="col-md-6">
-
-            <input style="width:50%;" matInput [matDatepicker]="start" readonly (click)="start.open()"
-              [(ngModel)]="enDate" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
-            <mat-datepicker #start></mat-datepicker>
-            <input type="time" value="00:00" style="width:40%; margin-left: 10px;" />
-          </div>
-          <div class="col-md-6">
-            <input style="width:50%;" matInput [matDatepicker]="end" (click)="openDate()" readonly (click)="end.open()"
-              (dateInput)="endDateEvent('input', $event)" (dateChange)="endDateEvent('change', $event)"
-              [formControl]="date">
-            <mat-datepicker #end></mat-datepicker>
-            <input type="time" value="23:59" style="width:40%; margin-left: 10px;" />
-          </div>
-
-        </div>
-
         <div class="row">
-          <div class="col-md-6" style="margin-top:20px;">
-            <button type="button" class="done" (click)="functionSeachData()">{{'rainFall.search' | translate}}</button>
-            <button type="button" class="dain">{{'rainFall.printf' | translate}}</button>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-md-12 col-lg-6">
+                  <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)" [format]="'yyyy/MM/dd'">
+                  </kendo-datepicker>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                  <kendo-timepicker *ngIf="fplagStart" (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'">
+                  </kendo-timepicker>
+                  <kendo-timepicker *ngIf="fplagStart == false" [max]="timerCurrent"
+                    (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'"></kendo-timepicker>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-md-12 col-lg-6">
+                  <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)" [format]="'yyyy/MM/dd'">
+                  </kendo-datepicker>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                  <kendo-timepicker *ngIf="fplagEnd" [max]="timerCurrent" (valueChange)="onChangeTimerEnd($event)"
+                    [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
+                  <kendo-timepicker *ngIf="fplagEnd == false" (valueChange)="onChangeTimerEnd($event)"
+                    [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
+                </div>
+              </div>
+            </div>
           </div>
 
-        </div>
+
+          <div class="row" style="margin-top: 20px">
+            <div class="col-6">
+              <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
+            </div>
+
+          </div>
 
         <div class="row">
           <span class="title_table">{{'rainFall.showdata' | translate}} <img (click)="showDetail()"

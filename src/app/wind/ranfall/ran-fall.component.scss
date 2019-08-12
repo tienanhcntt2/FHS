@@ -1,56 +1,62 @@
 // color
 $color_0b3cb1 :#0b3cb1;
 $color_2a34ff : #07ccd9;
-
+/*Added*/
+.clearfix {
+  clear: both;
+}
+.clearfix:after {
+  clear: both; 
+  content: "";
+  display: table; 
+}
 .container_full{
   background : linear-gradient(to bottom,#015fb6 0%, #01324e 100%);
   background : -moz-linear-gradient(bottom, #015fb6 0%,#01324e 100%);
   background : -webkit-linear-gradient(bottom, #015fb6 0%, #01324e 100%);
   background : -o-linear-gradient(bottom,#015fb6 0%, #01324e 100%);
-    width: 100%;
-    min-height: 65%;
+  width: 100%;
+ height: auto;
   
   }
 
   .example-sidenav{
     width: 12%;
-    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    //display: flex;
+
   }
 
+
   .example-sidenav-content {
-    display: flex;
-    height: 630px;
-    overflow: hidden;
-  }
-  .example-sidenav-content .colum_left{
-    height: 100%;
-  
-    //float: left;
     
-   }
-   .example-sidenav-content .colum_right{
-    height: 100%;
-    float: right;
+    min-height: 65vh;
+    width: 100%;
+    overflow: hidden;
+   
+  }
+.colum_right{
+    min-height: 100%;
     background : linear-gradient(to bottom,#015fb6 0%, #014064 100%);
     background : -moz-linear-gradient(bottom, #015fb6 0%,#014064 100%);
     background : -webkit-linear-gradient(bottom, #015fb6 0%, #014064 100%);
     background : -o-linear-gradient(bottom,#015fb6 0%, #014064 100%);
-    padding-left: 20px;
+   
     box-shadow: 1px 2px 10px 0 #000c4e !important;
    }
    .colum_right img{
      width: 24px;
      height: 24px;
      float: right;
+     
      cursor: pointer;
    }
-   .example-sidenav-content .colum_right .detail{
-    width: 98%;
-    float: left;
-
-    padding-top: 50px;
-    padding-left: 2%;
+  .colum_right .detail{
     font-family:'UTM Avo';
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     height: 100%;
   }
   .detail .row mat-select{
@@ -64,53 +70,40 @@ $color_2a34ff : #07ccd9;
   .detail .row span{
     color: white;
   }
-  .detail .row input {
-    border: 1px solid #00ffff;
+  kendo-timepicker{
+    
+    //padding: 3px 5px;
+    width: 100%;
+    font-size: 12px;
+    border-radius: 2px;
+    box-shadow: 1px 2px 10px 0 #031477 !important;
+  }
+  kendo-datepicker{
+    //border: 1px solid #00ffff;
+    width: 100%;
     border-radius: 2px;
     text-align: center;
-    //background-color: #fff;
-    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
-    padding: 3px 5px;
     box-shadow: 1px 2px 10px 0 #031477 !important;
-    width: 50%;
-    ::-webkit-inner-spin-button {
-      display: none;
-    }
-    ::-webkit-calendar-picker-indicator {
-      opacity: 0;
-    }
-  } 
   
-  .detail .row kendo-timepicker{
-    width: 45%;
-    margin-left: 3px;
-
-    padding: 3px 5px;
-    
     font-size: 12px;
   }
- .detail .row input[type ="time"]{
-   background: #0b3cb1;
-   font-size: 12px;
-   color: white;
- }
+
  
- .detail .row .dain{
-   padding-left: 20px;
-   padding-right: 20px;
-   background: transparent;
-   color: white;
+  .detail .row .dain{
+    
+    background: transparent;
+    color: white;
+    border-radius: 2px;
+    
+    border:  1px #3498db solid;
+  }
+  .detail .row .done{
+    
+  background: #3498db;
+    color: white;
    border-radius: 2px;
-   border:  1px #3498db solid;
- }
- .detail .row .done{
-   padding-left: 20px;
-   padding-right: 20px;
-   background: #3498db;
-   color: white;
-  border-radius: 2px;
-   border:  1px #3498db solid;
- }
+    border:  1px #3498db solid;
+  }
   .detail .title_table{
     margin-top: 30px;
     color: aqua;
@@ -135,7 +128,10 @@ $color_2a34ff : #07ccd9;
   // table 
   .detail table{
    width:100%;
+  
    table-layout: fixed;
+   margin-bottom: 20px;
+  
  }
  .tbl-header{
    // background-color: rgba(255,255,255,0.3);
@@ -144,10 +140,10 @@ $color_2a34ff : #07ccd9;
    font-family:'UTM Avo';
   }
  .tbl-content{
-   height:300px;
+   height:250px;
    overflow-x:auto;
    margin-top: 0px;
-   border-top: 1px solid rgba(8, 165, 185, 0.3);
+   border: 1px solid rgba(255,255,255,0.3);
   // border-left: 1px solid rgba(8, 165, 185, 0.3);
  }
  th{
@@ -155,7 +151,7 @@ $color_2a34ff : #07ccd9;
    text-align: center;
    
    font-size: 14px;
-   color: aqua;
+   color: #fff;
  }
  td{
    padding: 5px;
@@ -176,48 +172,40 @@ $color_2a34ff : #07ccd9;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5%;
-    height: 80%;
-    width: 95%;
+    margin-bottom: 5%;
     margin-left: 5%;
     
 }
 .dxo-tooltip{
   z-index: 1;
 }
-@media (min-width: 1025px) and (max-width: 1280px) {
-  .detail{
-    width: 98%;
-    float: left;
-   
-    padding-top: 50px;
-    padding-left: 2%;
-    font-family: "Microsoft YaHei","微软雅黑","黑体","宋体";
-    height: 100%;
+  @media only screen and (max-width: 768px) {
+    #first {
+      order: 1;
+    }
+    #second {
+      order: 2;
+    }
+    #third {
+      order: 3;
+    }
+    #fourth {
+      order: 4;
+    }
+    .detail img{
+      visibility: hidden;
+    }
   }
-  .detail .row input {
-    border: 1px solid #c4c4c4;
-    border-radius: 2px;
-    text-align: center;
-    //background-color: #fff;
-    //background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
-    background: #fff;
-    padding: 3px 5px;
-    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+  .k-datepicker .k-select {
+    display: none;
+  }
 
-    width: 50%;
-    ::-webkit-inner-spin-button {
-      display: none;
-    }
-    ::-webkit-calendar-picker-indicator {
-      opacity: 0;
-    }
-  } 
-  
-  .detail .row kendo-timepicker{
-    width: 48%;
-    
- 
-    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
-    font-size: 8px;
+  .k-datepicker .k-picker-wrap {
+    padding: 0;
   }
-}
+
+  .k-dateinput-wrap .k-input, .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input{
+    text-align: center;
+    width: 100%;
+    background: red;
+  }

@@ -3,11 +3,14 @@ import { ListLanguage } from '../model/List_Language';
 import { Language } from '../model/Language';
 
 import { environment } from 'src/environments/environment';
-import { FhsAuthorizeService } from '@fhs/authorize';
+import { FhsAuthorizeService, UserInfoResponse } from '@fhs/authorize';
 import { UserServicer } from '../service/user.Servicer';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../service/language.service';
-import { Router } from '@angular/router';
+
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-header',
@@ -17,20 +20,20 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
 
-  private languages = ListLanguage;
-  private lag: Language;
-  private show: boolean = true;
+  public languages = ListLanguage;
+  public lag: Language;
+  public show: boolean = true;
   private userName: string = "";
-  private lg : string ="";
-  
-  constructor( private userSevice: UserServicer, private auth :FhsAuthorizeService,private translateService: TranslateService,
-    private languageService : LanguageService) {
+  private lg: string = "";
+
+  constructor(private userSevice: UserServicer, private auth: FhsAuthorizeService, private translateService: TranslateService,
+    private languageService: LanguageService, private http: HttpClient) {
   }
 
   ngOnInit() {
     this.lg = localStorage.getItem("language");
-    for(let i =0; i<this.languages.length;i++){
-      if(this.languages[i].title === this.lg.toUpperCase()){
+    for (let i = 0; i < this.languages.length; i++) {
+      if (this.languages[i].title === this.lg.toUpperCase()) {
         this.lag = this.languages[i];
       }
     }
@@ -41,27 +44,24 @@ export class HeaderComponent implements OnInit {
   selectLanguage(i: number) {
     this.lag = this.languages[i];
     this.translateService.use(this.languages[i].title.toLowerCase());
-    localStorage.setItem("language",this.languages[i].title.toLowerCase());
-  }
-  functionCheck_show_hide() {
-
+    localStorage.setItem("language", this.languages[i].title.toLowerCase());
   }
   // function logout
   functionlogout() {
     this.userSevice.logout();
   }
   // function check get info
-  showNameuser(name : string){
+  showNameuser(name: string) {
     this.userName = name;
-    if(this.userName.length >0 ){
+    if (this.userName.length > 0) {
       this.show = false;
     }
 
   }
   // click login
   functionLogin() {
-   window.location.href = this.EntryPoint;
-    this.EntryPoint;
+    window.location.href = this.EntryPoint;
+
   }
 
   // click login
@@ -72,26 +72,36 @@ export class HeaderComponent implements OnInit {
       Object.keys(environment.OIDC.Paramaters).forEach((k: string) => {
 
         para += k + '=' + environment.OIDC.Paramaters[k] + '&';
-        console.log("anhtt :ds " +para);
+
       });
       this.entrypoint = environment.OIDC.baseUrl + environment.OIDC.authorizationEndpoint + '?' + para.substring(0, para.length - 1);
-      
+
     }
 
     return this.entrypoint;
   }
 
-  inforUserName(){
-    
-    if(localStorage.getItem("access_token").length >0){
-    
+  inforUserName() {
+
+    if (this.auth.AccessToken.length > 0) {
+      // this.http.get<UserInfoResponse>(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint, {
+      //   headers: new HttpHeaders().append('Authorization', 'Bearer ' + this.auth.AccessToken )
+      // }).subscribe(resopnse => {
+      //     this.userName = resopnse.name;
+      //   this.showNameuser(resopnse.name);
+      // });
       this.auth.FetchUserEndpoint(new URL(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint)).subscribe(response => {
         this.userName = response.name;
         this.showNameuser(response.name);
-      },error => {
+        localStorage.setItem("access_token",this.auth.AccessToken);
+      })
   
-      });
+    }else{
+      localStorage.setItem("access_token","");
     }
-    
+
+
   }
+
+
 }
