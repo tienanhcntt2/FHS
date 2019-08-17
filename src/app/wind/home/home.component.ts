@@ -10,8 +10,9 @@ import { first } from 'rxjs/internal/operators/first';
 import { Paho } from 'ng2-mqtt/mqttws31'
 import { Winds } from 'src/app/model/Winds';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { stringify } from 'querystring';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 
 
@@ -62,11 +63,11 @@ export class HomeComponent implements OnInit, OnDestroy {
    * @param infoService 
    */
   constructor(private commonService: CommonService, private auth: FhsAuthorizeService, private infoService: InfoService,
-    private translateService: TranslateService) {
+    private translateService: TranslateService,private titleService: Title, private router:Router) {
 
     this.connectMQTT();
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-
+      this.sendTitle();
       this.getdataHome();
     });
 
@@ -75,7 +76,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.getdataHome();
-    this.sendTitle();
+   
     this.functionCheckLogin();
 
     this.commonService.notifyOther({ option: 'callTitle', value: 'Home' });
@@ -114,8 +115,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
   sendTitle() {
-    this.nav.title = 'TODAY';
+    this.nav.title = this.translateService.instant("home.homepage");
     this.slide.numberPosition = 0;
+    this.titleService.setTitle(this.translateService.instant("home.weather"));
   }
 
 
@@ -239,6 +241,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       return  parseInt(n.toString().substring(0, 1));
     }
     return 0;
+  }
+  public sendURL(i:number){
+    this.router.navigateByUrl(this.winds[i].link);
   }
 }
 

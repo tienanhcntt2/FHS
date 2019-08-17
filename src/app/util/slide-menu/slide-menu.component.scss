@@ -14,10 +14,16 @@ $turquoise: #1abc9c;
   
     background:$color_0b3cb1;
     height: auto;
+    padding: 0;
+    margin: 0;
+    
  }
 .listmenu .menu{
       list-style: none;
       min-height: 65vh;
+      ::-webkit-scrollbar { 
+        display: none; 
+      } 
 }
 .listmenu .menu li {
         padding: 16px 32px;

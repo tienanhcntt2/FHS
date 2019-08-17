@@ -130,19 +130,30 @@ $color_2a34ff : #07ccd9;
    width:100%;
   
    table-layout: fixed;
-   margin-bottom: 20px;
+  
   
  }
+ .export{
+  background: #3498db;
+  color: white;
+ border-radius: 2px;
+  border:  1px #3498db solid;
+}
  .tbl-header{
    // background-color: rgba(255,255,255,0.3);
    background: transparent;
    margin-top: 10px;
    font-family:'UTM Avo';
+   table{
+    border: 1px solid rgba(255,255,255,0.3);
+    th{
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+  }
   }
  .tbl-content{
    height:250px;
    overflow-x:auto;
-   margin-top: 0px;
    border: 1px solid rgba(255,255,255,0.3);
   // border-left: 1px solid rgba(8, 165, 185, 0.3);
  }

@@ -8,8 +8,10 @@
         "txt_message": "User Name or Password no connect"
     },
     "home":{
+        "homepage":"Home",
+        "weather" : "Weather",
         "rainfall":"RainFall",
-        "windspeed" :"Wind Speed",
+        "windspeed" :"Wind Rose",
         "winddriction" :"Wind Driction",
         "Humidity" :"Humidity"
     },
@@ -28,6 +30,7 @@
     "rainFall" :{
         "search" :"Search",
         "printf" : "Print",
+        "export" : "Export",
         "showdata" :"Display detailed data",
         "show%" :"Show follow %",
         "showspeed" :"Show follow km/h",

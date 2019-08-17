@@ -8,6 +8,8 @@
         "txt_message": "Tên người dùng hoặc mật khẩu không có kết nối"
     },
     "home":{
+        "homepage":"Trang Chủ",
+        "weather" : "Thời Tiết",
         "rainfall":"Lượng mưa",
         "windspeed" :"Tốc độ gió",
         "winddriction" :"Hướng gió",
@@ -28,6 +30,7 @@
     "rainFall" :{
         "search" :"Tìm kiếm",
         "printf" : "Printf",
+        "export" : "xuất excel",
         "showdata" :"Hiển thị dữ liệu chi tiết",
         "show%" :"Hiển thị theo %",
         "showspeed" :"Hiển thị theo km/h",

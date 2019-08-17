@@ -1,14 +1,15 @@
 <app-nav></app-nav>
 <mat-drawer-container class="container_full" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3; border-right: 1px solid #1491d0">
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
   <div class="example-sidenav-content row no-gutters">
     <!-- colum left -->
     <div ngClass={{nameColumnLeft}} id="second">
-        <dx-chart #chart [dataSource]="stockPrices" id="chart">
+        <dx-chart [dataSource]="stockPrices" id="chart">
             <!-- See details in the "Bind Series to Data" topic -->
+           
             <dxo-zoom-and-pan argumentAxis="both"></dxo-zoom-and-pan>
             <dxi-series type="scatter" argumentField="timestamp" valueField="direction">
         
@@ -20,8 +21,12 @@
             <dxi-value-axis title="Wind Direction">
                 <dxo-label [customizeText]="valueCustomizeText"></dxo-label>
             </dxi-value-axis>
-            <dxo-scroll-bar [visible]="true"></dxo-scroll-bar>
+            <dxo-scroll-bar [visible]="false"></dxo-scroll-bar>
             <dxo-legend [visible]="false"></dxo-legend>
+            <dxo-tooltip
+            [enabled]="true"
+            [customizeTooltip]="customizeTooltip">
+           </dxo-tooltip>
         </dx-chart>
     </div>
     <!-- colum right  -->
@@ -77,7 +82,8 @@
           </span>
         </div>
         <!-- table detail -->
-        <div class="row" *ngIf="show" style="margin-top:20px;">
+        <div class="row" *ngIf="show" style="margin:10px;">
+          <button *ngIf="showExport" class="col-3 export" (click)="exportExcel()"  ><img src="assets/image/excel.png"/>{{'rainFall.export' | translate}}</button>
           <div class="tbl-header">
             <table cellpadding="0" cellspacing="0" border="0">
               <thead>
@@ -102,7 +108,7 @@
               <tbody>
                 <tr *ngFor='let dt of stockPrices'>
 
-                  <td >{{dt.timestamp}}</td>
+                  <td >{{dt.timestamp | date: 'yyyy/MM/dd : HH:mm:ss'}}</td>
                   <td >{{dt.direction}}</td>
                   <td >AST</td>
                 </tr>
