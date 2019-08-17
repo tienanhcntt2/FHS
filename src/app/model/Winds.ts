@@ -1,5 +1,5 @@
 export class Winds{
-    constructor( name: string, number: string, donvi: string, min : string, max: string,link:string){
+    constructor( public name: string, public number: string,public donvi: string,public min : string,public max: string,public link:string){
 
     }
 }

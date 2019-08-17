@@ -1,48 +1,53 @@
 
-<nav class="navbar navbar-dark py-0  navbar-expand-md nav z-depth-3 border-none ">
-  <!-- <img  class="navbar-brand" (click) ="checkLogin()" [src]="icon_val"/> -->
-  <div class="col-1 d-flex justify-content-center " >
-      <img class="navbar-brand"(click) ="checkLogin()" [src]="icon_val" />
-  
-  </div>
-  <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbar1" style="cursor: pointer">
-      <!-- <span class="glyphicon glyphicon-tags"></span> -->
-      <img src="assets/image/icon_select.png"/>
-    </button>
-    <div class="col-11 collapse navbar-collapse " id="navbar1"style="background-color: white;" >
-      <ul class="col-12 navbar-nav mr-auto row justify-content-center" *ngIf="flagsShow" >
-        <li class="nav-item col-2">
-          <p class="text-center">{{title}}</p>
-        </li>
-        <li class="nav-item col">
-          <p class="text-center">{{selectAdrees}}</p>
-        </li> 
-        <li class="nav-item col" *ngIf="showZhan"><p>{{zhan}} {{txt_zhan}}</p></li>
-        <li class="nav-item col">
-            <p>{{txt_start_date}}</p>
-          </li> 
-          <li class="nav-item col">
-              <p>{{txt_end_date}}</p>
-          </li> 
-      </ul>
-      <ul class="col-12 navbar-nav row justify-content-center" *ngIf="flagsShow==false">
-          <li class="nav-item col-2">
-              <p class="text-center">{{title}}</p>
-            </li>
-          <li class="nav-item col">
-            <p class="text-align">{{location}}</p>
-          </li> 
+<div class="container-fluid ">
+  <div class="row nav">
+      <div class="col-2" style="border-bottom:1px solid #1491d0; border-right:1px solid #1491d0  ">
+        <img class="img-reponsive center"(click) ="checkLogin()" [src]="icon_val" />
+      </div>
+      <div class="col-10" style="background-color: white; padding: 0;">
+
+          <nav class="navbar navbar-expand-lg navbar-light z-depth-3 border-none justify-content-between" style="background-color: white; padding-top: 12px; padding-bottom: 12px;">
+              <div class="container-fluid" style="padding-left: 0;">
          
-          <li class="nav-item col">
-              <p class="align-self-center"><img src="assets/image/lich.png"   width="24px" height="24px"/>{{dateCurrent}}</p>
-            </li> 
-            <li class="nav-item col">
-                <p><img src="assets/image/o'clock.png"  width="24px" height="24px"/>{{timerOk}}</p>
-            </li> 
-        </ul>
-    </div>
- 
-  
+                  <button class="navbar-toggler hidden-lg-up pull-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="cursor: pointer;" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="assets/image/icon_select.png"/>
+                  </button>
+                  <div class="collapse navbar-collapse row " id="navbarSupportedContent" >
+                    <ul class="col-12 navbar-nav mr-auto row justify-content-center" *ngIf="flagsShow" >
+                      <li class="nav-item col-2">
+                        <p class="text-center">{{title}}</p>
+                      </li>
+                      <li class="nav-item col">
+                        <p class="text-center">{{selectAdrees}}</p>
+                      </li> 
+                      <li class="nav-item col" *ngIf="showZhan"><p>{{zhan}} {{txt_zhan}}</p></li>
+                      <li class="nav-item col">
+                          <p>{{txt_start_date}}</p>
+                        </li> 
+                        <li class="nav-item col">
+                            <p>{{txt_end_date}}</p>
+                        </li> 
+                    </ul>
+                    <ul class="col-12 navbar-nav row justify-content-center" *ngIf="flagsShow==false">
+                        <li class="nav-item col-2">
+                            <p class="text-center">{{title}}</p>
+                          </li>
+                        <li class="nav-item col">
+                          <p class="text-align">{{location}}</p>
+                        </li> 
+                       
+                        <li class="nav-item col">
+                            <p class="align-self-center"><img src="assets/image/lich.png"   width="24px" height="24px"/>{{dateCurrent}}</p>
+                          </li> 
+                          <li class="nav-item col">
+                              <p><img src="assets/image/o'clock.png"  width="24px" height="24px"/>{{timerOk}}</p>
+                          </li> 
+                      </ul>
 
+                  </div>
+              </div>
+          </nav>
 
-</nav>
+      </div>
+  </div>
+</div>

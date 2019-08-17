@@ -8,6 +8,8 @@
         "txt_message": "用戶名或密碼無連接"
     },
     "home":{
+        "homepage":"主頁",
+        "weather" : "天氣",
         "rainfall":"雨量",
         "windspeed" :"風速",
         "winddriction" :"風向",
@@ -28,6 +30,7 @@
     "rainFall" :{
         "search" :"搜索",
         "printf" : "打印",
+        "export" : "Export",
         "showdata" :"显 示 详 细 数 据 ",
         "show%" :"顯示如下 %",
         "showspeed" :"顯示如下 km/h",

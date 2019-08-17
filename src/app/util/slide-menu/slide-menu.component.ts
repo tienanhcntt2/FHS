@@ -14,7 +14,7 @@ export class SlideMenuComponent implements OnInit {
   // menu
   public listmenu: Menu[] = [];
   public activeState: string ;
-  public numberPosition :number;
+  public numberPosition :number =0;
   //Contrustor
   constructor(private translate: TranslateService, private router:Router) {
     translate.onLangChange.subscribe((event: LangChangeEvent) =>{

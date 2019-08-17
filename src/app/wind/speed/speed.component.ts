@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 
 
-import { MatRadioButton } from '@angular/material';
+import { MatRadioButton, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { CommonService } from 'src/app/service/CommonService';
 import { NavComponent } from 'src/app/nav/nav.component';
@@ -14,7 +14,10 @@ import { WindRose, WindDescription, WindValue, ConfigDataSpeed } from 'src/app/m
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
-import { DxChartComponent, DxComponent, DxPolarChartComponent } from 'devextreme-angular';
+import {  DxPolarChartComponent } from 'devextreme-angular';
+import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
+import { ExcelServiceService } from 'src/app/service/excelservice.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -47,7 +50,7 @@ export class SpeedComponent implements OnInit {
   private timerCurrent: Date = new Date();
   private fplagStart: boolean = true;
   private fplagEnd: boolean = true;
-  private checkData: boolean = false;
+
   private checkSeach: boolean = false;
   /**
    * select date and timer
@@ -76,17 +79,17 @@ export class SpeedComponent implements OnInit {
 
   public windSources: WindDescription[];
 
-  private listWindValue: WindValue[] = [];
   public windRose: WindValue[];
-  private windRoseData: WindRose[];
+  private windRoseData: WindRose[] = null;
   // show hide
   public okma: boolean = true;
   private selectToday: Date;
+  public showExport: Boolean = false;
 
   /**
    * list table 
    */
-  private listNametable: string[] = ['ARG', 'Val 1', 'Val 2', 'Val 3', 'Val 4', 'Val 5', 'Val 6', 'Val 7', 'Val 8'];
+  private listNametable: string[] = ['ARG', 'Val 1', 'Val 2', 'Val 3', 'Val 4', 'Val 5'];
   private urlSpeed: string = "http://10.199.15.95/mops/Meteorology/";
   private txt_zhan: string;
 
@@ -101,7 +104,8 @@ export class SpeedComponent implements OnInit {
    * @param userService 
    */
   constructor(private datePipe: DatePipe, private commoService: CommonService, 
-    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private dataConfig: ConfigDataSpeed) {
+    private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private dataConfig: ConfigDataSpeed,public dialog: MatDialog,
+    private excelService:ExcelServiceService,private titleService: Title) {
 
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
@@ -146,6 +150,9 @@ export class SpeedComponent implements OnInit {
       }
 
     });
+    if(this.windRose != null){
+      this.showExport = true;
+    }
   }
   // check open menu
   checkOpenMenu() {
@@ -237,6 +244,7 @@ export class SpeedComponent implements OnInit {
   sendTitle() {
     this.nav.title = this.translateService.instant("home.windspeed");
     this.slide.numberPosition =2;
+    this.titleService.setTitle(this.nav.title +"-" +this.translateService.instant("home.weather"));
   }
   // send data
   private sendValue(title: string, value: string) {
@@ -273,14 +281,14 @@ export class SpeedComponent implements OnInit {
     }
   }
   clickSeach() {
-    this.checkSeach = true;
-    this.getdataSpeed(this.urlSpeed, this.getToken())
-
-
+    if(this.getToken() === ""){
+      this.openDialog(2);
+    }else{
+      this.checkSeach = true;
+      this.getdataSpeed(this.urlSpeed, this.getToken())
+    }
   }
-  getDataWindValue() {
-    this.listWindValue = this.windRose;
-  }
+
 
   getToken() {
     return localStorage.getItem("access_token");
@@ -291,34 +299,30 @@ export class SpeedComponent implements OnInit {
    * @param auth_token 
    */
   private getdataSpeed(url: string, auth_token: string) {
+    this.openDialog(1);
     url = url + this.txt_zhan + "start=" + this.nav.txt_start_date + "&end=" + this.nav.txt_end_date;
     return this.http.get<WindRose>(url, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + auth_token)
     }).subscribe(
       result => {
-
+        this.dialog.closeAll();
         this.windRose = result.values;
-        this.getDataWindValue();
-        this.checkValue();
-        this.checkData = true;
+        //this.checkValue();
+ 
+        this.showExport = true;
       },
       err => {
-        //this.router.navigateByUrl("**");
-        this.checkData = false;
-
+        this.showExport = false;
       });
   }
 
   private checkValue() {
     this.windSources = [
-      { valueField: "val1", name: this.min(this.listWindValue) + "-" + this.max(this.listWindValue) + " m/s" },
-      { valueField: "val2", name: this.min2(this.listWindValue) + "-" + this.max2(this.listWindValue) + " m/s" },
-      { valueField: "val3", name: this.min3(this.listWindValue) + "-" + this.max3(this.listWindValue) + " m/s" },
-      { valueField: "val4", name: this.min4(this.listWindValue) + "-" + this.max4(this.listWindValue) + " m/s" },
-      { valueField: "val5", name: this.min5(this.listWindValue) + "-" + this.max5(this.listWindValue) + " m/s" },
-      { valueField: "val6", name: this.min6(this.listWindValue) + "-" + this.max6(this.listWindValue) + " m/s" },
-      { valueField: "val7", name: this.min7(this.listWindValue) + "-" + this.max7(this.listWindValue) + " m/s" },
-      { valueField: "val8", name: this.min8(this.listWindValue) + "-" + this.max8(this.listWindValue) + " m/s" }
+      { valueField: "val1", name: this.min(this.windRose) + "-" + this.max(this.windRose) + " m/s" },
+      { valueField: "val2", name: this.max(this.windRose) + "-" + this.max2(this.windRose) + " m/s" },
+      { valueField: "val3", name: this.max2(this.windRose) + "-" + this.max3(this.windRose) + " m/s" },
+      { valueField: "val4", name: this.max3(this.windRose) + "-" + this.max4(this.windRose) + " m/s" },
+      { valueField: "val5", name: + "> " + this.max5(this.windRose) + " m/s" }
     ]
 
 
@@ -373,36 +377,7 @@ export class SpeedComponent implements OnInit {
     }
     return max;
   }
-  max6(a: WindValue[]) {
-    let max = a[0].val6;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val6) {
-        max = a[i].val6;
-      }
-    }
-    return max;
-  }
-  max7(a: WindValue[]) {
-    let max = a[0].val7;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val7) {
-        max = a[i].val7;
-      }
-    }
-    return max;
-  }
-  max8(a: WindValue[]) {
-    let max = a[0].val8;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val8) {
-        max = a[i].val8;
-      }
-    }
-    return max;
-  }
+ 
   min(a: WindValue[]) {
     let min = a[0].val1;
     for (let i = 0; i < a.length; i++) {
@@ -453,36 +428,7 @@ export class SpeedComponent implements OnInit {
     }
     return min;
   }
-  min6(a: WindValue[]) {
-    let min = a[0].val4;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val6) {
-        min = a[i].val6;
-      }
-    }
-    return min;
-  }
-  min7(a: WindValue[]) {
-    let min = a[0].val7;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val7) {
-        min = a[i].val7;
-      }
-    }
-    return min;
-  }
-  min8(a: WindValue[]) {
-    let min = a[0].val8;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val8) {
-        min = a[i].val8;
-      }
-    }
-    return min;
-  }
+  
   /**
    * 
    * @param dayStart 
@@ -542,5 +488,23 @@ export class SpeedComponent implements OnInit {
       this.icon_show = "assets/image/icon_show.png";
     }
 
+  }
+  animal: string;
+  name: string;
+
+  openDialog(position:number): void {
+    const dialogRef = this.dialog.open(DialogLoaddingComponent, {
+       width:"auto",
+       height :"auto",
+      data: {name: this.name, animal: this.animal,key:position},disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  exportExcel(){
+    let fileName = this.translateService.instant("home.windspeed") +" - " +this.txt_date_start +"T"+this.txt_time_start +" - " +this.txt_date_end +"T"+this.txt_time_end
+    this.excelService.exportAsExcelFile(this.windRose, fileName);
   }
 }

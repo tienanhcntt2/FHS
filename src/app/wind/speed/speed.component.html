@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 <mat-drawer-container class="container_full">
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3; border-right: 1px solid #1491d0">
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
@@ -12,10 +12,10 @@
         <dx-polar-chart id="radarChart" palette="soft" [dataSource]="windRose"
           (onLegendClick)="onLegendClick($event)">
           <!-- hien thi toc do gio -->
-          <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name">
+          <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name" >
           </dxi-series>
           <dxo-common-series-settings type="stackedbar"></dxo-common-series-settings>
-          <dxo-margin [bottom]="50" [left]="100" [top]="50">
+          <dxo-margin [bottom]="50" [left]="100" [top]="50" [right]="50">
           </dxo-margin>
           <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true">
           </dxo-argument-axis>
@@ -80,22 +80,22 @@
             </div>
 
           </div>
-        <div *ngIf="checkData">
+      
           <div class="row">
             <span class="title_table">{{'rainFall.showdata' | translate}} <img (click)="showDetail()"
                 src={{nameMaticon}} />
               <div class="line"></div>
             </span>
           </div>
-          <div class="row" *ngIf="showTable" style="margin-top:20px;">
+          <div class="row" *ngIf="showTable" style="margin:10px;">
 
-            <button class="col-md-6">
+            <!-- <button class="col-md-6">
               {{'rainFall.show%' | translate}}
             </button>
             <button class="col-md-6">
               {{'rainFall.showspeed' | translate}}
-            </button>
-
+            </button> -->
+            <button *ngIf="showExport"  class="col-3 export" (click)="exportExcel()"  ><img src="assets/image/excel.png"/>{{'rainFall.export' | translate}}</button>
             <div class="tbl-header">
               <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
@@ -113,7 +113,7 @@
               <table cellpadding="0" cellspacing="0" border="0">
                 <tbody>
 
-                  <tr *ngFor='let dt of listWindValue'>
+                  <tr *ngFor='let dt of windRose'>
 
                     <td>{{ dt.arg }}</td>
                     <td>{{ dt.val1 }}</td>
@@ -121,19 +121,12 @@
                     <td>{{ dt.val3 }}</td>
                     <td>{{ dt.val4 }}</td>
                     <td>{{ dt.val5 }}</td>
-                    <td>{{ dt.val6 }}</td>
-                    <td>{{ dt.val7 }}</td>
-                    <td>{{ dt.val8 }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-
-
-      </div>
-
     </div>
   </div>
 

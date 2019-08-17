@@ -84,12 +84,7 @@ export class HeaderComponent implements OnInit {
   inforUserName() {
 
     if (this.auth.AccessToken.length > 0) {
-      // this.http.get<UserInfoResponse>(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint, {
-      //   headers: new HttpHeaders().append('Authorization', 'Bearer ' + this.auth.AccessToken )
-      // }).subscribe(resopnse => {
-      //     this.userName = resopnse.name;
-      //   this.showNameuser(resopnse.name);
-      // });
+      
       this.auth.FetchUserEndpoint(new URL(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint)).subscribe(response => {
         this.userName = response.name;
         this.showNameuser(response.name);
