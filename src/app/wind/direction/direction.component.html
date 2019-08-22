@@ -4,10 +4,10 @@
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
-  <div class="example-sidenav-content row no-gutters">
+  <div class="example-sidenav-content row no-gutters h-100">
     <!-- colum left -->
-    <div ngClass={{nameColumnLeft}} id="second">
-        <dx-chart [dataSource]="stockPrices" id="chart">
+    <div ngClass={{nameColumnLeft}} id="second" class="my-auto">
+        <dx-chart [dataSource]="stockPrices" id="chart" class="justify-content-center">
             <!-- See details in the "Bind Series to Data" topic -->
            
             <dxo-zoom-and-pan argumentAxis="both"></dxo-zoom-and-pan>
@@ -27,6 +27,7 @@
             [enabled]="true"
             [customizeTooltip]="customizeTooltip">
            </dxo-tooltip>
+           
         </dx-chart>
     </div>
     <!-- colum right  -->
@@ -108,9 +109,9 @@
               <tbody>
                 <tr *ngFor='let dt of stockPrices'>
 
-                  <td >{{dt.timestamp | date: 'yyyy/MM/dd : HH:mm:ss'}}</td>
+                  <td >{{dt.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
                   <td >{{dt.direction}}</td>
-                  <td >AST</td>
+                  <td >{{nameDirection(dt.direction)}}</td>
                 </tr>
               </tbody>
             </table>

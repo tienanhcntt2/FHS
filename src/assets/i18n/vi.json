@@ -47,5 +47,16 @@
         "Temperature_Ranges": "Phạm vi nhiệt độ"
     } ,"huminity" :{
         "avg_huminity" :"Độ ẩm trung bình"
+    },
+    "settingDialog":{
+        "warning" :"Cảnh báo",
+        "messagelogin" :"Bạn cần đăng nhập trước khi sử dụng chức năng này?",
+        "login" :"Đăng nhập",
+        "cancel" :"Hủy bỏ",
+        "loadding": "Loadding",
+        "error" : "lỗi",
+        "messageError" :"Không có dữ liệu",
+        "From" :"Từ",
+        "to" :"đến"
     }
 }

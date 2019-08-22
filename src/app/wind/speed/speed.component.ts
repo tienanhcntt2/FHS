@@ -89,7 +89,7 @@ export class SpeedComponent implements OnInit {
   /**
    * list table 
    */
-  private listNametable: string[] = ['ARG', 'Val 1', 'Val 2', 'Val 3', 'Val 4', 'Val 5'];
+  private listNametable: string[] = ['ARG', '0-2 m/s', '2-5 m/s', '5-10 m/s', '10-15 m/s', '> 15 m/s'];
   private urlSpeed: string = "http://10.199.15.95/mops/Meteorology/";
   private txt_zhan: string;
 
@@ -316,17 +316,7 @@ export class SpeedComponent implements OnInit {
       });
   }
 
-  private checkValue() {
-    this.windSources = [
-      { valueField: "val1", name: this.min(this.windRose) + "-" + this.max(this.windRose) + " m/s" },
-      { valueField: "val2", name: this.max(this.windRose) + "-" + this.max2(this.windRose) + " m/s" },
-      { valueField: "val3", name: this.max2(this.windRose) + "-" + this.max3(this.windRose) + " m/s" },
-      { valueField: "val4", name: this.max3(this.windRose) + "-" + this.max4(this.windRose) + " m/s" },
-      { valueField: "val5", name: + "> " + this.max5(this.windRose) + " m/s" }
-    ]
 
-
-  }
   max(a: WindValue[]) {
     let max = a[0].val1;
     for (let i = 0; i < a.length; i++) {

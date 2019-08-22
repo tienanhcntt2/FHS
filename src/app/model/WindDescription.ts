@@ -18,13 +18,14 @@ export interface WindRose {
 export class WindDescription {
     valueField: string;
     name: string;
+    color:string;
 }
 let windSources: WindDescription[] = [
-    { valueField: "val1", name: "0-2 m/s" },
-    { valueField: "val2", name: "2-5 m/s" },
-    { valueField: "val3", name: "5-10 m/s" },
-    { valueField: "val4", name: "10-15 m/s" },
-    { valueField: "val5", name: "> 15 m/s" } 
+    { valueField: "val1", name: "0-2 m/s",color:"#00ffff" },
+    { valueField: "val2", name: "2-5 m/s" ,color:"#0090ff"},
+    { valueField: "val3", name: "5-10 m/s", color:"#1400d4" },
+    { valueField: "val4", name: "10-15 m/s",color:"#100183" },
+    { valueField: "val5", name: "> 15 m/s" ,color:"#883af3"} 
 ]
 let WindRoseDate : WindValue []=[{
     arg: "N",
