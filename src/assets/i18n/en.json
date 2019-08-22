@@ -47,5 +47,16 @@
         "Temperature_Ranges": "Temperature Ranges"
     },"huminity" :{
         "avg_huminity" :"Average Humidity"
+    },
+    "settingDialog":{
+        "warning" :"Warning",
+        "messagelogin" :"You need login before when use this function?",
+        "login" :"Login",
+        "cancel" :"Cancel",
+        "loadding": "Loadding",
+        "error" : "Error",
+        "messageError" :"No Data",
+        "From" :"From",
+        "to" :"To"
     }
 }

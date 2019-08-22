@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../service/language.service';
 
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit {
   private lg: string = "";
 
   constructor(private userSevice: UserServicer, private auth: FhsAuthorizeService, private translateService: TranslateService,
-    private languageService: LanguageService, private http: HttpClient) {
+    private languageService: LanguageService, private http: HttpClient, private router:Router) {
   }
 
   ngOnInit() {
@@ -97,6 +98,8 @@ export class HeaderComponent implements OnInit {
 
 
   }
-
+  gotoHome(){
+    this.router.navigateByUrl("/wind/home");
+  }
 
 }

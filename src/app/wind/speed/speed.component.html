@@ -12,7 +12,7 @@
         <dx-polar-chart id="radarChart" palette="soft" [dataSource]="windRose"
           (onLegendClick)="onLegendClick($event)">
           <!-- hien thi toc do gio -->
-          <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name" >
+          <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name" [color] ="item.color" >
           </dxi-series>
           <dxo-common-series-settings type="stackedbar"></dxo-common-series-settings>
           <dxo-margin [bottom]="50" [left]="100" [top]="50" [right]="50">

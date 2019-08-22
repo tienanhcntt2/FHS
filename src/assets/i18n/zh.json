@@ -47,5 +47,16 @@
         "Temperature_Ranges": "溫度範圍"
     } ,"huminity" :{
         "avg_huminity" :"平均濕度"
+    },
+    "settingDialog":{
+        "warning" :"警告",
+        "messagelogin" :"使用此功能之前需要登錄嗎？",
+        "login" :"登錄",
+        "cancel" :"取消",
+        "loadding": "載入中",
+        "error" : "錯誤",
+        "messageError" :"沒有數據",
+        "From" :"从",
+        "to" :"到"
     }
 }

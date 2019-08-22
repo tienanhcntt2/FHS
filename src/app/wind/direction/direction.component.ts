@@ -64,12 +64,15 @@ export class DirectionComponent implements OnInit, OnDestroy {
 
   private selectToday: Date;
   public stockPrices: Fengxiang[] = null;
+  public myFengxiang: fengxiang [] =[];
   private urlData: string = "http://10.199.15.95/mops/Meteorology/winddirection?";
   public nameColumnRight: string = "col-sm-12 col-md-5 colum_right";
   public nameColumnLeft: string = "col-sm-12 col-md-7 ";
   public icon_show: string = "assets/image/icon_hiden.png";
   private numbercheckShow: number = 0;
   public showExport: Boolean = false;
+  private animal: string;
+  private  name: string;
 
   /**
    * constructor direction
@@ -268,6 +271,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
   }
   customizeText = (arg: any) => {
     let value = new Date(arg.value);
+    
     if (arg.valueText.length < 2) {
       arg.valueText = value.toLocaleString().split(' ')[1];
 
@@ -341,9 +345,12 @@ export class DirectionComponent implements OnInit, OnDestroy {
         this.showExport = true;
       },
       err => {
-        console.log("Error- something is wrong!")
-        //this.router.navigateByUrl("**");
-
+        this.stockPrices = null;
+        this.myFengxiang = null;
+        this.dialog.closeAll();
+        this.name =this.translate.instant("settingDialog.From") +" " +this.txt_date_start+"T"+this.txt_time_start +" " 
+        +this.translate.instant("settingDialog.to") +" " +this.txt_date_end +"T"+this.txt_time_end
+        this.openDialog(3);
       });
   }
   getToken() {
@@ -352,11 +359,12 @@ export class DirectionComponent implements OnInit, OnDestroy {
   clickSeach() {
 
     if (this.getToken() === "") {
+      
       this.openDialog(2);
     } else {
       this.getDataWinddirection(this.urlData, this.getToken());
     }
-  
+
 
   }
   @HostListener('window:resize', ['$event'])
@@ -382,8 +390,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
     }
 
   }
-  animal: string;
-  name: string;
+
 
   openDialog(position: number): void {
     const dialogRef = this.dialog.open(DialogLoaddingComponent, {
@@ -393,26 +400,103 @@ export class DirectionComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      
     });
   }
+
   exportExcel() {
     let fileName = this.translate.instant("home.winddriction") + " - " + this.txt_date_start + "T" + this.txt_time_start + " - " + this.txt_date_end + "T" + this.txt_time_end
-    this.excelService.exportAsExcelFile(this.stockPrices, fileName);
+    this.openDialog(1);
+    this.stockPrices.forEach(v =>{
+            
+           let my = new fengxiang(this.datePipe.transform(v.timestamp,"yyyy/MM/dd HH:mm:ss"),v.direction,this.nameDirection(v.direction));
+           this.myFengxiang.push(my);
+          
+    });
+    this.dialog.closeAll();
+     this.excelService.exportAsExcelFile(this.myFengxiang, fileName);
   }
-  // customizeTooltip(arg: any) {
-  //   // let aggregationInfo = arg.point.aggregationInfo,
-  //   // start = aggregationInfo && aggregationInfo.intervalStar
-  //   console.log("hello : " + arg.argument.toTimeString() + ' - ' + arg.valueText);
-  //   return
-  //   {
-  //     text: arg.point.tag + " -" + arg.argument.toTimeString() + ' - ' + arg.valueText
-  //   };
-  // }
+
   customizeTooltip(arg: any) {
-    console.log("hello : " + arg.argument.toTimeString() + ' - ' + arg.valueText);
     return {
-        text: arg.point.tag + '<br/>Total Population: ' + arg.argumentText + 'M <br/>Population with Age over 60: ' + arg.valueText
+      text: arg.argument.toTimeString() + " " + arg.valueText
     };
+  }
+  public nameDirection(arg: number){
+    let valueText: string ="";
+    switch(true){
+      case arg <11.25 || arg>=348.75:{
+        valueText='N';
+        break;
+      }
+      case arg<=33.75:{
+        valueText='NNE';
+        break;
+      }
+      case arg<=56.25:{
+        valueText='NE';
+        break;
+      }
+      case arg<=78.75:{
+        valueText='ENE';
+        break;
+      }
+      case arg<=101.25:{
+        valueText='E';
+        break;
+      }
+      case arg<=123.75:{
+        valueText='ESE';
+        break;
+      }
+      case arg<=146.25:{
+        valueText='SE';
+        break;
+      }
+      case arg<=168.75:{
+        valueText='SSE';
+        break;
+      }
+      case arg<=191.25:{
+        valueText='S';
+        break;
+      }
+      case arg<=213.75:{
+        valueText='SSW';
+        break;
+      }
+      case arg<=236.25:{
+        valueText='SW';
+        break;
+      }
+      case arg<=258.75:{
+        valueText='WSW';
+        break;
+      }
+      case arg<=281.25:{
+        valueText='W';
+        break;
+      }
+      case arg<=303.75:{
+        valueText='WNW';
+        break;
+      }
+      case arg<=326.25:{
+        valueText='NW';
+        break;
+      }
+      case arg<=348.75:{
+        valueText='NNW';
+        break;
+      }
+    }
+    return valueText;
+  }
 }
+export class fengxiang{
+  
+  constructor(public Timestamp:string,public Direction: number, public nameDirection:string){
+
+  }
+
 }
