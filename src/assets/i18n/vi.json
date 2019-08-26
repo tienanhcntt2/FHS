@@ -12,6 +12,7 @@
         "weather" : "Thời Tiết",
         "rainfall":"Lượng mưa",
         "windspeed" :"Tốc độ gió",
+        "speed" : "Tốc độ gió",
         "winddriction" :"Hướng gió",
         "Humidity" :"Độ ẩm"
     },

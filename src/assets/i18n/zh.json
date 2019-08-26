@@ -12,6 +12,7 @@
         "weather" : "天氣",
         "rainfall":"雨量",
         "windspeed" :"風速",
+        "speed" : "風速",
         "winddriction" :"風向",
         "Humidity" :"濕度"
     },

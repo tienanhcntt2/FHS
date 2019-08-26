@@ -13,6 +13,9 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
+import { MatDialog } from '@angular/material';
+import { AutherService } from 'src/app/service/autherService';
 
 
 
@@ -53,6 +56,8 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   public imagSource: string = "assets/image/raingif.gif";
   public imageIcon: string = "assets/image/1.png";
+  private animal: string;
+  private  name: string;
 
 
 
@@ -63,8 +68,9 @@ export class HomeComponent implements OnInit, OnDestroy {
    * @param infoService 
    */
   constructor(private commonService: CommonService, private auth: FhsAuthorizeService, private infoService: InfoService,
-    private translateService: TranslateService,private titleService: Title, private router:Router) {
-
+    private translateService: TranslateService,private titleService: Title, private router:Router,public dialog: MatDialog,
+    private authService: AutherService ) {
+      this.getToken();
     this.connectMQTT();
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
       this.sendTitle();
@@ -74,13 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    this.getdataHome();
-   
-    this.functionCheckLogin();
-
     this.commonService.notifyOther({ option: 'callTitle', value: 'Home' });
-
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
 
@@ -88,32 +88,30 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
 
     });
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.getdataHome();
+    this.commonService.notifyOther({ option: 'callTitle', value: 'Home' });
   }
 
-  checkOpenMenu() {
+  private checkOpenMenu() {
     this.clickOpen += 1;
-    if (this.flags === false) {
       if (this.clickOpen % 2 == 0) {
         this.nav.icon_val = "assets/image/icon_menu.png"
       } else {
         this.nav.icon_val = "assets/image/drop_up.png"
       }
       this.drawer.toggle();
-    } else {
-      alert("Please Login");
-    }
   }
-  functionCheckLogin() {
-    if (localStorage.getItem('userName') === '') {
-      this.flags = false;
-    } else {
-      this.flags = false;
-    }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
+
+  private  getToken(){
+    if(this.auth.AccessToken.length >0){
+      this.authService.savetoken(this.auth.AccessToken);
+    }
+  }
+ 
   sendTitle() {
     this.nav.title = this.translateService.instant("home.homepage");
     this.slide.numberPosition = 0;
@@ -178,7 +176,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       name: this.translateService.instant("home.rainfall"), number: this.splitNumber(Rainfall), donvi: "mm", min: this.splitNumber(Rainfall) + " mm", max: this.splitNumber(Rainfall) + " mm", link:"/wind/rainfall"
     },
     {
-      name: this.translateService.instant("home.windspeed"), number:this.splitNumber(WindVelocity) , donvi: "km/h", min: this.splitNumber(WindVelocity) + " km/h", max: this.splitNumber(WindVelocity) + " km/h", link:"/wind/speed"
+      name: this.translateService.instant("home.speed"), number:this.splitNumber(WindVelocity) , donvi: "km/h", min: this.splitNumber(WindVelocity) + " km/h", max: this.splitNumber(WindVelocity) + " km/h", link:"/wind/speed"
     },
     {
       name: this.translateService.instant("home.winddriction"), number: this.splitNumber(WindDegree), donvi: "km/h", min: this.splitNumber(WindDegree) + " km/h", max: this.splitNumber(WindDegree) + " km/h", link:"/wind/direction"
@@ -243,7 +241,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     return 0;
   }
   public sendURL(i:number){
-    this.router.navigateByUrl(this.winds[i].link);
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl(this.winds[i].link);
+    }else{
+      this.openDialog(2);
+    }
+    
+  }
+  openDialog(position: number): void {
+    const dialogRef = this.dialog.open(DialogLoaddingComponent, {
+      width: "auto",
+      height: "auto",
+      data: { name: this.name, animal: this.animal, key: position }, disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
   }
 }
 
