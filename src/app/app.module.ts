@@ -66,6 +66,8 @@ import { environment } from 'src/environments/environment';
 import { ConfigDataSpeed } from './model/WindDescription';
 import { DialogLoaddingComponent } from './dialog-loadding/dialog-loadding.component';
 import { ExcelServiceService } from './service/excelservice.service';
+import { JwtInterceptor } from './service/JwtInterceptor';
+import { ErrorInterceptor } from './service/ErrorInterceptor';
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.Languager);
@@ -135,7 +137,9 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     },
     {
       provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   entryComponents: [DialogLoaddingComponent],
   bootstrap: [AppComponent]

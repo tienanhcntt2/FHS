@@ -12,7 +12,8 @@
         "weather" : "Weather",
         "rainfall":"RainFall",
         "windspeed" :"Wind Rose",
-        "winddriction" :"Wind Driction",
+        "speed" : "Wind Speed",
+        "winddriction" :"Wind Direction",
         "Humidity" :"Humidity"
     },
     "menu":{

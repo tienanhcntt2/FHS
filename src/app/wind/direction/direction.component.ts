@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material';
 import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
 import { ExcelServiceService } from 'src/app/service/excelservice.service';
 import { Title } from '@angular/platform-browser';
+import { AutherService } from 'src/app/service/autherService';
 
 @Component({
   selector: 'app-direction',
@@ -85,7 +86,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
    */
   constructor(private commoService: CommonService, private datePipe: DatePipe,
     private userService: UserServicer, private translate: TranslateService, private intl: IntlService, private http: HttpClient,
-    public dialog: MatDialog, private excelService: ExcelServiceService, private titleService: Title) {
+    public dialog: MatDialog, private excelService: ExcelServiceService, private titleService: Title, private authService:AutherService) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.sendTitle();
@@ -332,13 +333,11 @@ export class DirectionComponent implements OnInit, OnDestroy {
    * @param url 
    * @param auth_token 
    */
-  private getDataWinddirection(url: string, auth_token: string) {
+  private getDataWinddirection(url: string) {
     this.openDialog(1);
     url = url + "start=" + this.nav.txt_start_date + "&end=" + this.nav.txt_end_date;
 
-    return this.http.get<Fengxiang[]>(url, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + auth_token)
-    }).subscribe(
+    return this.http.get<Fengxiang[]>(url).subscribe(
       result => {
         this.dialog.closeAll();
         this.stockPrices = result;
@@ -358,11 +357,11 @@ export class DirectionComponent implements OnInit, OnDestroy {
   }
   clickSeach() {
 
-    if (this.getToken() === "") {
+    if (!this.authService.isUserLoggedIn()) {
       
       this.openDialog(2);
     } else {
-      this.getDataWinddirection(this.urlData, this.getToken());
+      this.getDataWinddirection(this.urlData);
     }
 
 

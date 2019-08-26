@@ -18,6 +18,7 @@ import {  DxPolarChartComponent } from 'devextreme-angular';
 import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
 import { ExcelServiceService } from 'src/app/service/excelservice.service';
 import { Title } from '@angular/platform-browser';
+import { AutherService } from 'src/app/service/autherService';
 
 
 @Component({
@@ -105,7 +106,7 @@ export class SpeedComponent implements OnInit {
    */
   constructor(private datePipe: DatePipe, private commoService: CommonService, 
     private http: HttpClient, private translateService: TranslateService, private intl: IntlService, private dataConfig: ConfigDataSpeed,public dialog: MatDialog,
-    private excelService:ExcelServiceService,private titleService: Title) {
+    private excelService:ExcelServiceService,private titleService: Title, private authService:AutherService) {
 
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
@@ -281,11 +282,11 @@ export class SpeedComponent implements OnInit {
     }
   }
   clickSeach() {
-    if(this.getToken() === ""){
+    if(!this.authService.isUserLoggedIn()){
       this.openDialog(2);
     }else{
       this.checkSeach = true;
-      this.getdataSpeed(this.urlSpeed, this.getToken())
+      this.getdataSpeed(this.urlSpeed)
     }
   }
 
@@ -298,12 +299,10 @@ export class SpeedComponent implements OnInit {
    * @param url 
    * @param auth_token 
    */
-  private getdataSpeed(url: string, auth_token: string) {
+  private getdataSpeed(url: string) {
     this.openDialog(1);
     url = url + this.txt_zhan + "start=" + this.nav.txt_start_date + "&end=" + this.nav.txt_end_date;
-    return this.http.get<WindRose>(url, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + auth_token)
-    }).subscribe(
+    return this.http.get<WindRose>(url).subscribe(
       result => {
         this.dialog.closeAll();
         this.windRose = result.values;
@@ -312,6 +311,8 @@ export class SpeedComponent implements OnInit {
         this.showExport = true;
       },
       err => {
+        this.dialog.closeAll();
+        this.openDialog(3);
         this.showExport = false;
       });
   }
@@ -438,7 +439,7 @@ export class SpeedComponent implements OnInit {
   private selectEight() {
     this.txt_zhan = "eightwindrose?";
     if (this.checkSeach == true) {
-      this.getdataSpeed(this.urlSpeed, this.getToken());
+      this.getdataSpeed(this.urlSpeed);
     } else {
 
       this.windRose = this.dataConfig.getWindRoseDateEight();
@@ -449,7 +450,7 @@ export class SpeedComponent implements OnInit {
   private selectSixteen() {
     this.txt_zhan = "sixteenwindrose?";
     if (this.checkSeach == true) {
-      this.getdataSpeed(this.urlSpeed, this.getToken());
+      this.getdataSpeed(this.urlSpeed);
     } else {
       this.windRose = this.dataConfig.getWindRoseData();
       this.windSources = this.dataConfig.getWindSources();

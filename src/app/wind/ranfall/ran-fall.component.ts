@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material';
 import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
 import { ExcelServiceService } from 'src/app/service/excelservice.service';
 import { Title } from '@angular/platform-browser';
+import { AutherService } from 'src/app/service/autherService';
 
 
 @Component({
@@ -89,7 +90,8 @@ export class RanFallComponent implements OnInit {
    */
   constructor(private datePipe: DatePipe, private commoService: CommonService,
     private http: HttpClient, private translate: TranslateService,private intl: IntlService,
-    private auth :FhsAuthorizeService,public dialog: MatDialog,private excelService:ExcelServiceService,private titleService: Title) {
+    public dialog: MatDialog,private excelService:ExcelServiceService,private titleService: Title,
+    private authService: AutherService) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
      
       this.sendTitle();
@@ -302,10 +304,10 @@ private  showIconDesktop(){
    */
   clickSeach(){
     //this.numberDate = this.getNumberDate(this.txt_date_start,this.txt_date_end);
-    if(this.getToken() ===""){
+    if(!this.authService.isUserLoggedIn()){
       this.openDialog(2);
     }else{
-      this.getDataRainFall(this.urlRainAPi(),this.getToken());
+      this.getDataRainFall(this.urlRainAPi());
     }
     
   }
@@ -320,11 +322,9 @@ private  showIconDesktop(){
    * get data rainFall
    * @param numberDate 
    */
-  private getDataRainFall( url: string,auth_token :string){
+  private getDataRainFall( url: string){
     this.openDialog(1);
-    return this.http.get<ListRainFall>(url, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer '+auth_token)
-  }).subscribe(
+    return this.http.get<ListRainFall>(url).subscribe(
       result => {
         this.dialog.closeAll();
         this.dataSource = result.rainfalls;

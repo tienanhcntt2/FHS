@@ -8,8 +8,9 @@ import { UserServicer } from '../service/user.Servicer';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../service/language.service';
 
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AutherService } from '../service/autherService';
 
 
 
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
   private lg: string = "";
 
   constructor(private userSevice: UserServicer, private auth: FhsAuthorizeService, private translateService: TranslateService,
-    private languageService: LanguageService, private http: HttpClient, private router:Router) {
+    private languageService: LanguageService, private http: HttpClient, private router:Router, private autherService:AutherService) {
   }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class HeaderComponent implements OnInit {
   }
   // function logout
   functionlogout() {
-    this.userSevice.logout();
+    this.autherService.logOut();
   }
   // function check get info
   showNameuser(name: string) {
@@ -84,19 +85,14 @@ export class HeaderComponent implements OnInit {
 
   inforUserName() {
 
-    if (this.auth.AccessToken.length > 0) {
-      
+    if(this.autherService.isUserLoggedIn()){
       this.auth.FetchUserEndpoint(new URL(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint)).subscribe(response => {
         this.userName = response.name;
+       
         this.showNameuser(response.name);
-        localStorage.setItem("access_token",this.auth.AccessToken);
+       
       })
-  
-    }else{
-      localStorage.setItem("access_token","");
     }
-
-
   }
   gotoHome(){
     this.router.navigateByUrl("/wind/home");
