@@ -7,10 +7,18 @@ $turquoise: #1abc9c;
 
 
 .content_full{
-    background : linear-gradient(to bottom,#0048ff 0%, #ffffff 100%);
-    background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
-    background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
-    background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
+    // background : linear-gradient(to bottom,#0048ff 0%, #ffffff 100%);
+    // background : -moz-linear-gradient(bottom, #0048ff 0%,#ffffff 100%);
+    // background : -webkit-linear-gradient(bottom, #0048ff 0%, #ffffff 100%);
+    // background : -o-linear-gradient(bottom,#0048ff 0%, #ffffff 100%);
+    background: rgba(62,159,244,1);
+    background: -moz-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(62,159,244,1)), color-stop(1%, rgba(19,126,241,1)), color-stop(96%, rgba(19,126,241,1)));
+    background: -webkit-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+    background: -o-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+    background: -ms-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+    background: linear-gradient(to right, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e9ff4', endColorstr='#137ef1', GradientType=1 );
     height: auto;
     
     //overflow:visible;
@@ -23,6 +31,7 @@ $turquoise: #1abc9c;
     position: absolute;
     top: 0;
     bottom: 0;
+    
     z-index: 3;
     outline: 0;
     box-sizing: border-box;
@@ -44,22 +53,33 @@ $turquoise: #1abc9c;
   mat-card{
     
     box-shadow: 1px 2px 10px 0 #0623ff !important;
-    margin-top: 50px;
+
     
     background-position: center;
     background-repeat: no-repeat;
-     border-radius: 20px;
-     -moz-border-radius: 20px;
-     -webkit-border-radius: 20px;
-     -ms-border-radius: 20px;
-     -o-border-radius: 20px;
+     border-radius: 5px;
+     -moz-border-radius: 5px;
+     -webkit-border-radius: 5px;
+     -ms-border-radius: 5px;
+     -o-border-radius: 5px;
      font-family:'UTM Avo';
-     color: #1491d0;
+     color: #fff;
+     background: rgba(62,159,244,1);
+background: -moz-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(62,159,244,1)), color-stop(1%, rgba(19,126,241,1)), color-stop(96%, rgba(19,126,241,1)));
+background: -webkit-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+background: -o-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+background: -ms-linear-gradient(left, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+background: linear-gradient(to right, rgba(62,159,244,1) 0%, rgba(19,126,241,1) 1%, rgba(19,126,241,1) 96%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e9ff4', endColorstr='#137ef1', GradientType=1 );
   }
   mat-card-title{
             font-family:'UTM Avo';
             font-size: 30px;
-            color:#1491d0; 
+            display: inline-block;
+            text-align: center;
+            
+            color:#33d014; 
   }
   mat-card h1{
             
@@ -160,7 +180,7 @@ $turquoise: #1abc9c;
     text-transform: uppercase;
   }
   mat-card-subtitle{
-    color:#1491d0;
+    color:#fff;
     font-family:'UTM Avo';
     font-size: 15px
   }
@@ -181,4 +201,183 @@ mat-card{
 .my-auto{
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.home_v2{
+  margin-top: 60px;
+  margin-bottom: 145px;
+  margin-left: 85px;
+  margin-right: 85px;
+}
+.left_v2{
+  margin-top: 105px;
+  margin-bottom: 155px;
+  padding-right: 50px;
+
+}
+mat-card-header{
+  width: 100%;
+  text-align: center;
+}
+.mat-card-header-text{
+  margin: 0 16px;
+  width: 100%;
+  text-align: center;
+}
+.icon_home_v2{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  
+}
+.text_info{
+  text-align: center;
+  width: 100%;
+}
+.bottom_item{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  color: aqua;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+li {
+  height: 30px;
+  width: 100%;
+  font-size: 12px;
+}
+li span {
+  
+  float: left;
+  width: 10%;
+  margin-top: 7px;
+  vertical-align: middle;
+}
+
+li p {
+  width: 85%;
+  float: right;
+ 
+  vertical-align: middle;
+  text-align: left;
+}
+.hcn{
+  width: 20px;
+  height: 10px;
+  display: table-cell;
+  vertical-align: middle;
+  background: aqua;
+}
+.hcn_cao{
+  width: 20px;
+  height: 10px;
+  vertical-align: middle;
+  background: red;
+}
+.hcn_bt{
+  width: 20px;
+  height: 10px;
+  vertical-align: middle;
+  background: green;
+}
+.hcn_bbt{
+  width: 20px;
+  height: 10px;
+  vertical-align: middle;
+  background: yellow;
+}
+.home_bottom_info{
+  width: 90%;
+  border-radius: 5px;
+
+  font-family:'UTM Avo';
+  background: #5d95c5;
+  color: #fff;
+  height: 100px;
+  h5{
+    border-bottom: 1px aqua solid;
+    padding: 5px;
+    color: aqua;
+
+  }
+  a{
+    text-decoration: none;
+    cursor: pointer;
+  }
+  a:hover{
+    color: red;
+  }
+  a:active{
+    color: #0623ff;
+  }
+}
+
+#my-div {
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-bottom-color: #A4DDED;
+	position: relative;
+	top: -10px;
+}
+#my-div:after {
+	content: '';
+	position: absolute;
+
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-top-color: #A4DDED;
+}
+#hinhvuong {
+	width: 10px;
+	height: 10px;
+	background: #ccc;
+
+	background: aqua;
+}
+
+.flexcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.text_home{
+  padding-left: 5px;
+  font-size: 30px;
+  color: aqua;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.text_donvi{
+  padding-right: 5px;
+  text-align: center;
+  font-size: 20px;
+  color: aqua;
+  padding-bottom: 10px;
+}
+::ng-deep .gauge-element {
+  height: 345px;
+  width: auto;
+  display: inline-block;
+}
+@media only screen and (max-width: 1208px){
+  .text_home{
+    padding-left: 5px;
+    font-size: 20px;
+    color: aqua;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  .text_donvi{
+    padding-right: 5px;
+    text-align: center;
+    font-size: 10px;
+    color: aqua;
+    padding-bottom: 10px;
+  }
 }

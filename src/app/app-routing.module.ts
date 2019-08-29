@@ -5,10 +5,11 @@ import { DirectionComponent } from './wind/direction/direction.component';
 import { WindComponent } from './wind/wind/wind.component';
 import { HomeComponent } from './wind/home/home.component';
 import { PageNotFoundComponent } from './util/page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
+
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { RanFallComponent } from './wind/ranfall/ran-fall.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
+
 
 
 const routes: Routes = [
@@ -49,7 +50,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'wind/home',
     pathMatch: 'full'
-  },
+  }
+  ,
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({

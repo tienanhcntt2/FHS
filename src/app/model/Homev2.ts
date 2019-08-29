@@ -10,4 +10,5 @@ export class Homev2{
     public temperature: number;
     public atmosphericPressure: number;
     public rainfall: number;
+    public windDirection: string;
 }

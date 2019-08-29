@@ -133,7 +133,7 @@ export class SpeedComponent implements OnInit {
     // this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
     this.txt_time_end = this.formatValue(this.timeEnd) + ":00";
 
-    this.windRose = this.dataConfig.getWindRoseData();
+    // this.windRose = this.dataConfig.getWindRoseData();
     this.windSources = this.dataConfig.getWindSources();
 
 

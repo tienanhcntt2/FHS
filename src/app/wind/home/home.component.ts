@@ -44,12 +44,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   public winds: Winds[] = [];
   private url_home: string = "http://10.199.15.95:80/mops/Meteorology/info";
   private _client: Paho.MQTT.Client;
-  public localtion: String = "Ha Tinh";
-  public shidu: number = 28;
-  public wendu: number = 10;
-  public fengxiang: String = "EAST";
-  public fengshi: number = 30;
-
+  // value mqtt
+  public localtion: String;
+  public huminity: number;
+  public nameFengxiang: String;
+  public wind_direction: number;
+  public wind_speed: number;
+  public temperature: number;
+  public rainfall : number;
   private heightRigh: number;
   /**
    * change background
@@ -113,7 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
  
   sendTitle() {
-    this.nav.title = this.translateService.instant("home.homepage");
+    this.nav.title = "Home";
     this.slide.numberPosition = 0;
     this.titleService.setTitle(this.translateService.instant("home.weather"));
   }
@@ -145,17 +147,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   // get message MQTT
   private getMessage() {
     this._client.onMessageArrived = (message: Paho.MQTT.Message) => {
-      console.log(message);
       if (message.destinationName == 'MeteorologyInfo') {
         let obj: MyObj = JSON.parse(message.payloadString);
-        this.setValueHome(obj.Rainfall, obj.WindVelocity, obj.WindDegree, obj.Humidity);
-        this.setBackgound(obj.Humidity);
-        this.fengshi = obj.WindVelocity;
-        this.wendu = obj.Humidity;
+     
+        this.wind_speed = parseInt(obj.WindVelocity.toString().split('.') +"");
+        this.huminity = parseInt(obj.Humidity.toString().split('.') +"");
         this.localtion = obj.Location;
-        var digits = obj.Temperature.toString().split('.');
-        this.shidu = parseInt(digits + "");
-
+    
+        this.temperature = parseInt(obj.Temperature.toString().split('.') + "");
+        this.rainfall = obj.Rainfall +100;
+        this.wind_direction = parseInt(obj.WindDegree.toString().split('.') +"");
+        this.nameFengxiang = obj.WindDirection;
       }
 
     };
@@ -166,8 +168,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._client.subscribe('MeteorologyInfo', {
       qos: 1
     });
-
-    console.log('Connected to broker.');
   }
 
   async setValueHome(Rainfall: number, WindVelocity: number, WindDegree: number, Humidity: number) {
@@ -192,11 +192,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.infoService.getinfoHomeV2(this.url_home).pipe(first()).subscribe(info => {
       this.setValueHome(info.rainfall, info.windVelocity, info.windDegree, info.humidity);
       this.localtion = info.location;
-      this.fengshi = info.windVelocity;
-      this.wendu = info.humidity;
-      var digits = info.temperature.toString().split('.');
-      this.shidu = parseInt(digits + "");
+      this.wind_speed = parseInt(info.windVelocity.toString().split('.') +"");
+      this.huminity =parseInt(info.humidity.toString().split('.') +"");
+      this.temperature = parseInt(info.temperature.toString().split('.') + "");
       this.setBackgound(info.humidity);
+      this.rainfall = info.rainfall +100;
+      this.wind_direction = parseInt(info.windDegree.toString().split('.') +"");
+      this.nameFengxiang = info.windDirection;
+
     })
   }
 
@@ -248,6 +251,41 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     
   }
+  public gotoTemperature(){
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl("wind/temperature");
+    }else{
+      this.openDialog(2);
+    }
+  }
+  public gotoHuminity(){
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl("wind/humidity");
+    }else{
+      this.openDialog(2);
+    }
+  }
+  public gotoRainFall(){
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl("wind/rainfall");
+    }else{
+      this.openDialog(2);
+    }
+  }
+  public gotoWindSpeed(){
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl("wind/speed");
+    }else{
+      this.openDialog(2);
+    }
+  }
+  public gotoWindDirection(){
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl("wind/direction");
+    }else{
+      this.openDialog(2);
+    }
+  }
   openDialog(position: number): void {
     const dialogRef = this.dialog.open(DialogLoaddingComponent, {
       width: "auto",
@@ -258,6 +296,57 @@ export class HomeComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       
     });
+  }
+  customizeText(arg: any) {
+    let temp = '';
+    switch (arg.valueText) {
+      case '0' || '360': {
+        //statements; 
+        temp = 'N';
+        break;
+      }
+      
+      
+      case '45.0': {
+        //statements; 
+        temp = 'NE';
+        break;
+      }
+      case '90.0': {
+        //statements; 
+        temp = 'E';
+        break;
+      }
+      case '135.0': {
+        //statements; 
+        temp = 'SE';
+        break;
+      }
+      case '180.0': {
+        //statements; 
+        temp = 'S';
+        break;
+      }
+      case '225.0': {
+        //statements; 
+        temp = 'SW';
+        break;
+      }
+      case '270.0': {
+        //statements; 
+        temp = 'W';
+        break;
+      }
+      case '315.0': {
+        //statements; 
+        temp = 'WN';
+        break;
+      }
+      default: {
+        //statements; 
+        break;
+      }
+    }return temp;
   }
 }
 
@@ -271,6 +360,7 @@ interface MyObj {
   WindDegree: number;
   Humidity: number;
   Temperature: number;
+  WindDirection: string;
   AtmosphericPressure: number;
   Rainfall: number;
 }

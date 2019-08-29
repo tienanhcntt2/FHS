@@ -41,6 +41,7 @@ export class NavComponent implements OnInit, OnDestroy {
   private _clockSubscription: Subscription;
   private animal: string;
   private  name: string;
+  private today:string;
 
   constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService,
     private auth:FhsAuthorizeService,public dialog: MatDialog, private authService:AutherService ) {
@@ -48,6 +49,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
       this.selectAdrees = translateService.instant("nav.adrress");
       this.txt_zhan =translateService.instant("rainFall.station");
+      this.today =translateService.instant("home.homepage");
     });
   }
 
@@ -55,6 +57,7 @@ export class NavComponent implements OnInit, OnDestroy {
     this.dateCurrent = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_zhan =this.translateService.instant("rainFall.station");
     this.selectAdrees = this.translateService.instant("nav.adrress");
+    this.today = this.translateService.instant("home.homepage");
     this.reviceData();
     this.showFunctionHeader();
     this._clockSubscription = this.clockService.getClock().subscribe(time => {
@@ -77,7 +80,9 @@ export class NavComponent implements OnInit, OnDestroy {
   }
   showFunctionHeader() {
     //this.selectAdrees = this.translateService.instant("nav.adrress");
-    if (this.title === "TODAY") {
+    console.log("dsdsjdsdjsk : " +this.today);
+    if (this.title === "Home") {
+      
       this.flagsShow = false;
       
     } else if(this.title == this.translateService.instant("home.windspeed")){
@@ -97,6 +102,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
       } else if (res.hasOwnProperty('option') && res.option === 'sendTitle') {
         this.title = res.value;
+        
         this.showFunctionHeader();
       } else if (res.hasOwnProperty('option') && res.option === 'dateSpeed') {
         this.txt_start_date = res.value;

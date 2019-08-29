@@ -40,7 +40,7 @@ import { SpeedComponent } from './wind/speed/speed.component';
 import { DirectionComponent } from './wind/direction/direction.component';
 import { HomeComponent } from './wind/home/home.component';
 import { WindComponent } from './wind/wind/wind.component';
-import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartModule } from 'devextreme-angular';
+import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartModule, DxLinearGaugeModule } from 'devextreme-angular';
 import { SlideMenuComponent } from './util/slide-menu/slide-menu.component';
 
 import { LoginComponent } from './login/login.component';
@@ -68,6 +68,7 @@ import { DialogLoaddingComponent } from './dialog-loadding/dialog-loadding.compo
 import { ExcelServiceService } from './service/excelservice.service';
 import { JwtInterceptor } from './service/JwtInterceptor';
 import { ErrorInterceptor } from './service/ErrorInterceptor';
+import { TestComponent } from './test/test.component';
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.Languager);
@@ -89,7 +90,8 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     TemperatureComponent,
     HuminityComponent,
     RanFallComponent,
-    DialogLoaddingComponent
+    DialogLoaddingComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +122,8 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     DxChartModule,
     TimePickerModule,
     AppRoutingModule,
+    DxCircularGaugeModule,
+    DxLinearGaugeModule,
     IntlModule, DateInputsModule,
     TranslateModule.forRoot({
       loader: {
