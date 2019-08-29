@@ -5,6 +5,9 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
 import { ClockService } from '../service/ClockService';
 import { FhsAuthorizeService } from '@fhs/authorize';
+import { DialogLoaddingComponent } from '../dialog-loadding/dialog-loadding.component';
+import { MatDialog } from '@angular/material';
+import { AutherService } from '../service/autherService';
 
 @Component({
   selector: 'app-nav',
@@ -36,13 +39,17 @@ export class NavComponent implements OnInit, OnDestroy {
   private TimerCurrent : Date;
   private timerOk : string;
   private _clockSubscription: Subscription;
+  private animal: string;
+  private  name: string;
+  private today:string;
 
   constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService,
-    private auth:FhsAuthorizeService) {
+    private auth:FhsAuthorizeService,public dialog: MatDialog, private authService:AutherService ) {
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
       this.selectAdrees = translateService.instant("nav.adrress");
       this.txt_zhan =translateService.instant("rainFall.station");
+      this.today =translateService.instant("home.homepage");
     });
   }
 
@@ -50,6 +57,7 @@ export class NavComponent implements OnInit, OnDestroy {
     this.dateCurrent = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_zhan =this.translateService.instant("rainFall.station");
     this.selectAdrees = this.translateService.instant("nav.adrress");
+    this.today = this.translateService.instant("home.homepage");
     this.reviceData();
     this.showFunctionHeader();
     this._clockSubscription = this.clockService.getClock().subscribe(time => {
@@ -63,16 +71,18 @@ export class NavComponent implements OnInit, OnDestroy {
   }
   checkLogin() {
   
-    // if (localStorage.getItem("access_token").length > 0) {
-    //   this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
-    // } else {
-    //   alert("PLEASE LOGIN");
-    // }
-    this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
+    if (this.authService.isUserLoggedIn()) {
+      this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
+    } else {
+      this.openDialog(2);
+    }
+    
   }
   showFunctionHeader() {
     //this.selectAdrees = this.translateService.instant("nav.adrress");
-    if (this.title === "TODAY") {
+    console.log("dsdsjdsdjsk : " +this.today);
+    if (this.title === "Home") {
+      
       this.flagsShow = false;
       
     } else if(this.title == this.translateService.instant("home.windspeed")){
@@ -92,6 +102,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
       } else if (res.hasOwnProperty('option') && res.option === 'sendTitle') {
         this.title = res.value;
+        
         this.showFunctionHeader();
       } else if (res.hasOwnProperty('option') && res.option === 'dateSpeed') {
         this.txt_start_date = res.value;
@@ -104,5 +115,15 @@ export class NavComponent implements OnInit, OnDestroy {
 
     });
   }
+  openDialog(position: number): void {
+    const dialogRef = this.dialog.open(DialogLoaddingComponent, {
+      width: "auto",
+      height: "auto",
+      data: { name: this.name, animal: this.animal, key: position }, disableClose: true
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
+  }
 }

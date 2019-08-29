@@ -23,3 +23,6 @@ html,body {
     font-weight: normal;
     src: local('UTMAvoBold'), url('assets/font/utm-avobold.woff') format('woff');
     }
+    .mat-dialog-container {
+        padding: 0 !important;
+        }

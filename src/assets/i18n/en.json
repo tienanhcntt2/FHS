@@ -8,9 +8,12 @@
         "txt_message": "User Name or Password no connect"
     },
     "home":{
+        "homepage":"Home",
+        "weather" : "Weather",
         "rainfall":"RainFall",
-        "windspeed" :"Wind Speed",
-        "winddriction" :"Wind Driction",
+        "windspeed" :"Wind Rose",
+        "speed" : "Wind Speed",
+        "winddriction" :"Wind Direction",
         "Humidity" :"Humidity"
     },
     "menu":{
@@ -28,6 +31,7 @@
     "rainFall" :{
         "search" :"Search",
         "printf" : "Print",
+        "export" : "Export",
         "showdata" :"Display detailed data",
         "show%" :"Show follow %",
         "showspeed" :"Show follow km/h",
@@ -44,5 +48,16 @@
         "Temperature_Ranges": "Temperature Ranges"
     },"huminity" :{
         "avg_huminity" :"Average Humidity"
+    },
+    "settingDialog":{
+        "warning" :"Warning",
+        "messagelogin" :"You need login before when use this function?",
+        "login" :"Login",
+        "cancel" :"Cancel",
+        "loadding": "Loadding",
+        "error" : "Error",
+        "messageError" :"No Data",
+        "From" :"From",
+        "to" :"To"
     }
 }

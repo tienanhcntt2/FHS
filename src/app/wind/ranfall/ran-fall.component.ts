@@ -12,6 +12,11 @@ import { IntlService } from '@progress/kendo-angular-intl';
 import { FhsAuthorizeService } from '@fhs/authorize';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 import { DxChartComponent } from 'devextreme-angular';
+import { MatDialog } from '@angular/material';
+import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
+import { ExcelServiceService } from 'src/app/service/excelservice.service';
+import { Title } from '@angular/platform-browser';
+import { AutherService } from 'src/app/service/autherService';
 
 
 @Component({
@@ -30,7 +35,7 @@ export class RanFallComponent implements OnInit {
   @ViewChild(SlideMenuComponent)
   private slide:SlideMenuComponent;
   @ViewChild(DxChartComponent) chart: DxChartComponent;
-  public dataSource: RainFall[];
+  public dataSource: RainFall[] = null;
 
   /**
    * get data ulr and number
@@ -76,6 +81,7 @@ export class RanFallComponent implements OnInit {
 
   public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
   public nameColumnLeft: string ="col-sm-12 col-md-7 ";
+  public showExport: Boolean = false;
   /**
    * constructor ranfall
    * @param commoService 
@@ -84,7 +90,8 @@ export class RanFallComponent implements OnInit {
    */
   constructor(private datePipe: DatePipe, private commoService: CommonService,
     private http: HttpClient, private translate: TranslateService,private intl: IntlService,
-    private auth :FhsAuthorizeService) {
+    public dialog: MatDialog,private excelService:ExcelServiceService,private titleService: Title,
+    private authService: AutherService) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
      
       this.sendTitle();
@@ -117,8 +124,10 @@ export class RanFallComponent implements OnInit {
 
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
      this.numberDate = this.getNumberDate(this.txt_date_start,this.txt_date_end);
-    this.getDataRainFall(this.urlRainAPi(),this.getToken());
-  
+   // this.getDataRainFall(this.urlRainAPi(),this.getToken());
+     if(this.dataSource != null){
+       this.showExport = true;
+     }
   }
   
 
@@ -226,6 +235,7 @@ private  showIconDesktop(){
   sendTitle() {
     this.nav.title = this.translate.instant("home.rainfall");
     this.slide.numberPosition =1;
+    this.titleService.setTitle(this.nav.title +"-" +this.translate.instant("home.weather"));
   }
   /*
   * function show icon left and right
@@ -294,28 +304,31 @@ private  showIconDesktop(){
    */
   clickSeach(){
     //this.numberDate = this.getNumberDate(this.txt_date_start,this.txt_date_end);
+    if(!this.authService.isUserLoggedIn()){
+      this.openDialog(2);
+    }else{
+      this.getDataRainFall(this.urlRainAPi());
+    }
     
-    this.getDataRainFall(this.urlRainAPi(),this.getToken());
   }
   /* ---------------------------------------------------
     printf
     ----------------------------------------------------- */
     private printfChart(){
       this.chart.instance.print();
-      
-    
     }
   
   /**
    * get data rainFall
    * @param numberDate 
    */
-  private getDataRainFall( url: string,auth_token :string){
-    return this.http.get<ListRainFall>(url, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer '+auth_token)
-  }).subscribe(
+  private getDataRainFall( url: string){
+    this.openDialog(1);
+    return this.http.get<ListRainFall>(url).subscribe(
       result => {
+        this.dialog.closeAll();
         this.dataSource = result.rainfalls;
+        this.showExport = true;
       },
       err => {
         console.log("Error- something is wrong!")
@@ -326,5 +339,23 @@ private  showIconDesktop(){
    */
   getToken() {
     return localStorage.getItem("access_token");
+  }
+  animal: string;
+  name: string;
+
+  openDialog(position:number): void {
+    const dialogRef = this.dialog.open(DialogLoaddingComponent, {
+       width:"auto",
+       height :"auto",
+      data: {name: this.name, animal: this.animal,key:position},disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  exportExcel(){
+    let fileName = this.translate.instant("home.rainfall") +" - " +this.txt_date_start +"T"+this.txt_time_start +" - " +this.txt_date_end +"T"+this.txt_time_end
+    this.excelService.exportAsExcelFile(this.dataSource, fileName);
   }
 }

@@ -18,9 +18,16 @@ $turquoise: #1abc9c;
   box-shadow: 1px 2px 10px 0 #000d72 !important;
   font-family:'UTM Avo';
   background-color: #032ea3;
-  min-height: 5vh;
-  margin: 0;
+  height: 85px;
 }
+.center{
+  cursor: pointer;
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ }
 .bgMenu{
   background: white;
   min-height: 5vh;

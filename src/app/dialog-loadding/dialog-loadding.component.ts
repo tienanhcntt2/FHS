@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dialog-loadding',
@@ -9,12 +10,16 @@ import { environment } from 'src/environments/environment';
 })
 export class DialogLoaddingComponent implements OnInit {
   public key:number;
+  public name: string;
   constructor(
     public dialogRef: MatDialogRef<DialogLoaddingComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private translateService: TranslateService) {
+      
+    }
 
     ngOnInit() {
       this.key = this.data.key;
+      this.name = this.data.name;
      
     }
     onNoClick():void{

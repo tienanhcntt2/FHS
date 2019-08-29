@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 import {  DxChartComponent } from 'devextreme-angular';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
@@ -79,7 +80,7 @@ export class TemperatureComponent implements OnInit {
    */
   constructor(private commoService: CommonService, private httpClient: HttpClient,
     private translate: TranslateService, private weatherService: WeatherService, private datePipe: DatePipe,
-    private intl: IntlService) {
+    private intl: IntlService,private titleService: Title) {
 
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
 
@@ -215,6 +216,7 @@ export class TemperatureComponent implements OnInit {
   sendTitle() {
     this.nav.title = this.translate.instant("menu.Temperature");
     this.slide.numberPosition = 4;
+    this.titleService.setTitle(this.nav.title +"-" +this.translate.instant("home.weather"));
   }
   /*
   * function show icon left and right

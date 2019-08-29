@@ -8,8 +8,11 @@
         "txt_message": "Tên người dùng hoặc mật khẩu không có kết nối"
     },
     "home":{
+        "homepage":"Trang Chủ",
+        "weather" : "Thời Tiết",
         "rainfall":"Lượng mưa",
         "windspeed" :"Tốc độ gió",
+        "speed" : "Tốc độ gió",
         "winddriction" :"Hướng gió",
         "Humidity" :"Độ ẩm"
     },
@@ -28,6 +31,7 @@
     "rainFall" :{
         "search" :"Tìm kiếm",
         "printf" : "Printf",
+        "export" : "xuất excel",
         "showdata" :"Hiển thị dữ liệu chi tiết",
         "show%" :"Hiển thị theo %",
         "showspeed" :"Hiển thị theo km/h",
@@ -44,5 +48,16 @@
         "Temperature_Ranges": "Phạm vi nhiệt độ"
     } ,"huminity" :{
         "avg_huminity" :"Độ ẩm trung bình"
+    },
+    "settingDialog":{
+        "warning" :"Cảnh báo",
+        "messagelogin" :"Bạn cần đăng nhập trước khi sử dụng chức năng này?",
+        "login" :"Đăng nhập",
+        "cancel" :"Hủy bỏ",
+        "loadding": "Loadding",
+        "error" : "lỗi",
+        "messageError" :"Không có dữ liệu",
+        "From" :"Từ",
+        "to" :"đến"
     }
 }

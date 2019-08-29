@@ -12,6 +12,7 @@ import { Weather, WeatherService } from 'src/app/model/Weather';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 import { DxChartComponent } from 'devextreme-angular';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -78,7 +79,7 @@ export class HuminityComponent implements OnInit {
    * @param datePipe 
    */
   constructor(private commoService: CommonService, private datePipe: DatePipe,
-    private translate: TranslateService, private weatherService: WeatherService,private intl: IntlService) {
+    private translate: TranslateService, private weatherService: WeatherService,private intl: IntlService,private titleService: Title) {
   
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.sendTitle();
@@ -221,6 +222,7 @@ export class HuminityComponent implements OnInit {
   sendTitle() {
     this.nav.title = this.translate.instant("home.Humidity");
     this.slide.numberPosition = 5;
+    this.titleService.setTitle(this.nav.title +"-" +this.translate.instant("home.weather"));
   }
   /*
   * function show icon left and right

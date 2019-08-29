@@ -8,8 +8,11 @@
         "txt_message": "用戶名或密碼無連接"
     },
     "home":{
+        "homepage":"主頁",
+        "weather" : "天氣",
         "rainfall":"雨量",
         "windspeed" :"風速",
+        "speed" : "風速",
         "winddriction" :"風向",
         "Humidity" :"濕度"
     },
@@ -28,6 +31,7 @@
     "rainFall" :{
         "search" :"搜索",
         "printf" : "打印",
+        "export" : "Export",
         "showdata" :"显 示 详 细 数 据 ",
         "show%" :"顯示如下 %",
         "showspeed" :"顯示如下 km/h",
@@ -44,5 +48,16 @@
         "Temperature_Ranges": "溫度範圍"
     } ,"huminity" :{
         "avg_huminity" :"平均濕度"
+    },
+    "settingDialog":{
+        "warning" :"警告",
+        "messagelogin" :"使用此功能之前需要登錄嗎？",
+        "login" :"登錄",
+        "cancel" :"取消",
+        "loadding": "載入中",
+        "error" : "錯誤",
+        "messageError" :"沒有數據",
+        "From" :"从",
+        "to" :"到"
     }
 }

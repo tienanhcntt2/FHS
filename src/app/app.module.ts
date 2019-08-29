@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,7 +40,7 @@ import { SpeedComponent } from './wind/speed/speed.component';
 import { DirectionComponent } from './wind/direction/direction.component';
 import { HomeComponent } from './wind/home/home.component';
 import { WindComponent } from './wind/wind/wind.component';
-import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartModule, DxTooltipModule } from 'devextreme-angular';
+import { DxPolarChartModule, DxSelectBoxModule, DxCircularGaugeModule, DxChartModule, DxLinearGaugeModule } from 'devextreme-angular';
 import { SlideMenuComponent } from './util/slide-menu/slide-menu.component';
 
 import { LoginComponent } from './login/login.component';
@@ -49,8 +49,7 @@ import { UserServicer } from './service/user.Servicer';
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
 import { RanFallComponent } from './wind/ranfall/ran-fall.component';
-import { Service } from './model/rainFall';
-import { MyInterceptor } from './util/MyInterceptor';
+
 import { ServiceHuminity } from './model/huminity';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -66,6 +65,10 @@ import { IntlModule } from '@progress/kendo-angular-intl';
 import { environment } from 'src/environments/environment';
 import { ConfigDataSpeed } from './model/WindDescription';
 import { DialogLoaddingComponent } from './dialog-loadding/dialog-loadding.component';
+import { ExcelServiceService } from './service/excelservice.service';
+import { JwtInterceptor } from './service/JwtInterceptor';
+import { ErrorInterceptor } from './service/ErrorInterceptor';
+import { TestComponent } from './test/test.component';
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.Languager);
@@ -87,7 +90,8 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     TemperatureComponent,
     HuminityComponent,
     RanFallComponent,
-    DialogLoaddingComponent
+    DialogLoaddingComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -116,9 +120,10 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     DxSelectBoxModule,
     DxChartModule,
-    DxTooltipModule,
     TimePickerModule,
     AppRoutingModule,
+    DxCircularGaugeModule,
+    DxLinearGaugeModule,
     IntlModule, DateInputsModule,
     TranslateModule.forRoot({
       loader: {
@@ -130,13 +135,15 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [
-    DatePipe, CommonService, UserServicer,ConfigDataSpeed, ServiceHuminity, TeamperatureService, WeatherService, ClockService,
+    DatePipe, CommonService, UserServicer,ConfigDataSpeed, ServiceHuminity, TeamperatureService, WeatherService, ClockService, ExcelServiceService, Title,
     {
       provide: DateAdapter, useClass: AppDateAdapter
     },
     {
       provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   entryComponents: [DialogLoaddingComponent],
   bootstrap: [AppComponent]

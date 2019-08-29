@@ -1,19 +1,62 @@
-<div *ngIf ="key===1" >
-        <div class="row justify-content-center">
-            <div class="col-6">
-                    <div class="loader"></div>
-                    <h2>Loadding</h2>
-            </div>
+<div *ngIf="key===1" class="contentDialog">
+        <div class="headerDialog">
+                <span>{{'settingDialog.loadding' |translate}}</span>
         </div>
-        
-
+        <div class="content">
+                <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                </div>
+        </div>
+        <div class="content">
+                <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                </div>
+        </div>
 </div>
-<div *ngIf ="key===2">
-        <div class="row justify-content-center">
-                <h4 class="col-12" style="text-align: center">Please Login</h4>
-                    <div class="col-12">
-                            <button class="col-6 done" (click)="onNoClick()">Cancel</button>
-                            <button class="col-6 dain" (click)="login()">LOGIN</button>
-                    </div>
-            </div> 
+<div *ngIf="key===2" class="contentwarning">
+        <div class="headerDialog">
+                <span>{{'settingDialog.warning' |translate}}</span>
+        </div>
+        <div class="warning">
+                <img class="img-reponsive" width="40px" height="40px" src="assets/image/warning.png" />
+                <p>{{'settingDialog.messagelogin' |translate}}</p>
+        </div>
+        <div class="login">
+
+                <div class="row justify-content-between">
+                        <button class="col-4 done" (click)="login()">{{'settingDialog.login' |translate}}</button>
+                        <button class="col-4 float-right dain" (click)="onNoClick()">{{'settingDialog.cancel' |translate}}</button>
+                </div>
+        </div>
+</div>
+<div *ngIf ="key===3" class="contentwarning">
+        <div class="headerDialog">
+                <span>{{'settingDialog.error' |translate}}</span>
+        </div>
+        <div class="warning">
+                <img class="img-reponsive" width="40px" height="40px" src="assets/image/warning.png" />
+                <p style="color: red">{{'settingDialog.messageError' |translate}}</p>
+                <p style="color: black">{{name}}</p>
+        </div>
+        <div class="login">
+
+                <div class="row justify-content-between">
+                        
+                        <button class="col-md-4 offset-sm-4 done" (click)="onNoClick()">{{'settingDialog.cancel' |translate}}</button>
+                </div>
+        </div>
 </div>
