@@ -261,7 +261,7 @@ li span {
 li p {
   width: 85%;
   float: right;
- 
+  
   vertical-align: middle;
   text-align: left;
 }
@@ -364,6 +364,9 @@ li p {
   height: 345px;
   width: auto;
   display: inline-block;
+}
+::ng-deep .gauge-element .dxg-range-0{
+ color: #8e44ad;
 }
 @media only screen and (max-width: 1208px){
   .text_home{

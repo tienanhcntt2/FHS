@@ -59,5 +59,10 @@
         "messageError" :"Không có dữ liệu",
         "From" :"Từ",
         "to" :"đến"
+    },
+    "home_info" :{
+        "temp":"Nhiệt độ hiện tại/phút" ,
+        "rain":"Lượng mưa hiện tại / phút",
+        "hum" : "Độ ẩm hiện tại/phút" 
     }
 }

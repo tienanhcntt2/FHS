@@ -59,5 +59,10 @@
         "messageError" :"No Data",
         "From" :"From",
         "to" :"To"
+    },
+    "home_info" :{
+        "temp":"Current temperature / minute" ,
+        "rain":"Current rainfall / minute",
+        "hum" : "Current Humidity/minute" 
     }
 }
