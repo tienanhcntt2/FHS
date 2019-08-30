@@ -13,7 +13,7 @@
             <div style="text-align: center; width: 100%">
               <mat-card-title>---{{localtion}}---</mat-card-title>
               <mat-card-subtitle>{{today| date:'EEEE'}}</mat-card-subtitle>
-              <mat-card-subtitle style="color: chocolate">Troi dang mua to</mat-card-subtitle>
+              <mat-card-subtitle >Troi dang mua to</mat-card-subtitle>
             </div>
 
           </mat-card-header>
@@ -34,7 +34,7 @@
                 <dx-linear-gauge class="gauge-element" [value]="temperature" >
                   <dxo-geometry orientation="vertical"></dxo-geometry>
                   <dxo-subvalue-indicator [offset]="-15"></dxo-subvalue-indicator>
-                  <dxo-value-indicator [offset]="40" color="aqua" [width]="30"></dxo-value-indicator>
+                  <dxo-value-indicator [offset]="40" color="linear-gradient( #14f4c9,#069efc)" [width]="30"></dxo-value-indicator>
                   <dxo-range-container [offset]="10" [width]="20">
                     <dxi-range [startValue]="-20" [endValue]="10" color="#FFFF00"></dxi-range>
                     <dxi-range [startValue]="10" [endValue]="40" color="#008000"></dxi-range>
@@ -142,7 +142,7 @@
                   </dxo-scale>
                   <dxo-range-container backgroundColor="none" [offset]="10" [width]="40" >
                     <dxi-range [startValue]="0" [endValue]="rainfall" color="aqua"></dxi-range>
-                    <dxi-range [startValue]="rainfall" [endValue]="700" color="#3f352F2F"></dxi-range>
+                    <dxi-range [startValue]="rainfall" [endValue]="700" color="#0015ff"></dxi-range>
                   </dxo-range-container>
 
                 </dx-linear-gauge>
