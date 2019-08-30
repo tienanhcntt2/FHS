@@ -20,6 +20,8 @@ export class ErrorInterceptor implements HttpInterceptor {
             } else if(err.status === 304){
                 this.openDialog(2)
                 //location.reload(true);
+            }else if(err.status === 400){
+                localStorage.removeItem('token');
             }
 
             const error = err.error.message || err.statusText;

@@ -56,20 +56,9 @@
                   <ul class="list-group">
                       <li>
                           <span class="hcn"></span>
-                          <p>Nhiet do</p>
+                          <p>{{'home_info.temp' |translate}}</p>
                         </li>
-                    <li >
-                      <span class="hcn_cao"></span>
-                      <p>Nhiet do cao</p>
-                    </li>
-                    <li >
-                      <span class="hcn_bt "></span>
-                      <p>Nhiet do binh thuong</p>
-                    </li>
-                    <li >
-                      <span class="hcn_bbt"></span>
-                      <p>Nhiet do thap</p>
-                    </li>
+                  
                    
                   </ul>
                   <div class="home_bottom_info">
@@ -111,7 +100,7 @@
 
                     <li>
                       <span id="my-div"></span>
-                      <p>Do am</p>
+                      <p>{{'home_info.hum' |translate}}</p>
                     </li>
                   </ul>
                   <div class="home_bottom_info">
@@ -127,7 +116,7 @@
           <div class="col-md-4 ">
             <div class="row ">
               <div class="col-6 float-right">
-                <dx-linear-gauge class="gauge-element" [value]="rainfall">
+                <dx-linear-gauge class="gauge-element" [value]="rainfall"  palette="ocean">
                  
                   <dxo-geometry orientation="vertical"></dxo-geometry>
                   <dxo-subvalue-indicator [offset]="-15"></dxo-subvalue-indicator>
@@ -140,9 +129,9 @@
                       <dxo-font color="aqua" [size]="14"> </dxo-font>
                     </dxo-label>
                   </dxo-scale>
-                  <dxo-range-container backgroundColor="none" [offset]="10" [width]="40" >
-                    <dxi-range [startValue]="0" [endValue]="rainfall" color="aqua"></dxi-range>
-                    <dxi-range [startValue]="rainfall" [endValue]="700" color="#3f352F2F"></dxi-range>
+                  <dxo-range-container backgroundColor="none" [offset]="10" [width]="40"  >
+                    <dxi-range [startValue]="0" [endValue]="rainfall" color="aqua"  ></dxi-range>
+                    <dxi-range [startValue]="rainfall" [endValue]="700" color="blue"></dxi-range>
                   </dxo-range-container>
 
                 </dx-linear-gauge>
@@ -153,7 +142,7 @@
 
                     <li >
                       <span id="hinhvuong"></span>
-                      <p>Luong mua (mm)</p>
+                      <p>{{'home_info.rain' |translate}}</p>
                     </li>
                   </ul>
                   <div class="home_bottom_info">

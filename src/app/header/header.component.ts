@@ -91,7 +91,9 @@ export class HeaderComponent implements OnInit {
        
         this.showNameuser(response.name);
        
-      })
+      },error => {
+        
+      });
     }
   }
   gotoHome(){
