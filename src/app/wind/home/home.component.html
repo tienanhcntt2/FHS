@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 
 <mat-drawer-container class="content_full" autosize>
-  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3; border-right: 1px solid #1491d0">
+  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3;" >
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
@@ -24,9 +24,94 @@
 
         </mat-card>
       </div>
-      <!-- nhiet do -->
+      
       <div class="col-md-9">
-        <div class="row" style="height: 345px">
+          <div class="row" style="height: 345px">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-8">
+                    <dx-circular-gauge id="gauge" [value]="wind_speed" >
+                      <dxo-value-indicator type="triangleNeedle" color="aqua" [width]="10">
+                      </dxo-value-indicator>
+                      <!-- <dxo-value-indicator [offset]="40" color="aqua" [width]="30"></dxo-value-indicator> -->
+                      <dxo-scale [startValue]="0" [endValue]="90" [tickInterval]="10" [minorTickInterval]="2"  >
+                        <dxo-minor-tick [visible]="true" color="#003793" [length]="5"  ></dxo-minor-tick>
+                        
+                        <dxo-tick color="#003793" [width]="5" [length]="12"></dxo-tick>
+                        <dxo-label [useRangeColors]="true">
+                          <dxo-font color="aqua" [size]="14"> </dxo-font>
+                        </dxo-label>
+                      </dxo-scale>
+                      <dxo-range-container palette="pastel" [width]="10">
+                        <dxi-range [startValue]="0" [endValue]="30" color="aqua"></dxi-range>
+                        <dxi-range [startValue]="30" [endValue]="60" color="aqua"></dxi-range>
+                        <dxi-range [startValue]="60" [endValue]="90" color="aqua"></dxi-range>
+                      </dxo-range-container>
+    
+                      <!-- <dxo-title text="km/h" horizontalAlignment="center" verticalAlignment="bottom">
+                        <dxo-font [size]="28"></dxo-font>
+                      </dxo-title> -->
+                    </dx-circular-gauge>
+                  </div>
+                  <div class="col-4">
+                    <div class="bottom_item">
+                      <div class="home_bottom_info">
+                        <h5 style="padding: 5px; width: 100%"><a (click) ="gotoWindSpeed()">{{ 'home.speed' | translate }}</a></h5>
+                        <span style="float: left;" class="text_home">{{wind_speed}}</span>
+                        <span style="float: right;" class="text_donvi">(km/h)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 float-right">
+                <div class="row">
+                  <div class="col-8">
+                    <dx-circular-gauge id="gauge" [value]="wind_direction">
+                        <dxo-value-indicator
+                        type="rectangleNeedle"
+                        color="aqua">
+                    </dxo-value-indicator>
+                      <dxo-scale [startValue]="0" [endValue]="360" [tickInterval]="22.5">
+                          <dxo-tick color="#003793" [width]="5" [length]="12"></dxo-tick>
+                        <dxo-label [useRangeColors]="true" [backgroundColor]="blue" [customizeText]="customizeText">
+                        </dxo-label>
+                        <dxo-tick color="#003793" [width]="5"></dxo-tick>
+                      </dxo-scale>
+                      <dxo-range-container [width]="10">
+                        <dxi-range [startValue]="0" [endValue]="22.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="22.5" [endValue]="45" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="45" [endValue]="67.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="67.5" [endValue]="90" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="90" [endValue]="112.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="112.5" [endValue]="135" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="135" [endValue]="157.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="157.5" [endValue]="180" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="180" [endValue]="202.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="202.5" [endValue]="225" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="225" [endValue]="247.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="247.5" [endValue]="270" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="270" [endValue]="292.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="292.5" [endValue]="315" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="315" [endValue]="337.5" color="#00FFFF"></dxi-range>
+                        <dxi-range [startValue]="337.5" [endValue]="360" color="#00FFFF"></dxi-range>
+                      </dxo-range-container>
+                      <dxo-geometry [startAngle]="90" [endAngle]="90"></dxo-geometry>
+                    </dx-circular-gauge>
+                  </div>
+                  <div class="col-4">
+                    <div class="bottom_item">
+                      <div class="home_bottom_info">
+                        <h5 style="padding: 5px; width: 100%"><a (click) ="gotoWindDirection()">{{ 'home.winddriction' | translate }}</a></h5>
+                        <span style="float: left; "class="text_home">{{nameFengxiang}}</span>
+                        <span style="float: right; "class="text_donvi">{{wind_direction}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <div class="row" style="height: 300px; margin-top: 45px">
           <div class="col-md-4 ">
             <div class="row">
               <div class="col-6 float-right ">
@@ -155,89 +240,7 @@
             </div>
           </div>
         </div>
-        <div class="row" style="height: 300px; margin-top: 45px">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-8">
-                <dx-circular-gauge id="gauge" [value]="wind_speed" >
-                  <dxo-value-indicator type="triangleNeedle" color="aqua" [width]="10">
-                  </dxo-value-indicator>
-                  <!-- <dxo-value-indicator [offset]="40" color="aqua" [width]="30"></dxo-value-indicator> -->
-                  <dxo-scale [startValue]="0" [endValue]="90" [tickInterval]="10" [minorTickInterval]="5" color="white" >
-                    <dxo-minor-tick [visible]="true" color="white"  ></dxo-minor-tick>
-                    
-                    <dxo-tick color="white" [width]="3"></dxo-tick>
-                    <dxo-label [useRangeColors]="true">
-                      <dxo-font color="aqua" [size]="14"> </dxo-font>
-                    </dxo-label>
-                  </dxo-scale>
-                  <dxo-range-container palette="pastel" [width]="10">
-                    <dxi-range [startValue]="0" [endValue]="30" color="aqua"></dxi-range>
-                    <dxi-range [startValue]="30" [endValue]="60" color="aqua"></dxi-range>
-                    <dxi-range [startValue]="60" [endValue]="90" color="aqua"></dxi-range>
-                  </dxo-range-container>
-
-                  <!-- <dxo-title text="km/h" horizontalAlignment="center" verticalAlignment="bottom">
-                    <dxo-font [size]="28"></dxo-font>
-                  </dxo-title> -->
-                </dx-circular-gauge>
-              </div>
-              <div class="col-4">
-                <div class="bottom_item">
-                  <div class="home_bottom_info">
-                    <h5 style="padding: 5px; width: 100%"><a (click) ="gotoWindSpeed()">{{ 'home.speed' | translate }}</a></h5>
-                    <span style="float: left;" class="text_home">{{wind_speed}}</span>
-                    <span style="float: right;" class="text_donvi">(km/h)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 float-right">
-            <div class="row">
-              <div class="col-8">
-                <dx-circular-gauge id="gauge" [value]="wind_direction">
-                    <dxo-value-indicator
-                    type="rectangleNeedle"
-                    color="aqua">
-                </dxo-value-indicator>
-                  <dxo-scale [startValue]="0" [endValue]="360" [tickInterval]="22.5">
-                    <dxo-label [useRangeColors]="true"  [customizeText]="customizeText">
-                    </dxo-label>
-                  </dxo-scale>
-                  <dxo-range-container [width]="10">
-                    <dxi-range [startValue]="0" [endValue]="22.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="22.5" [endValue]="45" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="45" [endValue]="67.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="67.5" [endValue]="90" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="90" [endValue]="112.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="112.5" [endValue]="135" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="135" [endValue]="157.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="157.5" [endValue]="180" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="180" [endValue]="202.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="202.5" [endValue]="225" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="225" [endValue]="247.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="247.5" [endValue]="270" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="270" [endValue]="292.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="292.5" [endValue]="315" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="315" [endValue]="337.5" color="#00FFFF"></dxi-range>
-                    <dxi-range [startValue]="337.5" [endValue]="360" color="#00FFFF"></dxi-range>
-                  </dxo-range-container>
-                  <dxo-geometry [startAngle]="90" [endAngle]="90"></dxo-geometry>
-                </dx-circular-gauge>
-              </div>
-              <div class="col-4">
-                <div class="bottom_item">
-                  <div class="home_bottom_info">
-                    <h5 style="padding: 5px; width: 100%"><a (click) ="gotoWindDirection()">{{ 'home.winddriction' | translate }}</a></h5>
-                    <span style="float: left; "class="text_home">{{nameFengxiang}}</span>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </div>
   </div>
