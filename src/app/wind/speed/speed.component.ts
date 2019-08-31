@@ -442,7 +442,6 @@ export class SpeedComponent implements OnInit {
       this.getdataSpeed(this.urlSpeed);
     } else {
 
-      this.windRose = this.dataConfig.getWindRoseDateEight();
       this.windSources = this.dataConfig.getWindSources();
     }
 
@@ -452,7 +451,7 @@ export class SpeedComponent implements OnInit {
     if (this.checkSeach == true) {
       this.getdataSpeed(this.urlSpeed);
     } else {
-      this.windRose = this.dataConfig.getWindRoseData();
+     
       this.windSources = this.dataConfig.getWindSources();
     }
 

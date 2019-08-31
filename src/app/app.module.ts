@@ -68,7 +68,7 @@ import { DialogLoaddingComponent } from './dialog-loadding/dialog-loadding.compo
 import { ExcelServiceService } from './service/excelservice.service';
 import { JwtInterceptor } from './service/JwtInterceptor';
 import { ErrorInterceptor } from './service/ErrorInterceptor';
-import { TestComponent } from './test/test.component';
+
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.Languager);
@@ -90,8 +90,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     TemperatureComponent,
     HuminityComponent,
     RanFallComponent,
-    DialogLoaddingComponent,
-    TestComponent
+    DialogLoaddingComponent
   ],
   imports: [
     BrowserModule,
