@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    * change background
    */
   public imagSource: string = "assets/image/raingif.gif";
-  public imageIcon: string = "assets/image/1.png";
+  public imageIcon: string  = "assets/image/4.png";
   private animal: string;
   private  name: string;
 
@@ -155,7 +155,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.localtion = obj.Location;
     
         this.temperature = parseInt(obj.Temperature.toString().split('.') + "");
-        this.rainfall = obj.Rainfall +100;
+        this.rainfall = obj.Rainfall;
         this.wind_direction = parseInt(obj.WindDegree.toString().split('.') +"");
         this.nameFengxiang = obj.WindDirection;
       }
@@ -195,33 +195,22 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.wind_speed = parseInt(info.windVelocity.toString().split('.') +"");
       this.huminity =parseInt(info.humidity.toString().split('.') +"");
       this.temperature = parseInt(info.temperature.toString().split('.') + "");
-      this.setBackgound(info.humidity);
-      this.rainfall = info.rainfall +100;
+      //this.setBackgound(info.humidity);
+      this.rainfall = info.rainfall;
       this.wind_direction = parseInt(info.windDegree.toString().split('.') +"");
       this.nameFengxiang = info.windDirection;
 
     })
   }
 
-  private setBackgound(humidity: number) {
-    if (humidity <= 30) {
-      //this.imagSource = "../../assets/image/troinang.jpg";
-      this.imageIcon = "assets/image/1.png";
-    } else if (humidity <= 40 && humidity >= 31) {
-      //this.imagSource = "../../assets/image/trongxanh.jpg";
-      this.imageIcon = "assets/image/2.png";
-    } else if (humidity <= 50 && humidity >= 41) {
-      //this.imagSource = "../../assets/image/amu.jpg";
-      this.imageIcon = "assets/image/5.png";
-    } else if (humidity <= 60 && humidity >= 51) {
-
-      // this.imagSource = "../../assets/image/tiaset.gif";
-      this.imageIcon = "assets/image/7.png";
-    } else {
-
-      this.imagSource = "assets/image/raingif.gif";
-      this.imageIcon = "assets/image/3.png";
-    }
+  private setBackgound(humidity: number, rainfall:number,temp:number) {
+    // if((humidity>=0 && humidity<=10) && (rainfall>=0 && rainfall<=10) && (temp>=0 && temp<=10)){
+    //   this.imageIcon = "assets/image/1.png";
+    // } else if(){
+    //   this.imageIcon = "assets/image/2.png";
+    // }else if(){
+    //   this.imageIcon = "assets/image/1.png";
+    // }
   }
 
 

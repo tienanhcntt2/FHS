@@ -13,12 +13,12 @@
             <div style="text-align: center; width: 100%">
               <mat-card-title>---{{localtion}}---</mat-card-title>
               <mat-card-subtitle>{{today| date:'EEEE'}}</mat-card-subtitle>
-              <mat-card-subtitle >Troi dang mua to</mat-card-subtitle>
+              <mat-card-subtitle >It is cloudy, with scattered rain</mat-card-subtitle>
             </div>
 
           </mat-card-header>
           <div style="width: 100%">
-            <img class="img-responsive icon_home_v2" style="margin:0 auto;" src="{{imageIcon}}" width="60%"
+            <img class="img-responsive icon_home_v2" style="margin:0 auto; " src="{{imageIcon}}" width="90%"
               height="auto" />
           </div>
 
@@ -27,14 +27,14 @@
       <!-- nhiet do -->
       <div class="col-md-9">
         <div class="row" style="height: 345px">
-          <div class="col-md-4">
+          <div class="col-md-4 ">
             <div class="row">
-              <div class="col-6 float-right">
+              <div class="col-6 float-right ">
         
                 <dx-linear-gauge class="gauge-element" [value]="temperature" >
                   <dxo-geometry orientation="vertical"></dxo-geometry>
                   <dxo-subvalue-indicator [offset]="-15"></dxo-subvalue-indicator>
-                  <dxo-value-indicator [offset]="40" color="linear-gradient( #14f4c9,#069efc)" [width]="30"></dxo-value-indicator>
+                  <dxo-value-indicator [offset]="40" color="aqua" [width]="30"></dxo-value-indicator>
                   <dxo-range-container [offset]="10" [width]="20">
                     <dxi-range [startValue]="-20" [endValue]="10" color="#FFFF00"></dxi-range>
                     <dxi-range [startValue]="10" [endValue]="40" color="#008000"></dxi-range>
@@ -56,20 +56,9 @@
                   <ul class="list-group">
                       <li>
                           <span class="hcn"></span>
-                          <p>Nhiet do</p>
+                          <p>{{'home_info.temp' |translate}}</p>
                         </li>
-                    <li >
-                      <span class="hcn_cao"></span>
-                      <p>Nhiet do cao</p>
-                    </li>
-                    <li >
-                      <span class="hcn_bt "></span>
-                      <p>Nhiet do binh thuong</p>
-                    </li>
-                    <li >
-                      <span class="hcn_bbt"></span>
-                      <p>Nhiet do thap</p>
-                    </li>
+                  
                    
                   </ul>
                   <div class="home_bottom_info">
@@ -111,13 +100,13 @@
 
                     <li>
                       <span id="my-div"></span>
-                      <p>Do am</p>
+                      <p>{{'home_info.hum' |translate}}</p>
                     </li>
                   </ul>
                   <div class="home_bottom_info">
                      <h5 style="padding: 5px; width: 100%"><a (click) ="gotoHuminity()">{{ 'home.Humidity' | translate }}</a></h5>
                     <span style="float: left; " class="text_home">{{huminity}}</span>
-                    <span style="float: right; " class="text_donvi">%</span>
+                    <span style="float: right;" class="text_donvi">(%)</span>
                   </div>
                 </div>
               </div>
@@ -127,7 +116,7 @@
           <div class="col-md-4 ">
             <div class="row ">
               <div class="col-6 float-right">
-                <dx-linear-gauge class="gauge-element" [value]="rainfall">
+                <dx-linear-gauge class="gauge-element" [value]="rainfall"  palette="ocean">
                  
                   <dxo-geometry orientation="vertical"></dxo-geometry>
                   <dxo-subvalue-indicator [offset]="-15"></dxo-subvalue-indicator>
@@ -140,9 +129,9 @@
                       <dxo-font color="aqua" [size]="14"> </dxo-font>
                     </dxo-label>
                   </dxo-scale>
-                  <dxo-range-container backgroundColor="none" [offset]="10" [width]="40" >
-                    <dxi-range [startValue]="0" [endValue]="rainfall" color="aqua"></dxi-range>
-                    <dxi-range [startValue]="rainfall" [endValue]="700" color="#0015ff"></dxi-range>
+                  <dxo-range-container backgroundColor="none" [offset]="10" [width]="40"  >
+                    <dxi-range [startValue]="0" [endValue]="rainfall" color="aqua"  ></dxi-range>
+                    <dxi-range [startValue]="rainfall" [endValue]="700" color="blue"></dxi-range>
                   </dxo-range-container>
 
                 </dx-linear-gauge>
@@ -153,7 +142,7 @@
 
                     <li >
                       <span id="hinhvuong"></span>
-                      <p>Luong mua (mm)</p>
+                      <p>{{'home_info.rain' |translate}}</p>
                     </li>
                   </ul>
                   <div class="home_bottom_info">
@@ -171,13 +160,13 @@
             <div class="row">
               <div class="col-8">
                 <dx-circular-gauge id="gauge" [value]="wind_speed" >
-                  <dxo-value-indicator type="triangleNeedle" color="#8FBC8F" [width]="10">
+                  <dxo-value-indicator type="triangleNeedle" color="aqua" [width]="10">
                   </dxo-value-indicator>
                   <!-- <dxo-value-indicator [offset]="40" color="aqua" [width]="30"></dxo-value-indicator> -->
                   <dxo-scale [startValue]="0" [endValue]="90" [tickInterval]="10" [minorTickInterval]="5" color="white" >
                     <dxo-minor-tick [visible]="true" color="white"  ></dxo-minor-tick>
                     
-                    <dxo-tick color="white" ></dxo-tick>
+                    <dxo-tick color="white" [width]="3"></dxo-tick>
                     <dxo-label [useRangeColors]="true">
                       <dxo-font color="aqua" [size]="14"> </dxo-font>
                     </dxo-label>
@@ -208,6 +197,10 @@
             <div class="row">
               <div class="col-8">
                 <dx-circular-gauge id="gauge" [value]="wind_direction">
+                    <dxo-value-indicator
+                    type="rectangleNeedle"
+                    color="aqua">
+                </dxo-value-indicator>
                   <dxo-scale [startValue]="0" [endValue]="360" [tickInterval]="22.5">
                     <dxo-label [useRangeColors]="true" [backgroundColor]="blue" [customizeText]="customizeText">
                     </dxo-label>
