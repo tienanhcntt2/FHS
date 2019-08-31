@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 
 <mat-drawer-container class="content_full" autosize>
-  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3; border-right: 1px solid #1491d0">
+  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3;" >
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
@@ -163,10 +163,10 @@
                   <dxo-value-indicator type="triangleNeedle" color="aqua" [width]="10">
                   </dxo-value-indicator>
                   <!-- <dxo-value-indicator [offset]="40" color="aqua" [width]="30"></dxo-value-indicator> -->
-                  <dxo-scale [startValue]="0" [endValue]="90" [tickInterval]="10" [minorTickInterval]="5" color="white" >
-                    <dxo-minor-tick [visible]="true" color="white"  ></dxo-minor-tick>
+                  <dxo-scale [startValue]="0" [endValue]="90" [tickInterval]="10" [minorTickInterval]="2"  >
+                    <dxo-minor-tick [visible]="true" color="#003793" [length]="5"  ></dxo-minor-tick>
                     
-                    <dxo-tick color="white" [width]="3"></dxo-tick>
+                    <dxo-tick color="#003793" [width]="5" [length]="12"></dxo-tick>
                     <dxo-label [useRangeColors]="true">
                       <dxo-font color="aqua" [size]="14"> </dxo-font>
                     </dxo-label>
@@ -202,8 +202,10 @@
                     color="aqua">
                 </dxo-value-indicator>
                   <dxo-scale [startValue]="0" [endValue]="360" [tickInterval]="22.5">
+                      <dxo-tick color="#003793" [width]="5" [length]="12"></dxo-tick>
                     <dxo-label [useRangeColors]="true" [backgroundColor]="blue" [customizeText]="customizeText">
                     </dxo-label>
+                    <dxo-tick color="#003793" [width]="5"></dxo-tick>
                   </dxo-scale>
                   <dxo-range-container [width]="10">
                     <dxi-range [startValue]="0" [endValue]="22.5" color="#00FFFF"></dxi-range>
