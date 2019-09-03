@@ -26,7 +26,7 @@ export class NavComponent implements OnInit, OnDestroy {
   title: string = "Home";
   public txt_start_date: string = "2019/03/03T00:00";
   public txt_end_date: string = "2019/03/03T00:30";
-  public selectAdrees: string;
+  public selectAdrees: string ="BUILD-D";
   private zhan: string ="16";
   private txt_zhan : string;
 
@@ -34,7 +34,7 @@ export class NavComponent implements OnInit, OnDestroy {
   public flagsShow: boolean = true;
   public showZhan: boolean = true;
   // value today
-  private location: string =" Formosa Ha Tinh";
+  private location: string ="BUILD-D";
   private dateCurrent : any;
   private TimerCurrent : Date;
   private timerOk : string;
@@ -47,7 +47,7 @@ export class NavComponent implements OnInit, OnDestroy {
     private auth:FhsAuthorizeService,public dialog: MatDialog, private authService:AutherService ) {
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
-      this.selectAdrees = translateService.instant("nav.adrress");
+      this.selectAdrees = "BUILD-D";
       this.txt_zhan =translateService.instant("rainFall.station");
       this.today =translateService.instant("home.homepage");
     });
@@ -56,7 +56,7 @@ export class NavComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dateCurrent = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_zhan =this.translateService.instant("rainFall.station");
-    this.selectAdrees = this.translateService.instant("nav.adrress");
+    this.selectAdrees = this.location;
     this.today = this.translateService.instant("home.homepage");
     this.reviceData();
     this.showFunctionHeader();
@@ -80,7 +80,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
   showFunctionHeader() {
     //this.selectAdrees = this.translateService.instant("nav.adrress");
-    console.log("dsdsjdsdjsk : " +this.today);
+   
     if (this.title === "Home") {
       
       this.flagsShow = false;
