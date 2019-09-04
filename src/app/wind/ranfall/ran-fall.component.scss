@@ -176,15 +176,13 @@ $color_2a34ff : #07ccd9;
 
 
 ::ng-deep #chart {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 5%;
+  margin-left: 3%;
+  margin-right: 3%;
+  padding-right: 10px;
     
 }
 .dxo-tooltip{

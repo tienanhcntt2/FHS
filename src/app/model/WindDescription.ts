@@ -21,11 +21,11 @@ export class WindDescription {
     color:string;
 }
 let windSources: WindDescription[] = [
-    { valueField: "val1", name: "0-2 m/s",color:"#00ffff" },
-    { valueField: "val2", name: "2-5 m/s" ,color:"#0090ff"},
-    { valueField: "val3", name: "5-10 m/s", color:"#1400d4" },
-    { valueField: "val4", name: "10-15 m/s",color:"#100183" },
-    { valueField: "val5", name: "> 15 m/s" ,color:"#883af3"} 
+    { valueField: "val1", name: "0-2 m/s",color:"#01f9fc" },
+    { valueField: "val2", name: "2-5 m/s" ,color:"#01fc77"},
+    { valueField: "val3", name: "5-10 m/s", color:"#d8ff00" },
+    { valueField: "val4", name: "10-15 m/s",color:"#ff9000" },
+    { valueField: "val5", name: "> 15 m/s" ,color:"#ff3c00"} 
 ]
 let WindRoseDate : WindValue []=[{
     arg: "N",
