@@ -6,10 +6,11 @@
 
   <div class="container-fuild ">
     <div class="row example-sidenav-content no-gutters">
-      <div id="second" ngClass={{nameColumnLeft}}>
-        <dx-chart id="chart" [dataSource]="dataSource">
+      <div id="second" ngClass={{nameColumnLeft}} class="my-auto">
+        <dx-chart id="chart" [dataSource]="dataSource" class="justify-content-center">
+           
           <dxi-series valueField="value" name="00:00 - 07:59" color="#07ccd9">
-
+            
           </dxi-series>
           <dxi-series valueField="value2" name="08:00 - 15:59" color="#07ccd9">
 
@@ -18,19 +19,35 @@
 
           </dxi-series>
          
-          <dxo-common-series-settings argumentField="date" type="bar" hoverMode="allArgumentPoints"
+          <dxo-common-series-settings argumentField="date" type="bar" 
             selectionMode="allArgumentPoints">
             <dxo-label [visible]="false" [format]="{
                           type: 'fixedPoint',
                           precision: '0'
                       }">
             </dxo-label>
+            
           </dxo-common-series-settings>
           <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
           </dxo-legend>
           <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip">
           </dxo-tooltip>
           <dxo-legend [visible]="false"></dxo-legend>
+          <dxo-argument-axis color="aqua" >
+              <dxo-tick color="aqua" [width]="1" [length]="20"></dxo-tick>
+              <dxo-label wordWrap="none" [overlappingBehavior]="currentMode">
+                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+              </dxo-label>
+               <dxo-grid [visible]="true" color="aqua"></dxo-grid>
+          </dxo-argument-axis>
+        <dxi-value-axis [valueMarginsEnabled]="false" color="aqua">
+            <dxo-tick color="aqua" [width]="1" [length]="7"></dxo-tick>
+            <dxo-label [useRangeColors]="true">
+                <dxo-font color="aqua" [size]="14"> </dxo-font>
+              </dxo-label>
+              <dxo-grid [visible]="true" color="aqua"></dxo-grid>
+        </dxi-value-axis>
+        
         </dx-chart>
       </div>
       <div id="first" ngClass={{nameColumnRight}}>

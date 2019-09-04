@@ -13,13 +13,22 @@
           (onLegendClick)="onLegendClick($event)">
           <!-- hien thi toc do gio -->
           <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name" [color] ="item.color" >
+             
           </dxi-series>
+        
           <dxo-common-series-settings type="stackedbar"></dxo-common-series-settings>
           <dxo-margin [bottom]="50" [left]="100" [top]="50" [right]="50">
           </dxo-margin>
-          <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true">
+          <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true" color="aqua">
+              <dxo-label [useRangeColors]="true">
+                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+                </dxo-label>
           </dxo-argument-axis>
-          
+          <dxo-value-axis [valueMarginsEnabled]="false" color="aqua">
+              <dxo-label [useRangeColors]="true">
+                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+                </dxo-label>
+          </dxo-value-axis>
         </dx-polar-chart>
 
       
