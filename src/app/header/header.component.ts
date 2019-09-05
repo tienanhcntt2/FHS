@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   gotoHome(){
-    this.router.navigateByUrl("/wind/home");
+    this.router.navigateByUrl("/home");
   }
 
 }

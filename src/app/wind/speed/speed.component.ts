@@ -96,6 +96,7 @@ export class SpeedComponent implements OnInit {
 
   public nameColumnRight: string = "col-sm-12 col-md-5 colum_right";
   public nameColumnLeft: string = "col-sm-12 col-md-7 ";
+  public seriescolor: any;
   /**
    * 
    * @param datePipe 
@@ -128,7 +129,7 @@ export class SpeedComponent implements OnInit {
   ngOnInit() {
     // chien cha
     this.txt_zhan = "sixteenwindrose?";
-
+    this.seriescolor ="aqua";
     this.txt_time_start = this.formatValue(this.timeStart) + ":00";
     // this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
     this.txt_time_end = this.formatValue(this.timeEnd) + ":00";
@@ -179,7 +180,18 @@ export class SpeedComponent implements OnInit {
     printf
     ----------------------------------------------------- */
     private printfChart(){
-      this.radarChart.instance.print();
+      //this.radarChart.instance.print();
+       this.seriescolor ="black";  
+      //let instance:DxPolarChartComponent =   this.radarChart.instance
+     // let option=this.radarChart.instance.option();
+      
+      // this.radarChart.argumentAxis.label.font.color="red";
+     // console.log(this.radarChart.instance.option()) ;
+      window.setTimeout(() => {
+        this.radarChart.instance.exportTo(this.translateService.instant("home.windspeed"), "svg");
+        this.seriescolor = "aqua";
+      }, 10);
+      
     }
   /**
    * event click change date when select
@@ -280,13 +292,15 @@ export class SpeedComponent implements OnInit {
     } else {
       this.showIconDesktop();
     }
+
   }
   clickSeach() {
     if(!this.authService.isUserLoggedIn()){
       this.openDialog(2);
     }else{
+
       this.checkSeach = true;
-      this.getdataSpeed(this.urlSpeed)
+      this.getdataSpeed(this.urlSpeed);
     }
   }
 
@@ -458,6 +472,7 @@ export class SpeedComponent implements OnInit {
   }
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
+    this.radarChart.instance.render(window.innerWidth);
     if (window.innerWidth <= 768) {
       this.showIconMobile();
     } else {
