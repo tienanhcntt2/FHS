@@ -173,16 +173,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   async setValueHome(Rainfall: number, WindVelocity: number, WindDegree: number, Humidity: number) {
 
     this.winds = [{
-      name: this.translateService.instant("home.rainfall"), number: this.splitNumber(Rainfall), donvi: "mm", min: this.splitNumber(Rainfall) + " mm", max: this.splitNumber(Rainfall) + " mm", link:"/wind/rainfall"
+      name: this.translateService.instant("home.rainfall"), number: this.splitNumber(Rainfall), donvi: "mm", min: this.splitNumber(Rainfall) + " mm", max: this.splitNumber(Rainfall) + " mm", link:"/rainfall"
     },
     {
-      name: this.translateService.instant("home.speed"), number:this.splitNumber(WindVelocity) , donvi: "km/h", min: this.splitNumber(WindVelocity) + " km/h", max: this.splitNumber(WindVelocity) + " km/h", link:"/wind/speed"
+      name: this.translateService.instant("home.speed"), number:this.splitNumber(WindVelocity) , donvi: "km/h", min: this.splitNumber(WindVelocity) + " km/h", max: this.splitNumber(WindVelocity) + " km/h", link:"/speed"
     },
     {
-      name: this.translateService.instant("home.winddriction"), number: this.splitNumber(WindDegree), donvi: "km/h", min: this.splitNumber(WindDegree) + " km/h", max: this.splitNumber(WindDegree) + " km/h", link:"/wind/direction"
+      name: this.translateService.instant("home.winddriction"), number: this.splitNumber(WindDegree), donvi: "km/h", min: this.splitNumber(WindDegree) + " km/h", max: this.splitNumber(WindDegree) + " km/h", link:"/direction"
     },
     {
-      name: this.translateService.instant("home.Humidity"), number: this.splitNumber(Humidity), donvi: "%", min: this.splitNumber(Humidity) + " %", max: this.splitNumber(Humidity) + " %", link:"/wind/humidity"
+      name: this.translateService.instant("home.Humidity"), number: this.splitNumber(Humidity), donvi: "%", min: this.splitNumber(Humidity) + " %", max: this.splitNumber(Humidity) + " %", link:"/humidity"
     }
     ];
     
@@ -242,35 +242,35 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   public gotoTemperature(){
     if (this.authService.isUserLoggedIn()) {
-      this.router.navigateByUrl("wind/temperature");
+      this.router.navigateByUrl("temperature");
     }else{
       this.openDialog(2);
     }
   }
   public gotoHuminity(){
     if (this.authService.isUserLoggedIn()) {
-      this.router.navigateByUrl("wind/humidity");
+      this.router.navigateByUrl("humidity");
     }else{
       this.openDialog(2);
     }
   }
   public gotoRainFall(){
     if (this.authService.isUserLoggedIn()) {
-      this.router.navigateByUrl("wind/rainfall");
+      this.router.navigateByUrl("rainfall");
     }else{
       this.openDialog(2);
     }
   }
   public gotoWindSpeed(){
     if (this.authService.isUserLoggedIn()) {
-      this.router.navigateByUrl("wind/speed");
+      this.router.navigateByUrl("speed");
     }else{
       this.openDialog(2);
     }
   }
   public gotoWindDirection(){
     if (this.authService.isUserLoggedIn()) {
-      this.router.navigateByUrl("wind/direction");
+      this.router.navigateByUrl("direction");
     }else{
       this.openDialog(2);
     }

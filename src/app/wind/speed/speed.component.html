@@ -13,7 +13,9 @@
           (onLegendClick)="onLegendClick($event)">
           <!-- hien thi toc do gio -->
           <dxi-series id="randarbg" *ngFor="let item of windSources" [valueField]="item.valueField" [name]="item.name" [color] ="item.color" >
-             
+            <dxi-item>
+              <dxo-font color="aqua" [size]="18"> </dxo-font>
+            </dxi-item>
           </dxi-series>
         
           <dxo-common-series-settings type="stackedbar"></dxo-common-series-settings>
@@ -21,13 +23,15 @@
           </dxo-margin>
           <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true" color="aqua">
               <dxo-label [useRangeColors]="true">
-                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+                  <dxo-font color={{seriescolor}} [size]="18"> </dxo-font>
                 </dxo-label>
+                <dxo-tick color="aqua" [width]="1" [length]="7"></dxo-tick>
           </dxo-argument-axis>
           <dxo-value-axis [valueMarginsEnabled]="false" color="aqua">
               <dxo-label [useRangeColors]="true">
-                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+                  <dxo-font color="aqua" [size]="18"> </dxo-font>
                 </dxo-label>
+              
           </dxo-value-axis>
         </dx-polar-chart>
 
@@ -85,7 +89,7 @@
           <div class="row" style="margin-top: 20px">
             <div class="col-6">
               <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
+              <button class="col-6 dain"  (click)="printfChart()">{{'rainFall.export' | translate}}</button>
             </div>
 
           </div>

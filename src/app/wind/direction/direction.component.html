@@ -1,12 +1,12 @@
 <app-nav></app-nav>
-<mat-drawer-container class="container_full" autosize>
+<mat-drawer-container class="container_full" >
   <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3;">
     <app-slide-menu></app-slide-menu>
   </mat-drawer>
 
   <div class="example-sidenav-content row no-gutters h-100">
     <!-- colum left -->
-    <div ngClass={{nameColumnLeft}} id="second" class="my-auto">
+    <div ngClass={{nameColumnLeft}} id="second" class="my-auto" >
         <dx-chart [dataSource]="stockPrices" id="chart" class="justify-content-center">
             <!-- See details in the "Bind Series to Data" topic -->
            
@@ -14,6 +14,12 @@
             <dxi-series type="scatter" argumentField="timestamp" valueField="direction">
         
             </dxi-series>
+            <dxo-tooltip
+            [enabled]="true"
+            [customizeTooltip]="customizeTooltip"
+            >
+           </dxo-tooltip>
+         
             <dxo-argument-axis argumentType="datetime" aggregationInterval="days" color="aqua">
                 
                 <dxo-label [customizeText]="customizeText"  wordWrap="none" [overlappingBehavior]="currentMode">
@@ -24,7 +30,7 @@
             
                <dxo-grid [visible]="true" color="aqua"></dxo-grid>
             </dxo-argument-axis>
-            <dxi-value-axis title="Wind Direction" color="aqua">
+            <dxi-value-axis title="" color="aqua">
                 <dxo-label [customizeText]="valueCustomizeText">
                     <dxo-font color="aqua" [size]="14"> </dxo-font>
                 </dxo-label>
@@ -34,10 +40,7 @@
             </dxi-value-axis>
             <dxo-scroll-bar [visible]="false"></dxo-scroll-bar>
             <dxo-legend [visible]="false"></dxo-legend>
-            <dxo-tooltip
-            [enabled]="true"
-            [customizeTooltip]="customizeTooltip">
-           </dxo-tooltip>
+           
            
         </dx-chart>
     </div>
