@@ -1,126 +1,132 @@
-<app-nav></app-nav>
-<mat-drawer-container class="container_full" autosize>
-  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3; border-right: 1px solid #1491d0">
-    <app-slide-menu></app-slide-menu>
-  </mat-drawer>
+<div class="content_full row no-gutters">
+  <!-- colum left -->
+  <div ngClass={{nameColumnLeft}} id="second" class="my-auto">
+      <dx-chart [dataSource]="stockPrices" id="chart" class="justify-content-center">
+          <!-- See details in the "Bind Series to Data" topic -->
+         
+          <dxo-zoom-and-pan argumentAxis="both"></dxo-zoom-and-pan>
+          <dxi-series type="scatter" argumentField="timestamp" valueField="direction">
+      
+          </dxi-series>
+          <dxo-tooltip
+          [enabled]="true"
+          [customizeTooltip]="customizeTooltip"
+          >
+         </dxo-tooltip>
+       
+          <dxo-argument-axis argumentType="datetime" aggregationInterval="days" color="aqua">
+              
+              <dxo-label [customizeText]="customizeText"  wordWrap="none" [overlappingBehavior]="currentMode">
 
-  <div class="example-sidenav-content row no-gutters h-100">
-    <!-- colum left -->
-    <div ngClass={{nameColumnLeft}} id="second" class="my-auto">
-        <dx-chart [dataSource]="stockPrices" id="chart" class="justify-content-center">
-            <!-- See details in the "Bind Series to Data" topic -->
-           
-            <dxo-zoom-and-pan argumentAxis="both"></dxo-zoom-and-pan>
-            <dxi-series type="scatter" argumentField="timestamp" valueField="direction">
-        
-            </dxi-series>
-            <dxo-argument-axis argumentType="datetime" aggregationInterval="days">
-                
-                <dxo-label [customizeText]="customizeText"></dxo-label>
-            </dxo-argument-axis>
-            <dxi-value-axis title="Wind Direction">
-                <dxo-label [customizeText]="valueCustomizeText"></dxo-label>
-            </dxi-value-axis>
-            <dxo-scroll-bar [visible]="false"></dxo-scroll-bar>
-            <dxo-legend [visible]="false"></dxo-legend>
-            <dxo-tooltip
-            [enabled]="true"
-            [customizeTooltip]="customizeTooltip">
-           </dxo-tooltip>
-           
-        </dx-chart>
-    </div>
-    <!-- colum right  -->
-    <div id="first" ngClass={{nameColumnRight}}>
-      <img src={{icon_show}} (click)="functionShowHide()" />
-      <!-- select date -->
-      <div class="detail" *ngIf="okma">
+                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+              </dxo-label>
+              <dxo-tick color="aqua" [width]="1" [length]="20"></dxo-tick>
+          
+             <dxo-grid [visible]="true" color="aqua"></dxo-grid>
+          </dxo-argument-axis>
+          <dxi-value-axis title="" color="aqua">
+              <dxo-label [customizeText]="valueCustomizeText">
+                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+              </dxo-label>
+              <dxo-tick color="aqua" [width]="1" [length]="7"></dxo-tick>
+              
+                <dxo-grid [visible]="true" color="aqua"></dxo-grid>
+          </dxi-value-axis>
+          <dxo-scroll-bar [visible]="false"></dxo-scroll-bar>
+          <dxo-legend [visible]="false"></dxo-legend>
+         
+         
+      </dx-chart>
+  </div>
+  <!-- colum right  -->
+  <div id="first" ngClass={{nameColumnRight}}>
+    <img src={{icon_show}} (click)="functionShowHide()" />
+    <!-- select date -->
+    <div class="detail" *ngIf="okma">
 
-        <!-- select datetimer -->
-        <div class="row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-md-12 col-lg-6">
-                  <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)" [format]="'yyyy/MM/dd'">
-                  </kendo-datepicker>
-                </div>
-                <div class="col-md-12 col-lg-6">
-                  <kendo-timepicker *ngIf="fplagStart" (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'">
-                  </kendo-timepicker>
-                  <kendo-timepicker *ngIf="fplagStart == false" [max]="timerCurrent"
-                    (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'"></kendo-timepicker>
-                </div>
+      <!-- select datetimer -->
+      <div class="row">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-md-12 col-lg-6">
+                <kendo-datepicker [(value)]="startDate" [max]="selectToday" (valueChange)="onChangeStartDay($event)" [format]="'yyyy/MM/dd'">
+                </kendo-datepicker>
               </div>
-            </div>
-            <div class="col-6">
-              <div class="row">
-                <div class="col-md-12 col-lg-6">
-                  <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)" [format]="'yyyy/MM/dd'">
-                  </kendo-datepicker>
-                </div>
-                <div class="col-md-12 col-lg-6">
-                  <kendo-timepicker *ngIf="fplagEnd" [max]="timerCurrent" (valueChange)="onChangeTimerEnd($event)"
-                    [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
-                  <kendo-timepicker *ngIf="fplagEnd == false" (valueChange)="onChangeTimerEnd($event)"
-                    [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
-                </div>
+              <div class="col-md-12 col-lg-6">
+                <kendo-timepicker *ngIf="fplagStart" (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'">
+                </kendo-timepicker>
+                <kendo-timepicker *ngIf="fplagStart == false" [max]="timerCurrent"
+                  (valueChange)="onChangeTimerStart($event)" [value]="timeStart" [format]="'HH:mm'"></kendo-timepicker>
               </div>
             </div>
           </div>
-
-
-          <div class="row" style="margin-top: 20px">
-            <div class="col-6">
-              <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-md-12 col-lg-6">
+                <kendo-datepicker [(value)]="enDate" [max]="selectToday" (valueChange)="onChangeEndDay($event)" [format]="'yyyy/MM/dd'">
+                </kendo-datepicker>
+              </div>
+              <div class="col-md-12 col-lg-6">
+                <kendo-timepicker *ngIf="fplagEnd" [max]="timerCurrent" (valueChange)="onChangeTimerEnd($event)"
+                  [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
+                <kendo-timepicker *ngIf="fplagEnd == false" (valueChange)="onChangeTimerEnd($event)"
+                  [value]="timeEnd" [format]="'HH:mm'"></kendo-timepicker>
+              </div>
             </div>
-
           </div>
-
-        <div class="row">
-          <span class="title_table">显 示 详 细 数 据 <img (click)="showDetail()" src={{nameMaticon}} />
-            <div class="line"></div>
-          </span>
         </div>
-        <!-- table detail -->
-        <div class="row" *ngIf="show" style="margin:10px;">
-          <button *ngIf="showExport" class="col-3 export" (click)="exportExcel()"  ><img src="assets/image/excel.png"/>{{'rainFall.export' | translate}}</button>
-          <div class="tbl-header">
-            <table cellpadding="0" cellspacing="0" border="0">
-              <thead>
-                <tr>
 
-                  <th>
-                    Date
-                  </th>
-                  <th>
-                    Direction
-                  </th>
-                  <th>
-                    Name Direction
-                  </th>
 
-                </tr>
-              </thead>
-            </table>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-6">
+            <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+            <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
           </div>
-          <div class="tbl-content">
-            <table cellpadding="0" cellspacing="0" border="0">
-              <tbody>
-                <tr *ngFor='let dt of stockPrices'>
 
-                  <td >{{dt.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
-                  <td >{{dt.direction}}</td>
-                  <td >{{nameDirection(dt.direction)}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        </div>
+
+      <div class="row">
+        <span class="title_table">显 示 详 细 数 据 <img (click)="showDetail()" src={{nameMaticon}} />
+          <div class="line"></div>
+        </span>
+      </div>
+      <!-- table detail -->
+      <div class="row" *ngIf="show" style="margin:10px;">
+        <button *ngIf="showExport" class="col-3 export" (click)="exportExcel()"  ><img src="assets/image/excel.png"/>{{'rainFall.export' | translate}}</button>
+        <div class="tbl-header">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+
+                <th>
+                  Date
+                </th>
+                <th>
+                  Direction
+                </th>
+                <th>
+                  Name Direction
+                </th>
+
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr *ngFor='let dt of stockPrices'>
+
+                <td >{{dt.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
+                <td >{{dt.direction}}</td>
+                <td >{{nameDirection(dt.direction)}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <!-- finish select date -->
     </div>
-
+    <!-- finish select date -->
   </div>
 
-</mat-drawer-container>
+</div>

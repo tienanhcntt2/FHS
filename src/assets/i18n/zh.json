@@ -1,20 +1,20 @@
 {
     "login":{
         "txt_login": "登錄",
-        "txt_username" :"用戶名",
+        "txt_username": "用戶名稱",
         "txt_password": "密碼",
-        "txt_message_user":"用戶名是必需的",
-        "txt_message_pass" :"密碼是必需的",
-        "txt_message": "用戶名或密碼無連接"
+        "txt_message_user": "用戶名稱是必需的",
+        "txt_message_pass": "密碼是必需的",
+        "txt_message": "用戶名稱與密碼不匹配"
     },
     "home":{
-        "homepage":"主頁",
-        "weather" : "天氣",
-        "rainfall":"雨量",
-        "windspeed" :"風速",
-        "speed" : "風速",
-        "winddriction" :"風向",
-        "Humidity" :"濕度"
+        "homepage": "主頁",
+        "weather": "天氣",
+        "rainfall": "雨量",
+        "windspeed": "風速",
+        "speed": "風速",
+        "winddriction": "風向",
+        "Humidity": "濕度"
     },
     "menu":{
         "home" : "主頁",
@@ -29,14 +29,14 @@
         "detailAdress" :"河靜省奇英市奇龍坊永安經濟區"
     },
     "rainFall" :{
-        "search" :"搜索",
-        "printf" : "打印",
-        "export" : "Export",
-        "showdata" :"显 示 详 细 数 据 ",
-        "show%" :"顯示如下 %",
-        "showspeed" :"顯示如下 km/h",
-        "station" :"站",
-        "select" :"选择"
+        "search": "搜索",
+        "printf": "列印",
+        "export": "匯出",
+        "showdata": "顯示詳給數據",
+        "show%": "顯示如下 %",
+        "showspeed": "顯示如下 km/h",
+        "station": "風向",
+        "select": "選擇"
     },
     "nav" :{
         "adrress": "行政大樓"
@@ -46,6 +46,7 @@
         "txt_low" :"低平均值",
         "vga_temperature" :"平均溫度",
         "Temperature_Ranges": "溫度範圍"
+        
     } ,"huminity" :{
         "avg_huminity" :"平均濕度"
     },
@@ -57,7 +58,12 @@
         "loadding": "載入中",
         "error" : "錯誤",
         "messageError" :"沒有數據",
-        "From" :"从",
-        "to" :"到"
+        "From": "從",
+        "to": "到"
+    },
+    "home_info" :{
+        "temp":"現在溫度/分" ,
+        "rain":"現在雨量/分",
+        "hum" : "現在濕度/分" 
     }
 }

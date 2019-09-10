@@ -8,6 +8,7 @@ import { FhsAuthorizeService } from '@fhs/authorize';
 import { DialogLoaddingComponent } from '../dialog-loadding/dialog-loadding.component';
 import { MatDialog } from '@angular/material';
 import { AutherService } from '../service/autherService';
+import { AppServiceService } from '../service/app-service.service';
 
 @Component({
   selector: 'app-nav',
@@ -26,7 +27,7 @@ export class NavComponent implements OnInit, OnDestroy {
   title: string = "Home";
   public txt_start_date: string = "2019/03/03T00:00";
   public txt_end_date: string = "2019/03/03T00:30";
-  public selectAdrees: string;
+  public selectAdrees: string ="BUILD-D";
   private zhan: string ="16";
   private txt_zhan : string;
 
@@ -34,29 +35,32 @@ export class NavComponent implements OnInit, OnDestroy {
   public flagsShow: boolean = true;
   public showZhan: boolean = true;
   // value today
-  private location: string =" Formosa Ha Tinh";
+  public location: string;
   private dateCurrent : any;
   private TimerCurrent : Date;
   private timerOk : string;
   private _clockSubscription: Subscription;
   private animal: string;
   private  name: string;
-
+  private today:string;
+  isCollapsed = true;
   constructor(private datePipe: DatePipe,private commoService: CommonService, private translateService: TranslateService,private clockService: ClockService,
-    private auth:FhsAuthorizeService,public dialog: MatDialog, private authService:AutherService ) {
+    private auth:FhsAuthorizeService,public dialog: MatDialog, private authService:AutherService, private appService: AppServiceService ) {
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
-      this.selectAdrees = translateService.instant("nav.adrress");
+      this.selectAdrees = this.location;
       this.txt_zhan =translateService.instant("rainFall.station");
+      this.today =translateService.instant("home.homepage");
     });
   }
 
   ngOnInit() {
     this.dateCurrent = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_zhan =this.translateService.instant("rainFall.station");
-    this.selectAdrees = this.translateService.instant("nav.adrress");
+    this.selectAdrees = this.location;
+    this.today = this.translateService.instant("home.homepage");
     this.reviceData();
-    this.showFunctionHeader();
+    
     this._clockSubscription = this.clockService.getClock().subscribe(time => {
       this.TimerCurrent = time;
      
@@ -66,46 +70,36 @@ export class NavComponent implements OnInit, OnDestroy {
       }
     });
   }
-  checkLogin() {
   
-    if (this.authService.isUserLoggedIn()) {
-      this.commoService.notifyOther({ option: 'callOpenMenu', value: 'openMenu' });
-    } else {
-      this.openDialog(2);
-    }
-    
-  }
-  showFunctionHeader() {
-    //this.selectAdrees = this.translateService.instant("nav.adrress");
-    if (this.title === "TODAY") {
-      this.flagsShow = false;
-      
-    } else if(this.title == this.translateService.instant("home.windspeed")){
-      this.showZhan = true;
-      this.flagsShow = true;
-    }else {
-      this.flagsShow = true;
-      this.showZhan = false;
-    }
-    
-  }
   // nhan data
   reviceData() {
     this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
-      if (res.hasOwnProperty('option') && res.option === 'callIconMenu') {
-        this.icon_val = res.value;
-
-      } else if (res.hasOwnProperty('option') && res.option === 'sendTitle') {
+    
+      if(res.hasOwnProperty("option") && res.option ==='home'){
         this.title = res.value;
-        this.showFunctionHeader();
-      } else if (res.hasOwnProperty('option') && res.option === 'dateSpeed') {
+        if(this.title === this.translateService.instant("home.windspeed")){
+          this.showZhan = true;
+        }else{
+          this.showZhan = false;
+        }
+      }else if(res.hasOwnProperty("option") && res.option ==='location'){
+        this.location = res.value;
+        console.log("fdkfjdkfdjkfj");
+      }else if(res.hasOwnProperty("option") && res.option ==='menu'){
+        this.icon_val = res.value;
+        this.countClickMenu = 0;
+        
+      }else if(res.hasOwnProperty("option") && res.option ==="flagsShow"){
+        this.flagsShow = res.value;
+      }else if(res.hasOwnProperty("option") && res.option ==="start"){
         this.txt_start_date = res.value;
-      } else if (res.hasOwnProperty('option') && res.option === 'addreess') {
-        //this.selectAdrees = res.value;
+      }else if(res.hasOwnProperty("option") && res.option ==="end"){
+        this.txt_end_date = res.value;
       } else if (res.hasOwnProperty('option') && res.option === 'selectzham') {
-        this.zhan = res.value;
-        this.txt_zhan = this.translateService.instant("rainFall.station");
-      }
+          this.zhan = res.value;
+        
+          this.txt_zhan = this.translateService.instant("rainFall.station");
+        }
 
     });
   }
@@ -119,5 +113,40 @@ export class NavComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       
     });
+  }
+
+  private countClickMenu: number = 0;
+  toggleSidebarPin() {
+    if (this.authService.isUserLoggedIn()) {
+       this.countClickMenu = this.countClickMenu +1;
+       if(this.countClickMenu %2 !=0){
+        this.icon_val = "assets/image/drop_up.png";
+         
+       }else{
+        this.icon_val = "assets/image/icon_menu.png";
+       }
+       this.appService.toggleSidebarPin();
+    } else {
+      this.openDialog(2);
+    }
+    
+    
+  }
+  private countClickMenuMobile: number = 0;
+  toggleSidebar() {
+    if (this.authService.isUserLoggedIn()) {
+      this.countClickMenuMobile = this.countClickMenuMobile +1;
+      
+      if(this.countClickMenuMobile %2 !=0){
+       this.icon_val = "assets/image/drop_up.png";
+        
+      }else{
+       this.icon_val = "assets/image/icon_menu.png";
+      }
+      this.appService.toggleSidebar();
+   } else {
+     this.openDialog(2);
+   }
+    
   }
 }

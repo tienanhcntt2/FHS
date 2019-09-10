@@ -5,51 +5,47 @@ import { DirectionComponent } from './wind/direction/direction.component';
 import { WindComponent } from './wind/wind/wind.component';
 import { HomeComponent } from './wind/home/home.component';
 import { PageNotFoundComponent } from './util/page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
+
 import { TemperatureComponent } from './wind/temperature/temperature.component';
 import { RanFallComponent } from './wind/ranfall/ran-fall.component';
 import { HuminityComponent } from './wind/huminity/huminity.component';
 
 
+
 const routes: Routes = [
   {
-    path: 'wind',
-    component: WindComponent,
-    children: [
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'speed',
-        component: SpeedComponent
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'speed',
+    component: SpeedComponent
 
-      },
+  },
+  {
+    path: 'direction',
+    component: DirectionComponent
+  },
       {
-        path: 'direction',
-        component: DirectionComponent
-      },
-          {
-            path: 'temperature',
-            component: TemperatureComponent
-        },
-        {
-            path : 'humidity',
-            component : HuminityComponent
-    
-        },
-        {
-            path: 'rainfall',
-            component: RanFallComponent
-        }
-    ]
-  }, 
+        path: 'temperature',
+        component: TemperatureComponent
+    },
+    {
+        path : 'humidity',
+        component : HuminityComponent
+
+    },
+    {
+        path: 'rainfall',
+        component: RanFallComponent
+    },
  
   {
     path: '',
-    redirectTo: 'wind/home',
+    redirectTo: 'home',
     pathMatch: 'full'
-  },
+  }
+  ,
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({

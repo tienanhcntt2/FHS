@@ -12,7 +12,173 @@ export class Weather  {
 
 
 }
+export class Teamperate{
+    day: string;
+    val1: number;
+    val2: number;
+    val3: number;
+}
+export class Huminity{
+    date: string;
+    val1: number;
+    val2: number;
+    val3: number;
+    val11: number;
+    val22: number;
+    val33: number;
+}
 
+let listTeamperate: Teamperate[]=[{
+    day :"2019/09/01",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/02",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},
+{
+    day :"2019/09/03",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/04",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/05",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/06",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/07",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/08",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/09",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/10",
+    val1: 30,
+    val2: 35,
+    val3: 45
+},{
+    day :"2019/09/11",
+    val1: 30,
+    val2: 35,
+    val3: 45
+}
+
+]
+let huminity: Huminity[]=[{
+    date :"2019/09/01",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/02",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},
+{
+    date :"2019/09/03",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/04",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/05",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/06",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/07",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/08",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/09",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/10",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+},{
+    date :"2019/09/11",
+    val1: 30,
+    val2: 35,
+    val3: 45,
+    val11:0,
+    val22:0,
+    val33:0
+}
+
+]
 let weatherData: Weather[] = [{
     month: "2019/06/01",
     avgT: 14.1,
@@ -130,4 +296,28 @@ export class WeatherService {
         return datePipe.transform(date.setDate(date.getDate() +i));
     }
 
+    listTeamperate(): Teamperate[]{
+        return listTeamperate;
+    }
+    listHuminity(): Huminity[]{
+        return huminity;
+    }
+    GetListHuminity() : Huminity[]{
+        this.listHuminity();
+        let list: Huminity[]=[];
+        console.log("hello : " +huminity.length +"");
+        for(let i=0;i<huminity.length ; i++){
+           
+            list.push({
+                date: huminity[i].date,
+                val1: huminity[i].val1,
+                val11: 100-huminity[i].val1,
+                val2: huminity[i].val1,
+                val22: 100-huminity[i].val2,
+                val3: huminity[i].val1,
+                val33: 100-huminity[i].val3,
+            });
+        }
+        return list;
+    }
 }

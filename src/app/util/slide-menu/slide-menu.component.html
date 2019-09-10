@@ -1,8 +1,10 @@
-<div class="listmenu">
+
+<aside class="sidebar shadow-sm listmenu">
+
   <ul class="list-group menu">
     <li *ngFor="let menu of listmenu; let i =index" (click) ="sendUrl(i)" [class.active]="menu.title === activeState" >
       <a ><img src={{menu.icon}}  />
         <span>{{menu.title}}</span></a>
     </li>
   </ul>
-</div>
+</aside>

@@ -39,6 +39,7 @@
     "jquery": "^3.4.1",
     "mqtt": "^3.0.0",
     "ng2-mqtt": "^0.1.2",
+    "ngx-bootstrap": "^5.1.1",
     "node-sass": "^4.12.0",
     "rxjs": "~6.3.3",
     "stream": "0.0.2",

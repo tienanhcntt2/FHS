@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit,  ViewChild, HostListener } from '@angular/core';
 
 import { DatePipe } from '@angular/common';
-import { Subscription } from 'rxjs';
+
 import { CommonService } from 'src/app/service/CommonService';
 import { listMenu } from 'src/app/config/listmenu';
-import { NavComponent } from 'src/app/nav/nav.component';
+
 import { UserServicer } from 'src/app/service/user.Servicer';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { Fengxiang } from 'src/app/model/fengxiang';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+import {  HttpClient } from '@angular/common/http';
+
 import { DxChartComponent } from 'devextreme-angular';
 import { MatDialog } from '@angular/material';
 import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
@@ -23,15 +23,8 @@ import { AutherService } from 'src/app/service/autherService';
   templateUrl: './direction.component.html',
   styleUrls: ['./direction.component.scss']
 })
-export class DirectionComponent implements OnInit, OnDestroy {
+export class DirectionComponent implements OnInit {
 
-  @ViewChild('drawer') drawer;
-
-
-  @ViewChild(NavComponent)
-  private nav: NavComponent;
-  @ViewChild(SlideMenuComponent)
-  private slide: SlideMenuComponent;
   @ViewChild(DxChartComponent) chart: DxChartComponent;
 
   private enDate: any;
@@ -42,7 +35,6 @@ export class DirectionComponent implements OnInit, OnDestroy {
   private fplagStart: boolean = true;
   private fplagEnd: boolean = true;
 
-  private subscription: Subscription;
   public show: boolean = true;
   public numberCheck: number = 0;
   public nameMaticon: string = "assets/image/drop_down.png";
@@ -75,6 +67,10 @@ export class DirectionComponent implements OnInit, OnDestroy {
   private animal: string;
   private  name: string;
 
+  // version 2
+  private dateTimerStrart: string;
+  private dateTimerEnd: string;
+
   /**
    * constructor direction
    * @param commoService 
@@ -88,8 +84,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
     private userService: UserServicer, private translate: TranslateService, private intl: IntlService, private http: HttpClient,
     public dialog: MatDialog, private excelService: ExcelServiceService, private titleService: Title, private authService:AutherService) {
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
-
-      this.sendTitle();
+     this.sendData();
     });
     if (window.innerWidth <= 768) {
       this.showIconMobile();
@@ -105,26 +100,12 @@ export class DirectionComponent implements OnInit, OnDestroy {
       onInit
       ----------------------------------------------------- */
   ngOnInit() {
-    this.nav.showZhan = false;
-    this.sendTitle();
+    this.sendData();
     this.txt_time_start = this.formatValue(this.timeStart) + ":00";
-    //this.txt_time_start = "00:00:00";
-    //this.timeEnd.setMinutes(this.timeEnd.getMinutes() +30);
     this.txt_time_end = this.formatValue(this.timeEnd) + ":00";
-    //this.txt_time_end = "15:00:00";
-    // check login
-
-
     this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1), "yyyy/MM/dd");
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-
-    this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
-      if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
-        this.checkOpenMenu();
-      }
-
-    });
     if (this.stockPrices == null) {
       this.showExport = false;
     } else {
@@ -142,10 +123,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
   /* ---------------------------------------------------
      ngOnDestroy
      ----------------------------------------------------- */
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
+ 
   /* ---------------------------------------------------
      Detail
      ----------------------------------------------------- */
@@ -213,27 +191,6 @@ export class DirectionComponent implements OnInit, OnDestroy {
     return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
 
-  /* ---------------------------------------------------
-    check menu
-    ----------------------------------------------------- */
-  checkOpenMenu() {
-    this.clickOpen += 1;
-    if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "assets/image/icon_menu.png"
-    } else {
-      this.nav.icon_val = "assets/image/drop_up.png"
-    }
-
-    this.drawer.toggle();
-  }
-  /* ---------------------------------------------------
-      Send title
-      ----------------------------------------------------- */
-  sendTitle() {
-    this.nav.title = this.translate.instant("home.winddriction");
-    this.slide.numberPosition = 3;
-    this.titleService.setTitle(this.nav.title + "-" + this.translate.instant("home.weather"));
-  }
 
 
   // function show and hide
@@ -266,8 +223,12 @@ export class DirectionComponent implements OnInit, OnDestroy {
    * @param timerEnd 
    */
   private setValueDatetimer(dayStart: string, dayEnd: string, timerStart: string, timerEnd: string) {
-    this.nav.txt_start_date = dayStart + "T" + timerStart;
-    this.nav.txt_end_date = dayEnd + "T" + timerEnd;
+    this.dateTimerStrart = dayStart + "T" + timerStart;
+    this.dateTimerEnd = dayEnd + "T" + timerEnd;
+    // this.nav.txt_start_date = dayStart + "T" + timerStart;
+    // this.nav.txt_end_date = dayEnd + "T" + timerEnd;
+    this.sendDateTimer("start",this.dateTimerStrart);
+    this.sendDateTimer("end",this.dateTimerEnd);
 
   }
   customizeText = (arg: any) => {
@@ -335,7 +296,7 @@ export class DirectionComponent implements OnInit, OnDestroy {
    */
   private getDataWinddirection(url: string) {
     this.openDialog(1);
-    url = url + "start=" + this.nav.txt_start_date + "&end=" + this.nav.txt_end_date;
+    url = url + "start=" + this.dateTimerStrart + "&end=" + this.dateTimerEnd;
 
     return this.http.get<Fengxiang[]>(url).subscribe(
       result => {
@@ -490,6 +451,21 @@ export class DirectionComponent implements OnInit, OnDestroy {
       }
     }
     return valueText;
+  }
+
+  private sendData(){
+    this.commoService.notifyOther({option:"numberMenu", value:3});
+    this.commoService.notifyOther({option:"flagsShow", value: true});
+    this.commoService.notifyOther({option:"home",value:this.translate.instant("home.winddriction")})
+    this.commoService.notifyOther({option:"location", value:"BUILD-D"});
+  }
+  /**
+   * 
+   * @param key 
+   * @param value 
+   */
+  private sendDateTimer(key:string, value:string){
+    this.commoService.notifyOther({option:key, value:value});
   }
 }
 export class fengxiang{

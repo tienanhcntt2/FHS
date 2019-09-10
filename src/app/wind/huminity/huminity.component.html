@@ -1,51 +1,46 @@
-<app-nav></app-nav>
-<mat-drawer-container class="container_full" autosize>
-  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3; border-right: 1px solid #1491d0">
-    <app-slide-menu></app-slide-menu>
-  </mat-drawer>
-
-  <div class="example-sidenav-content row no-gutters">
+  <div class="content_full row no-gutters">
     <!-- colum left -->
-    <div ngClass={{nameColumnLeft}} id="second">
-      <dx-chart id="chart" defaultPane="bottom" [dataSource]="weatherData" title="" [customizePoint]="customizePoint" (onPointClick)="pointClick($event)"> 
-        <dxi-series pane="top" valueField="avgT" name="{{'temperature.vga_temperature' | translate}}, °C">
-            <dxo-label [visible]="false" [customizeText]="precipitationCustomizeText" color="#000"></dxo-label>
-          <dxo-value-error-bar lowValueField="avgLowT" highValueField="avgHighT" [lineWidth]="1" [opacity]="0.8">
-          </dxo-value-error-bar>
-        </dxi-series>
-        <dxi-series pane="bottom" valueField="avgH" type="bar" name="{{'huminity.avg_huminity' | translate}}, %">
-            <dxo-label [visible]="true" [customizeText]="precipitationCustomizeText" color="#000"></dxo-label>
-          <!-- <dxo-value-error-bar type="fixed" [value]="3" [lineWidth]="1">
-          </dxo-value-error-bar> -->
-        </dxi-series>
-        <dxo-common-series-settings argumentField="month"></dxo-common-series-settings>
-        <dxi-pane name="top"></dxi-pane>
-        <dxi-pane name="bottom"></dxi-pane>
-        <dxo-argument-axis>
-          <dxo-label displayMode="stagger"></dxo-label>
-        </dxo-argument-axis>
+    <div id="second" ngClass={{nameColumnLeft}} class="my-auto">
+        <dx-chart id="chart" [dataSource]="huminityData" class="justify-content-center">
+           
+          <dxi-series valueField="val1" name="00:00 - 07:59" color="#07ccd9">
+            
+          </dxi-series>
+          <dxi-series valueField="val11" name="08:00 - 15:59" color="#8e44ad">
 
-        <dxi-value-axis pane="top">
-          
-          <dxo-grid [visible]="true"></dxo-grid>
-          <dxo-title text="{{'menu.Temperature' | translate}}, °C"></dxo-title>
+          </dxi-series>
+        
+          <dxo-common-series-settings argumentField="date" type="fullStackedBar" 
+            selectionMode="allArgumentPoints">
+            <dxo-label [visible]="false" [format]="{
+                          type: 'fixedPoint',
+                          precision: '0'
+                      }">
+            </dxo-label>
+            
+          </dxo-common-series-settings>
+          <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+          </dxo-legend>
+          <dxo-tooltip [enabled]="visible" [customizeTooltip]="customizeTooltip">
+          </dxo-tooltip>
+          <dxo-legend [visible]="false"></dxo-legend>
+          <dxo-argument-axis color="aqua" >
+              <dxo-tick color="aqua" [width]="1" [length]="20"></dxo-tick>
+              <dxo-label wordWrap="none" [overlappingBehavior]="currentMode">
+                  <dxo-font color="aqua" [size]="14"> </dxo-font>
+              </dxo-label>
+               <dxo-grid [visible]="true" color="aqua"></dxo-grid>
+          </dxo-argument-axis>
+        <dxi-value-axis [valueMarginsEnabled]="false" color="aqua">
+            <dxo-tick color="aqua" [width]="1" [length]="7"></dxo-tick>
+            <dxo-label [useRangeColors]="true">
+                <dxo-font color="aqua" [size]="14"> </dxo-font>
+              </dxo-label>
+              <dxo-grid [visible]="true" color="aqua"></dxo-grid>
         </dxi-value-axis>
-        <dxi-value-axis [tickInterval]="50" pane="bottom">
-          <dxo-label [visible]="true" [customizeText]="customizeText" color="#000"></dxo-label>
-          <dxo-grid [visible]="true"></dxo-grid>
-          <dxo-title text="{{'home.Humidity' | translate}}, %"></dxo-title>
-        </dxi-value-axis>
-        <dxo-tooltip
-        [enabled]="false"
-        format="millions"
-        [customizeTooltip]="customizeTooltip">
-        </dxo-tooltip>
-        <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-        </dxo-legend>
-        <dxo-legend [visible]="false"></dxo-legend>
-      </dx-chart>
-
-    </div>
+        
+        </dx-chart>
+      </div>
     <!-- colum right  -->
     <div id="first" ngClass={{nameColumnRight}}>
       <img src={{icon_show}} (click)="functionShowHide()" />
@@ -141,4 +136,3 @@
 
   </div>
 
-</mat-drawer-container>

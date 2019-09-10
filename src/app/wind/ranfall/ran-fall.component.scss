@@ -10,32 +10,17 @@ $color_2a34ff : #07ccd9;
   content: "";
   display: table; 
 }
-.container_full{
-  background : linear-gradient(to bottom,#015fb6 0%, #01324e 100%);
-  background : -moz-linear-gradient(bottom, #015fb6 0%,#01324e 100%);
-  background : -webkit-linear-gradient(bottom, #015fb6 0%, #01324e 100%);
-  background : -o-linear-gradient(bottom,#015fb6 0%, #01324e 100%);
+.content_full{
+  background : linear-gradient(to bottom,#0851cb 0%, #01324e 100%);
+  background : -moz-linear-gradient(bottom, #0851cb 0%,#01324e 100%);
+  background : -webkit-linear-gradient(bottom, #0851cb 0%, #01324e 100%);
+  background : -o-linear-gradient(bottom,#0851cb 0%, #01324e 100%);
   width: 100%;
- height: auto;
-  
-  }
-
-  .example-sidenav{
-    width: 12%;
-    min-height: 100%;
-    overflow: hidden;
-    //display: flex;
-
-  }
+   min-height: 75vh;
+  //overflow:visible;
+}
 
 
-  .example-sidenav-content {
-    
-    min-height: 65vh;
-    width: 100%;
-    overflow: hidden;
-   
-  }
 .colum_right{
     min-height: 100%;
     background : linear-gradient(to bottom,#015fb6 0%, #014064 100%);
@@ -176,15 +161,13 @@ $color_2a34ff : #07ccd9;
 
 
 ::ng-deep #chart {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 5%;
+  margin-left: 3%;
+  margin-right: 3%;
+  padding-right: 10px;
     
 }
 .dxo-tooltip{
