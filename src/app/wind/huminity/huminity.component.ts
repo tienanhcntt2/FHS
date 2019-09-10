@@ -3,12 +3,12 @@ import { CommonService } from 'src/app/service/CommonService';
 import { Subscription } from 'rxjs';
 import { listMenu } from 'src/app/config/listmenu';
 import { NavComponent } from 'src/app/nav/nav.component';
-import { HttpClient } from '@angular/common/http';
+
 import { DatePipe } from '@angular/common';
-import { MatDatepickerInputEvent } from '@angular/material';
+
 import { FormControl } from '@angular/forms';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Weather, WeatherService } from 'src/app/model/Weather';
+import { Weather, WeatherService, Huminity } from 'src/app/model/Weather';
 import { IntlService } from '@progress/kendo-angular-intl';
 import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 import { DxChartComponent } from 'devextreme-angular';
@@ -22,12 +22,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./huminity.component.scss']
 })
 export class HuminityComponent implements OnInit {
-  @ViewChild('drawer') drawer;
 
-  @ViewChild(NavComponent)
-  private nav: NavComponent;
-  @ViewChild(SlideMenuComponent)
-  private slide:SlideMenuComponent;
   @ViewChild(DxChartComponent) chart: DxChartComponent;
 
 
@@ -49,7 +44,6 @@ export class HuminityComponent implements OnInit {
   // value menu var
   private listmenu = listMenu;
   private clickOpen: number = 0;
-  private subscription: Subscription;
 
   // value table detail
   private nameMaticon: string = "assets/image/drop_down.png";
@@ -66,11 +60,14 @@ export class HuminityComponent implements OnInit {
   public date = new FormControl(new Date());
 
   private txt_seach_date :any;
-  public weatherData: Weather[];
+  public huminityData: Huminity[];
   private day = new Date();
   public dayEnd = new FormControl(this.day);
   public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
   public nameColumnLeft: string ="col-sm-12 col-md-7 ";
+  // version 2
+  private dateTimerStrart: string;
+  private dateTimerEnd: string;
   /**
    * 
    * @param commoService 
@@ -82,7 +79,8 @@ export class HuminityComponent implements OnInit {
     private translate: TranslateService, private weatherService: WeatherService,private intl: IntlService,private titleService: Title) {
   
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.sendTitle();
+
+      this.sendData();
     });
     if(window.innerWidth <=768){
       this.showIconMobile();
@@ -98,16 +96,11 @@ export class HuminityComponent implements OnInit {
    * ng onit
    */
   ngOnInit() {
-    this.sendTitle();
-
-    this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
-      if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
-        this.checkOpenMenu();
-      }
-
-    });
+    this.sendData();
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
     this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 6), "yyyy/MM/dd");
+    this.txt_time_start = this.formatValue(this.timeStart) + ":00";
+    this.txt_time_end = this.formatValue(this.timeEnd) + ":00";
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
 
     this.getData();
@@ -117,10 +110,7 @@ export class HuminityComponent implements OnInit {
    * get data
    */
   private getData(){
-    this.txt_seach_date = this.txt_date_start;
-    this.weatherData = this.weatherService.getDataWeather(
-      this.getNumberDate(this.txt_date_start,this.txt_date_end)
-      ,this.txt_seach_date,this.datePipe);
+    this.huminityData = this.weatherService.GetListHuminity();
   }
   /**
    * 
@@ -136,8 +126,8 @@ export class HuminityComponent implements OnInit {
 
   customizeTooltip(arg: any) {
     return {
-      alert : "hello"
-      //text: arg.seriesName + ": " + arg.value + " ( range: " + arg.lowErrorValue + " - " + arg.highErrorValue + ")"
+     
+      text: arg.seriesName + ": " + arg.value + " ( range: " + arg.lowErrorValue + " - " + arg.highErrorValue + ")"
       
     };
   }
@@ -203,27 +193,7 @@ export class HuminityComponent implements OnInit {
   private formatValue(value?: Date): string {
     return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
-  /**
-    * show open menu in teamplerature
-    */
-  checkOpenMenu() {
-    this.clickOpen += 1;
-    if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "assets/image/icon_menu.png"
-    } else {
-      this.nav.icon_val = "assets/image/drop_up.png"
-    }
-
-    this.drawer.toggle();
-  }
-  /**
-   * funciont send title for nav
-   */
-  sendTitle() {
-    this.nav.title = this.translate.instant("home.Humidity");
-    this.slide.numberPosition = 5;
-    this.titleService.setTitle(this.nav.title +"-" +this.translate.instant("home.weather"));
-  }
+ 
   /*
   * function show icon left and right
   */
@@ -272,8 +242,11 @@ export class HuminityComponent implements OnInit {
      * @param timerEnd 
      */
   private setValueDatetimer(dayStart: string, dayEnd: string, timerStart: string, timerEnd: string) {
-    this.nav.txt_start_date = dayStart + "T" + timerStart;
-    this.nav.txt_end_date = dayEnd + "T" + timerEnd;
+    this.dateTimerStrart = dayStart + "T" + timerStart;
+    this.dateTimerEnd = dayEnd + "T" + timerEnd;
+   
+    this.sendDateTimer("start",this.dateTimerStrart);
+    this.sendDateTimer("end",this.dateTimerEnd);
   }
 
 
@@ -350,5 +323,20 @@ export class HuminityComponent implements OnInit {
      this.icon_show ="assets/image/icon_show.png";
     }
     
+  }
+  private sendData() {
+    this.commoService.notifyOther({ option: "numberMenu", value: 5 });
+    this.commoService.notifyOther({ option: "flagsShow", value: true });
+    this.commoService.notifyOther({ option: "home", value: this.translate.instant("home.Humidity") })
+    this.commoService.notifyOther({ option: "location", value: "BUILD-D" });
+    this.titleService.setTitle(this.translate.instant("home.Humidity") + "-" + this.translate.instant("home.weather"));
+  }
+  /**
+   * 
+   * @param key 
+   * @param value 
+   */
+  private sendDateTimer(key: string, value: string) {
+    this.commoService.notifyOther({ option: key, value: value });
   }
 }

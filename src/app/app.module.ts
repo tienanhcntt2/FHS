@@ -68,6 +68,7 @@ import { DialogLoaddingComponent } from './dialog-loadding/dialog-loadding.compo
 import { ExcelServiceService } from './service/excelservice.service';
 import { JwtInterceptor } from './service/JwtInterceptor';
 import { ErrorInterceptor } from './service/ErrorInterceptor';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 export function translateHttpLoaderFactory(http: HttpClient) {
@@ -130,7 +131,8 @@ export function translateHttpLoaderFactory(http: HttpClient) {
         useFactory: translateHttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    CollapseModule.forRoot()
 
   ],
   providers: [

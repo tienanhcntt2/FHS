@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { NavComponent } from 'src/app/nav/nav.component';
+import { Component, OnInit, ViewChild,  HostListener } from '@angular/core';
+
 import { listMenu } from 'src/app/config/listmenu';
 import { CommonService } from 'src/app/service/CommonService';
 import { Subscription } from 'rxjs';
@@ -8,14 +8,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
-import { Weather, WeatherService } from 'src/app/model/Weather';
-import { FormControl } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material';
+import {  WeatherService, Teamperate } from 'src/app/model/Weather';
+
 import { DatePipe } from '@angular/common';
 
 import {  DxChartComponent } from 'devextreme-angular';
 import { IntlService } from '@progress/kendo-angular-intl';
-import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
+
 import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-temperature',
@@ -24,13 +23,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class TemperatureComponent implements OnInit {
 
-  // child 
-  @ViewChild('drawer') drawer;
 
-  @ViewChild(NavComponent)
-  private nav: NavComponent;
-  @ViewChild(SlideMenuComponent)
-  private slide:SlideMenuComponent;
   @ViewChild(DxChartComponent) chart: DxChartComponent;
 
   private enDate: any;
@@ -57,7 +50,7 @@ export class TemperatureComponent implements OnInit {
   private nameMaticon: string = "assets/image/drop_down.png";
   private numberCheck: number = 0;
   private show: boolean = true;
-  public weatherData: Weather[];
+  public teamperateData: Teamperate[];
   private valueText: string;
 
   /**
@@ -70,6 +63,10 @@ export class TemperatureComponent implements OnInit {
   private txt_seach_date: any;
   public nameColumnRight: string ="col-sm-12 col-md-5 colum_right";
   public nameColumnLeft: string ="col-sm-12 col-md-7 ";
+
+    // version 2
+    private dateTimerStrart: string;
+    private dateTimerEnd: string;
   /**
    * constructor
    * @param commoService 
@@ -84,7 +81,7 @@ export class TemperatureComponent implements OnInit {
 
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
 
-      this.sendTitle();
+      this.sendData();
 
     });
     if(window.innerWidth <=768){
@@ -102,14 +99,8 @@ export class TemperatureComponent implements OnInit {
    * ngOnInit
    */
   ngOnInit() {
-    this.sendTitle();
+    this.sendData();
     
-    this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
-      if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
-        this.checkOpenMenu();
-      }
-
-    });
     this.txt_time_start = this.formatValue(this.timeStart) +":00";
     this.txt_time_end = this.formatValue(this.timeEnd) +":00";
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
@@ -119,31 +110,8 @@ export class TemperatureComponent implements OnInit {
     
   }
 
-  customizeTooltip(arg: any) {
-    var items = arg.valueText.split("\n"),
-        color = arg.point.getColor();
-    items.forEach(function(item, index) {
-        if(item.indexOf(arg.seriesName) === 0) {
-            var element = document.createElement("span");
 
-            element.textContent = item;
-            element.style.color = color;
-            element.className = "active";
 
-            items[index] = element.outerHTML;
-        }
-    });
-    return { text: items.join("\n") };
-}
-
-  temperatureCustomizeText() {
-    return this.valueText + " °C";
-  }
-
-  precipitationCustomizeText() {
-    return this.valueText + " mm";
-  }
-  
   
   /**
    * event click change date when select
@@ -197,26 +165,21 @@ export class TemperatureComponent implements OnInit {
   private formatValue(value?: Date): string {
     return value ? `${this.intl.formatDate(value, 'HH:mm')}` : '';
   }
-  /**
-   * show open menu in teamplerature
-   */
-  checkOpenMenu() {
-    this.clickOpen += 1;
-    if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "assets/image/icon_menu.png"
-    } else {
-      this.nav.icon_val = "assets/image/drop_up.png"
-    }
-  
-    this.drawer.toggle();
+
+  private sendData() {
+    this.commoService.notifyOther({ option: "numberMenu", value: 4 });
+    this.commoService.notifyOther({ option: "flagsShow", value: true });
+    this.commoService.notifyOther({ option: "home", value: this.translate.instant("menu.Temperature") })
+    this.commoService.notifyOther({ option: "location", value: "BUILD-D" });
+    this.titleService.setTitle(this.translate.instant("menu.Temperature") + "-" + this.translate.instant("home.weather"));
   }
   /**
-   * funciont send title for nav
+   * 
+   * @param key 
+   * @param value 
    */
-  sendTitle() {
-    this.nav.title = this.translate.instant("menu.Temperature");
-    this.slide.numberPosition = 4;
-    this.titleService.setTitle(this.nav.title +"-" +this.translate.instant("home.weather"));
+  private sendDateTimer(key: string, value: string) {
+    this.commoService.notifyOther({ option: key, value: value });
   }
   /*
   * function show icon left and right
@@ -263,8 +226,11 @@ export class TemperatureComponent implements OnInit {
      * @param timerEnd 
      */
   private setValueDatetimer(dayStart: string, dayEnd: string, timerStart: string, timerEnd: string) {
-    this.nav.txt_start_date = dayStart + "T" + timerStart;
-    this.nav.txt_end_date = dayEnd + "T" + timerEnd;
+    this.dateTimerStrart = dayStart + "T" + timerStart;
+    this.dateTimerEnd = dayEnd + "T" + timerEnd;
+   
+    this.sendDateTimer("start",this.dateTimerStrart);
+    this.sendDateTimer("end",this.dateTimerEnd);
   }
 
   /**
@@ -299,10 +265,8 @@ export class TemperatureComponent implements OnInit {
   * get data
   */
   private getData() {
-    this.txt_seach_date = this.txt_date_start;
-    this.weatherData = this.weatherService.getDataWeather(
-      this.getNumberDate(this.txt_date_start, this.txt_date_end
-        ), this.txt_seach_date, this.datePipe);
+
+    this.teamperateData = this.weatherService.listTeamperate();
   }
   @HostListener('window:resize', ['$event'])
   onResize(event?) {

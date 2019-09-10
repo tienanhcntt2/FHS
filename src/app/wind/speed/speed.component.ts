@@ -6,14 +6,12 @@ import { FormControl } from '@angular/forms';
 
 
 import { MatRadioButton, MatDialog } from '@angular/material';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { CommonService } from 'src/app/service/CommonService';
-import { NavComponent } from 'src/app/nav/nav.component';
+
 
 import { WindRose, WindDescription, WindValue, ConfigDataSpeed } from 'src/app/model/WindDescription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { IntlService } from '@progress/kendo-angular-intl';
-import { SlideMenuComponent } from 'src/app/util/slide-menu/slide-menu.component';
 import {  DxPolarChartComponent } from 'devextreme-angular';
 import { DialogLoaddingComponent } from 'src/app/dialog-loadding/dialog-loadding.component';
 import { ExcelServiceService } from 'src/app/service/excelservice.service';
@@ -30,18 +28,9 @@ export class SpeedComponent implements OnInit {
 
 
   //  value item 
-  private subscription: Subscription;
+
   private showTable: boolean = true;
   
-  /**
-   * item chirld 
-   */
-  @ViewChild('drawer') drawer;
-
-  @ViewChild(NavComponent)
-  private nav: NavComponent;
-  @ViewChild(SlideMenuComponent)
-  private slide:SlideMenuComponent;
   @ViewChild(DxPolarChartComponent) radarChart: DxPolarChartComponent;
 
   private enDate: any;
@@ -97,6 +86,10 @@ export class SpeedComponent implements OnInit {
   public nameColumnRight: string = "col-sm-12 col-md-5 colum_right";
   public nameColumnLeft: string = "col-sm-12 col-md-7 ";
   public seriescolor: any;
+
+   // version 2
+   private dateTimerStrart: string;
+   private dateTimerEnd: string;
   /**
    * 
    * @param datePipe 
@@ -111,7 +104,8 @@ export class SpeedComponent implements OnInit {
 
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
 
-      this.sendTitle();
+
+      this.sendData();
     });
     if(window.innerWidth <=768){
       this.showIconMobile();
@@ -139,32 +133,14 @@ export class SpeedComponent implements OnInit {
 
 
     // speding
-    this.sendTitle();
+    this.sendData();
     this.txt_date_end = this.datePipe.transform(new Date(), "yyyy/MM/dd");
-    //this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate()), "yyyy/MM/dd");
     this.txt_date_start = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1), "yyyy/MM/dd");
     this.setValueDatetimer(this.txt_date_start, this.txt_date_end, this.txt_time_start, this.txt_time_end);
-    // get data for open menu
-    this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
-      if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
 
-        this.checkOpenMenu();
-      }
-
-    });
     if(this.windRose != null){
       this.showExport = true;
     }
-  }
-  // check open menu
-  checkOpenMenu() {
-    this.clickOpen += 1;
-    if (this.clickOpen % 2 == 0) {
-      this.nav.icon_val = "assets/image/icon_menu.png"
-    } else {
-      this.nav.icon_val = "assets/image/drop_up.png"
-    }
-    this.drawer.toggle();
   }
 
   // click shart
@@ -252,13 +228,6 @@ export class SpeedComponent implements OnInit {
     }
   }
 
-
-  // send title
-  sendTitle() {
-    this.nav.title = this.translateService.instant("home.windspeed");
-    this.slide.numberPosition =2;
-    this.titleService.setTitle(this.nav.title +"-" +this.translateService.instant("home.weather"));
-  }
   // send data
   private sendValue(title: string, value: string) {
     this.commoService.notifyOther({ option: title, value: value });
@@ -315,7 +284,7 @@ export class SpeedComponent implements OnInit {
    */
   private getdataSpeed(url: string) {
     this.openDialog(1);
-    url = url + this.txt_zhan + "start=" + this.nav.txt_start_date + "&end=" + this.nav.txt_end_date;
+    url = url + this.txt_zhan + "start=" + this.dateTimerStrart + "&end=" + this.dateTimerEnd;
     return this.http.get<WindRose>(url).subscribe(
       result => {
         this.dialog.closeAll();
@@ -331,109 +300,6 @@ export class SpeedComponent implements OnInit {
       });
   }
 
-
-  max(a: WindValue[]) {
-    let max = a[0].val1;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val1) {
-        max = a[i].val1;
-      }
-    }
-    return max;
-  }
-  max2(a: WindValue[]) {
-    let max = a[0].val2;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val2) {
-        max = a[i].val2;
-      }
-    }
-    return max;
-  }
-  max3(a: WindValue[]) {
-    let max = a[0].val3;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val3) {
-        max = a[i].val3;
-      }
-    }
-    return max;
-  }
-  max4(a: WindValue[]) {
-    let max = a[0].val4;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val4) {
-        max = a[i].val4;
-      }
-    }
-    return max;
-  }
-  max5(a: WindValue[]) {
-    let max = a[0].val5;
-    for (let i = 0; i < a.length; i++) {
-
-      if (max < a[i].val5) {
-        max = a[i].val5;
-      }
-    }
-    return max;
-  }
- 
-  min(a: WindValue[]) {
-    let min = a[0].val1;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val1) {
-        min = a[i].val1;
-      }
-    }
-    return min;
-  }
-  min2(a: WindValue[]) {
-    let min = a[0].val2;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val2) {
-        min = a[i].val2;
-      }
-    }
-    return min;
-  }
-  min3(a: WindValue[]) {
-    let min = a[0].val3;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val3) {
-        min = a[i].val3;
-      }
-    }
-    return min;
-  }
-  min4(a: WindValue[]) {
-    let min = a[0].val4;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val4) {
-        min = a[i].val4;
-      }
-    }
-    return min;
-  }
-  min5(a: WindValue[]) {
-    let min = a[0].val5;
-    for (let i = 0; i < a.length; i++) {
-
-      if (min > a[i].val5) {
-        min = a[i].val5;
-      }
-    }
-    return min;
-  }
-  
   /**
    * 
    * @param dayStart 
@@ -442,8 +308,12 @@ export class SpeedComponent implements OnInit {
    * @param timerEnd 
    */
   private setValueDatetimer(dayStart: string, dayEnd: string, timerStart: string, timerEnd: string) {
-    this.nav.txt_start_date = dayStart + "T" + timerStart;
-    this.nav.txt_end_date = dayEnd + "T" + timerEnd;
+    // this.nav.txt_start_date = dayStart + "T" + timerStart;
+    // this.nav.txt_end_date = dayEnd + "T" + timerEnd;
+    this.dateTimerStrart = dayStart + "T" + timerStart;
+    this.dateTimerEnd = dayEnd + "T" + timerEnd;
+    this.sendDateTimer("start",this.dateTimerStrart);
+    this.sendDateTimer("end",this.dateTimerEnd);
   }
 
 
@@ -511,5 +381,21 @@ export class SpeedComponent implements OnInit {
   exportExcel(){
     let fileName = this.translateService.instant("home.windspeed") +" - " +this.txt_date_start +"T"+this.txt_time_start +" - " +this.txt_date_end +"T"+this.txt_time_end
     this.excelService.exportAsExcelFile(this.windRose, fileName);
+  }
+  private sendData(){
+    this.titleService.setTitle(this.translateService.instant("home.windspeed") +"-" +this.translateService.instant("home.weather"));
+    this.commoService.notifyOther({option:"numberMenu", value:2});
+    this.commoService.notifyOther({option:"flagsShow", value: true});
+    this.commoService.notifyOther({option:"home",value:this.translateService.instant("home.windspeed")})
+    this.commoService.notifyOther({option:"location", value:"BUILD-D"});
+    //this.sendValue("selectzham",);
+  }
+  /**
+   * 
+   * @param key 
+   * @param value 
+   */
+  private sendDateTimer(key:string, value:string){
+    this.commoService.notifyOther({option:key, value:value});
   }
 }

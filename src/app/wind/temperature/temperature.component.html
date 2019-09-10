@@ -1,39 +1,52 @@
-<app-nav></app-nav>
-<mat-drawer-container class="container_full" autosize>
-  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3;">
-    <app-slide-menu></app-slide-menu>
-  </mat-drawer>
 
-  <div class="example-sidenav-content row no-gutters">
+  <div class="content_full row no-gutters">
     <!-- colum left -->
-    <div ngClass={{nameColumnLeft}} id="second">
-          <dx-chart #chartVar id="chart" [dataSource]="weatherData" defaultPane="bottomPane" title="" >
-              <dxo-size [width]="100+'%'"></dxo-size>
-              <dxi-series pane="topPane" color="#b0daff" type="rangeArea" rangeValue1Field="avgLowT"
-                rangeValue2Field="avgHighT" name="{{'temperature.Temperature_Ranges'| translate}}, °C">
-              </dxi-series>
-              <dxi-series pane="topPane" valueField="avgT" name="{{'temperature.vga_temperature'| translate}}, °C">
-                <dxo-label [visible]="true" [customizeText]="temperatureCustomizeText">
+    <div ngClass={{nameColumnLeft}} id="second" class="my-auto">
+        <dx-chart id="chart" [dataSource]="teamperateData" class="justify-content-center">
+           
+           
+            <dxi-series>
+                <dxi-series valueField="val1" name="00:00 - 07:59" color="#07ccd9">
+              
+                  </dxi-series>
+                  <dxi-series valueField="val2" name="08:00 - 15:59" color="#07ccd9">
+        
+                  </dxi-series>
+                  <dxi-series valueField="val3" name="16:00 - 23:59" color="#07ccd9">
+        
+                  </dxi-series>
+            </dxi-series>
+           
+            <dxo-common-series-settings argumentField="day" type="line" 
+              selectionMode="allArgumentPoints">
+              <dxo-label [visible]="false" [format]="{
+                            type: 'fixedPoint',
+                            precision: '0'
+                        }">
+              </dxo-label>
+              
+            </dxo-common-series-settings>
+            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+            </dxo-legend>
+            <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip">
+            </dxo-tooltip>
+            <dxo-legend [visible]="false"></dxo-legend>
+            <dxo-argument-axis color="aqua" >
+                <dxo-tick color="aqua" [width]="1" [length]="20"></dxo-tick>
+                <dxo-label wordWrap="none" [overlappingBehavior]="currentMode">
+                    <dxo-font color="aqua" [size]="14"> </dxo-font>
                 </dxo-label>
-              </dxi-series>
-              <dxi-series type="bar" valueField="prec" name="{{'home.rainfall'| translate}}, mm">
-                <dxo-label [visible]="false" [customizeText]="precipitationCustomizeText">
+                 <dxo-grid [visible]="true" color="aqua"></dxo-grid>
+            </dxo-argument-axis>
+          <dxi-value-axis [valueMarginsEnabled]="false" color="aqua">
+              <dxo-tick color="aqua" [width]="1" [length]="7"></dxo-tick>
+              <dxo-label [useRangeColors]="true">
+                  <dxo-font color="aqua" [size]="14"> </dxo-font>
                 </dxo-label>
-              </dxi-series>
-              <dxo-common-series-settings argumentField="month"></dxo-common-series-settings>
-              <dxi-pane name="topPane"></dxi-pane>
-              <dxi-pane name="bottomPane"></dxi-pane>
-              <dxi-value-axis pane="bottomPane">
-                <dxo-grid [visible]="true"></dxo-grid>
-                <dxo-title text="{{'home.rainfall'| translate}}, mm"></dxo-title>
-              </dxi-value-axis>
-              <dxi-value-axis pane="topPane">
-                <dxo-grid [visible]="true"></dxo-grid>
-                <dxo-title text="{{'menu.Temperature'| translate}}, °C"></dxo-title>
-              </dxi-value-axis>
-              <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-              </dxo-legend>
-            </dx-chart>
+                <dxo-grid [visible]="true" color="aqua"></dxo-grid>
+          </dxi-value-axis>
+          
+          </dx-chart>
     </div>
     <!-- colum right  -->
     <div id="first" ngClass={{nameColumnRight}}>
@@ -130,4 +143,3 @@
 
   </div>
 
-</mat-drawer-container>

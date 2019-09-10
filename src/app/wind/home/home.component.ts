@@ -26,18 +26,14 @@ import { AutherService } from 'src/app/service/autherService';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+
 
   // datecurrent
   today: number = Date.now();
 
   // menu 
   private clickOpen: number = 0;
-  @ViewChild('drawer') drawer;
-  @ViewChild(NavComponent)
-  private nav: NavComponent;
-  @ViewChild(SlideMenuComponent)
-  private slide:SlideMenuComponent;
+
 
   public icon_val: string;
   public flags: boolean = false;
@@ -73,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,private titleService: Title, private router:Router,public dialog: MatDialog,
     private authService: AutherService ) {
       this.getToken();
-    this.connectMQTT();
+      this.connectMQTT();
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
       this.sendTitle();
       this.getdataHome();
@@ -82,30 +78,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.commonService.notifyOther({ option: 'callTitle', value: 'Home' });
-    this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
-      if (res.hasOwnProperty('option') && res.option === 'callOpenMenu') {
-
-        this.checkOpenMenu();
-      }
-
-    });
+    this.sendTitle();
     this.getdataHome();
-    this.commonService.notifyOther({ option: 'callTitle', value: 'Home' });
   }
 
-  private checkOpenMenu() {
-    this.clickOpen += 1;
-      if (this.clickOpen % 2 == 0) {
-        this.nav.icon_val = "assets/image/icon_menu.png"
-      } else {
-        this.nav.icon_val = "assets/image/drop_up.png"
-      }
-      this.drawer.toggle();
-  }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+   
   }
 
   private  getToken(){
@@ -115,9 +94,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
  
   sendTitle() {
-    this.nav.title = "Home";
-    this.slide.numberPosition = 0;
+    this.commonService.notifyOther({option:"home",value:this.translateService.instant("menu.home")});
+    this.commonService.notifyOther({option:"numberMenu", value:0});
     this.titleService.setTitle(this.translateService.instant("home.weather"));
+    this.commonService.notifyOther({option:"flagsShow", value: false});
   }
 
 
@@ -158,11 +138,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.rainfall = obj.Rainfall;
         this.wind_direction = parseInt(obj.WindDegree.toString().split('.') +"");
         this.nameFengxiang = obj.WindDirection;
+        
+
       }
 
     };
-
-
+    
   }
   private onConnected(): void {
     this._client.subscribe('MeteorologyInfo', {
@@ -170,27 +151,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  async setValueHome(Rainfall: number, WindVelocity: number, WindDegree: number, Humidity: number) {
-
-    this.winds = [{
-      name: this.translateService.instant("home.rainfall"), number: this.splitNumber(Rainfall), donvi: "mm", min: this.splitNumber(Rainfall) + " mm", max: this.splitNumber(Rainfall) + " mm", link:"/rainfall"
-    },
-    {
-      name: this.translateService.instant("home.speed"), number:this.splitNumber(WindVelocity) , donvi: "km/h", min: this.splitNumber(WindVelocity) + " km/h", max: this.splitNumber(WindVelocity) + " km/h", link:"/speed"
-    },
-    {
-      name: this.translateService.instant("home.winddriction"), number: this.splitNumber(WindDegree), donvi: "km/h", min: this.splitNumber(WindDegree) + " km/h", max: this.splitNumber(WindDegree) + " km/h", link:"/direction"
-    },
-    {
-      name: this.translateService.instant("home.Humidity"), number: this.splitNumber(Humidity), donvi: "%", min: this.splitNumber(Humidity) + " %", max: this.splitNumber(Humidity) + " %", link:"/humidity"
-    }
-    ];
-    
-  }
 
   private getdataHome() {
     this.infoService.getinfoHomeV2(this.url_home).pipe(first()).subscribe(info => {
-      this.setValueHome(info.rainfall, info.windVelocity, info.windDegree, info.humidity);
+
       this.localtion = info.location;
       this.wind_speed = parseInt(info.windVelocity.toString().split('.') +"");
       this.huminity =parseInt(info.humidity.toString().split('.') +"");
@@ -199,7 +163,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.rainfall = info.rainfall;
       this.wind_direction = parseInt(info.windDegree.toString().split('.') +"");
       this.nameFengxiang = info.windDirection;
-
+      this.commonService.notifyOther({option:"location", value:this.localtion});
     })
   }
 

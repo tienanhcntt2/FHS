@@ -1,11 +1,4 @@
-<app-nav></app-nav>
-<mat-drawer-container class="container_full" autosize>
-  <mat-drawer #drawer class="col-2" mode="side" style="background: #032ea3;">
-    <app-slide-menu></app-slide-menu>
-  </mat-drawer>
-
-  <div class="container-fuild ">
-    <div class="row example-sidenav-content no-gutters">
+    <div class="content_full row no-gutters">
       <div id="second" ngClass={{nameColumnLeft}} class="my-auto">
         <dx-chart id="chart" [dataSource]="dataSource" class="justify-content-center">
            
@@ -137,7 +130,3 @@
         </div>
       </div>
     </div>
-  </div>
-
-
-</mat-drawer-container>

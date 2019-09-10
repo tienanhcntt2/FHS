@@ -1,31 +1,22 @@
 
-.container_full{
-  background : linear-gradient(to bottom,#015fb6 0%, #01324e 100%);
-  background : -moz-linear-gradient(bottom, #015fb6 0%,#01324e 100%);
-  background : -webkit-linear-gradient(bottom, #015fb6 0%, #01324e 100%);
-  background : -o-linear-gradient(bottom,#015fb6 0%, #01324e 100%);
-  height: auto;
-  }
 
-  .example-sidenav{
-    width: 12%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-  }
+.content_full{
+  background : linear-gradient(to bottom,#0851cb 0%, #01324e 100%);
+  background : -moz-linear-gradient(bottom, #0851cb 0%,#01324e 100%);
+  background : -webkit-linear-gradient(bottom, #0851cb 0%, #01324e 100%);
+  background : -o-linear-gradient(bottom,#0851cb 0%, #01324e 100%);
+  width: 100%;
+   min-height: 75vh;
+  //overflow:visible;
+}
 
-  .example-sidenav-content {
-    width: 100%;
-    min-height: 65vh;
-    overflow: hidden;
-  }
 
-  .example-sidenav-content .colum_right{
+  .colum_right{
     background : linear-gradient(to bottom,#015fb6 0%, #014064 100%);
     background : -moz-linear-gradient(bottom, #015fb6 0%,#014064 100%);
     background : -webkit-linear-gradient(bottom, #015fb6 0%, #014064 100%);
     background : -o-linear-gradient(bottom,#015fb6 0%, #014064 100%);
-    padding-left: 20px;
+    padding: 20px;
     box-shadow: 1px 2px 10px 0 #000c4e !important;
 
   }
@@ -35,7 +26,7 @@
     float: right;
     cursor: pointer;
   }
-  .example-sidenav-content .colum_right .detail{
+  .colum_right .detail{
     padding-top: 30px;
     padding-left: 2%;
     padding-right: 2%;
@@ -129,7 +120,7 @@ td{
   display: flex;
   justify-content: center;
   align-items: center; 
-
+  
   margin-left: 3%;
   margin-right: 3%;
   padding-right: 10px;

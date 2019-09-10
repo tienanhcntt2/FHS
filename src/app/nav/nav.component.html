@@ -1,53 +1,50 @@
 
-<div class="container-fluid ">
-  <div class="row nav">
-      <div class="col-2" style="border-bottom:1px solid #1491d0; border-right:1px solid #1491d0  ">
-        <img class="img-reponsive center"(click) ="checkLogin()" [src]="icon_val" />
-      </div>
-      <div class="col-10 justify-content-between" style="background-color: white; padding: 0;">
 
-          <nav class="navbar navbar-expand-lg navbar-light z-depth-3 border-none justify-content-between" style="background-color: white; padding-top: 20px; padding-bottom: 20px;">
-              <div class="container-fluid" style="padding-left: 0;">
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="col-2">
+        <img class="navbar-nav flex-fill mt-1 align-items-center left-nav img-fluid center" (click)="toggleSidebarPin()" [src]="icon_val" />
+         <div class="sidebar-toggler ">
+          <img class="img-fluid center" (click)="toggleSidebar()" [src]="icon_val" />
+        </div>
+    
+      </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#demo-navbar" aria-controls="demo-navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+  
+    <div class="collapse navbar-collapse col-sm-12 col-md-10 bg_navbar" id="demo-navbar"  >
+        <ul class="navbar-nav mr-auto justify-content-center row col-12 no-gutters nopadding " *ngIf="flagsShow" >
+            <li class="nav-item col-md-2 col-sm-12 text-align">
+              <p class="txt_title">{{title}}</p>
+            </li>
+            <li class="nav-item col">
+              <p class="txt_number">{{location}}</p>
+            </li> 
+            <li class="nav-item col" *ngIf="showZhan"><p class="txt_number">{{zhan}} {{txt_zhan}}</p></li>
+            <li class="nav-item col">
+                <p class="txt_number">{{txt_start_date}}</p>
+              </li> 
+              <li class="nav-item col ">
+                  <p class="txt_number">{{txt_end_date}}</p>
+              </li> 
+          </ul>
+        
          
-                  <button class="navbar-toggler hidden-lg-up pull-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="cursor: pointer;" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="assets/image/icon_select.png"/>
-                  </button>
-                  <div class="collapse navbar-collapse row " id="navbarSupportedContent" >
-                    <ul class="col-12 navbar-nav mr-auto row justify-content-center" *ngIf="flagsShow" >
-                      <li class="nav-item col-2">
-                        <p class="text-center" style="border-right: 2px aqua solid;font-weight: bold;color: aqua">{{title}}</p>
-                      </li>
-                      <li class="nav-item col">
-                        <p class="text-center">{{selectAdrees}}</p>
-                      </li> 
-                      <li class="nav-item col" *ngIf="showZhan"><p>{{zhan}} {{txt_zhan}}</p></li>
-                      <li class="nav-item col">
-                          <p>{{txt_start_date}}</p>
-                        </li> 
-                        <li class="nav-item col">
-                            <p>{{txt_end_date}}</p>
-                        </li> 
-                    </ul>
-                    <ul class="col-12 navbar-nav row justify-content-center" *ngIf="flagsShow==false">
-                        <li class="nav-item col-2">
-                            <p class="text-center" style="border-right: 2px aqua solid; font-weight: bold;color: aqua">{{title}}</p>
-                          </li>
-                        <li class="nav-item col">
-                          <p class="text-align">{{location}}</p>
-                        </li> 
-                       
-                        <li class="nav-item col">
-                            <p class="align-self-center"><img src="assets/image/lich.png"   width="24px" height="24px"/>{{dateCurrent}}</p>
-                          </li> 
-                          <li class="nav-item col">
-                              <p><img src="assets/image/o'clock.png"  width="24px" height="24px"/>{{timerOk}}</p>
-                          </li> 
-                      </ul>
-
-                  </div>
-              </div>
-          </nav>
-
-      </div>
-  </div>
-</div>
+          <ul class="navbar-nav mr-auto justify-content-center row col-12 no-gutters nopadding" *ngIf="flagsShow==false" >
+              <li class="nav-item col-sm-12 col-md-2 text-align">
+                  <p class="txt_title">{{title}}</p>
+                </li>
+              <li class="nav-item col">
+                <p class="text-align txt_number">{{location}}</p>
+              </li> 
+             
+              <li class="nav-item col">
+                  <p class="align-self-center txt_number"><img class="img-fluid" src="assets/image/lich.png"   width="24px" height="24px"/>{{dateCurrent}}</p>
+                </li> 
+                <li class="nav-item col ">
+                    <p class="txt_number"><img class="img-fluid" src="assets/image/o'clock.png"  width="24px" height="24px"/>{{timerOk}}</p>
+                </li> 
+            </ul>
+    </div>
+  </nav>

@@ -8,35 +8,22 @@ $blue: #3498db;
 $yellow: #f1c40f;
 $purple: #8e44ad;
 $turquoise: #1abc9c;
-.container_full{
-  background : linear-gradient(to bottom,#015fb6 0%, #01324e 100%);
-  background : -moz-linear-gradient(bottom, #015fb6 0%,#01324e 100%);
-  background : -webkit-linear-gradient(bottom, #015fb6 0%, #01324e 100%);
-  background : -o-linear-gradient(bottom,#015fb6 0%, #01324e 100%);
-  height: auto;
-  }
-  .example-sidenav{
-    width: 12%;
-    min-height: 65vh;
-    overflow: hidden;
-    display: flex;
-  }
-
-
- .example-sidenav-content {
-    width: 100%;
-    min-height: 65vh;
-    overflow: hidden;
-   
-  }
-  .example-sidenav-content .colum_left{
+.content_full{
+  background : linear-gradient(to bottom,#0851cb 0%, #01324e 100%);
+  background : -moz-linear-gradient(bottom, #0851cb 0%,#01324e 100%);
+  background : -webkit-linear-gradient(bottom, #0851cb 0%, #01324e 100%);
+  background : -o-linear-gradient(bottom,#0851cb 0%, #01324e 100%);
+  width: 100%;
+   min-height: 75vh;
+  //overflow:visible;
+}
+  
+   .colum_left{
      height: 100%;
-    
      float: left;
-     
     }
 
-   .example-sidenav-content .colum_right{
+   .colum_right{
     
     background : linear-gradient(to bottom,#015fb6 0%, #014064 100%);
     background : -moz-linear-gradient(bottom, #015fb6 0%,#014064 100%);
@@ -52,7 +39,7 @@ $turquoise: #1abc9c;
      float: right;
      cursor: pointer;
    }
-   .example-sidenav-content .colum_right .detail{
+   .colum_right .detail{
     padding-top: 30px;
     padding-left: 2%;
     padding-right: 2%;
@@ -164,12 +151,10 @@ $turquoise: #1abc9c;
   justify-content: center;
   align-items: center; 
 
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  margin-left: 5%;
-  
+  margin-left: 3%;
+  margin-right: 3%;
+  padding-right: 10px;
+    
 }
 @media only screen and (max-width: 768px) {
   #first {

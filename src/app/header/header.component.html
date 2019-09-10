@@ -1,9 +1,7 @@
 <header>
-  <div class="container-fluid " >
-  
-    <div class="row ml-1 no-gutters" style="padding-right: 90px;padding-left: 90px;">
-      <div class="align-self-center" style="cursor: pointer; margin-top: 3px">
-          <a (click) ="gotoHome()"><img class="img-responsive" src="assets/image/logo.png" /></a>
+    <div class="row ml-1 no-gutters vcenter fixed-top" >
+      <div class="align-self-center " style="cursor: pointer; margin-top: 3px">
+          <a (click) ="gotoHome()"><img class="img-fluid img_logo" src="assets/image/logo.png" /></a>
       </div>
       <div class="ml-auto mr-3 align-self-center" >
          
@@ -16,7 +14,7 @@
               </div>
               <div class="boder_center language" >
                 <div mat-div [matMenuTriggerFor]="menu"
-                  class="img-responsive center-block text-centercol-xs-12 col-md-6-offset-3 img-responsive center-block text-center">
+                  class="img-fluid center-block text-centercol-xs-12 col-md-6-offset-3 img-fluid center-block text-center">
                   <img src={{lag.imagePath}} style="height: 30px;" /><span>{{lag.name}}</span> </div>
                 <mat-menu #menu="matMenu">
                   <button *ngFor="let language of languages;let i = index" mat-menu-item (click)="selectLanguage(i)">
@@ -27,6 +25,6 @@
             
       </div>
     </div>
-  </div>
+
 
 </header>
