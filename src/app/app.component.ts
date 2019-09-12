@@ -1,8 +1,9 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { HomeComponent } from './wind/home/home.component';
+import { Component,OnInit } from '@angular/core';
 import { LanguageService } from './service/language.service';
 import { Title } from '@angular/platform-browser';
 import { AppServiceService } from './service/app-service.service';
+import { FhsAuthorizeService } from '@fhs/authorize';
+import { AutherService } from './service/autherService';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,12 @@ export class AppComponent implements OnInit {
   
    
   title = 'Weather';
-  constructor(private languageService: LanguageService,private titleService: Title,private appService: AppServiceService){
+  constructor(private languageService: LanguageService,private titleService: Title,private appService: AppServiceService, private authFHS: FhsAuthorizeService,
+    private authService: AutherService){
 
   }
   ngOnInit(){
+    this.getToken();
     this.languageService.setInitState();
     this.titleService.setTitle(this.title);
   }
@@ -29,5 +32,11 @@ export class AppComponent implements OnInit {
   }
   toggleSidebar() {
     this.appService.toggleSidebar();
+  }
+  private  getToken(){
+    console.log("ddsds : " + this.authFHS.AccessToken);
+    if(this.authFHS.AccessToken.length >0){
+      this.authService.savetoken(this.authFHS.AccessToken);
+    }
   }
 }

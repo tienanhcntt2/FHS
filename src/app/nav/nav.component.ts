@@ -84,7 +84,7 @@ export class NavComponent implements OnInit, OnDestroy {
         }
       }else if(res.hasOwnProperty("option") && res.option ==='location'){
         this.location = res.value;
-        console.log("fdkfjdkfdjkfj");
+        
       }else if(res.hasOwnProperty("option") && res.option ==='menu'){
         this.icon_val = res.value;
         this.countClickMenu = 0;
