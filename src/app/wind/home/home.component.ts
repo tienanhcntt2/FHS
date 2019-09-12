@@ -89,7 +89,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private  getToken(){
     if(this.auth.AccessToken.length >0){
+    
       this.authService.savetoken(this.auth.AccessToken);
+      this.commonService.notifyOther({option:"header",value:true});
     }
   }
  

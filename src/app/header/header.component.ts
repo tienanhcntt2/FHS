@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ListLanguage } from '../model/List_Language';
 import { Language } from '../model/Language';
 
@@ -11,6 +11,8 @@ import { LanguageService } from '../service/language.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AutherService } from '../service/autherService';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { CommonService } from '../service/CommonService';
 
 
 
@@ -19,7 +21,10 @@ import { AutherService } from '../service/autherService';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnDestroy {
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
 
   public languages = ListLanguage;
@@ -27,12 +32,14 @@ export class HeaderComponent implements OnInit {
   public show: boolean = true;
   private userName: string = "";
   private lg: string = "";
-
+  private subscription: Subscription;
   constructor(private userSevice: UserServicer, private auth: FhsAuthorizeService, private translateService: TranslateService,
-    private languageService: LanguageService, private http: HttpClient, private router:Router, private autherService:AutherService) {
+    private languageService: LanguageService, private http: HttpClient, private router:Router, private autherService:AutherService,
+    private commoService: CommonService) {
   }
 
   ngOnInit() {
+    this.inforUserName();
     this.lg = localStorage.getItem("language");
     for (let i = 0; i < this.languages.length; i++) {
       if (this.languages[i].title === this.lg.toUpperCase()) {
@@ -40,7 +47,15 @@ export class HeaderComponent implements OnInit {
       }
     }
     this.translateService.use(this.lg);
-    this.inforUserName();
+   this.recciverData();
+  }
+  private recciverData(){
+    this.subscription = this.commoService.notifyObservable$.subscribe((res) => {
+      if(res.hasOwnProperty("option") && res.option ==='header'){
+      
+        this.inforUserName();
+      }
+    });
   }
   // function select language
   selectLanguage(i: number) {
@@ -84,11 +99,11 @@ export class HeaderComponent implements OnInit {
   }
 
   inforUserName() {
-
+    console.log("hello 1 : ");
     if(this.autherService.isUserLoggedIn()){
       this.auth.FetchUserEndpoint(new URL(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint)).subscribe(response => {
         this.userName = response.name;
-       
+
         this.showNameuser(response.name);
        
       },error => {

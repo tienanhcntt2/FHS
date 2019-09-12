@@ -19,6 +19,6 @@ import { Router } from '@angular/router';
       }
       logOut() {
         localStorage.removeItem('token');
-        window.location.href = "wind/home";
+        window.location.href = "home";
       }
   }
