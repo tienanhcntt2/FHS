@@ -64,5 +64,11 @@
         "temp":"Current temperature / minute" ,
         "rain":"Current rainfall / minute",
         "hum" : "Current Humidity/minute" 
+    },
+    "table" :{
+        "time":"Time",
+        "date":"Date",
+        "Direction":"Direction",
+        "NameDirection":"Name Direction"
     }
 }

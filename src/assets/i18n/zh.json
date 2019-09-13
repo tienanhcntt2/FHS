@@ -65,5 +65,11 @@
         "temp":"現在溫度/分" ,
         "rain":"現在雨量/分",
         "hum" : "現在濕度/分" 
+    },
+    "table" :{
+        "time":"時間",
+        "date":"日期",
+        "Direction":"方向",
+        "NameDirection":"名稱方向"
     }
 }
