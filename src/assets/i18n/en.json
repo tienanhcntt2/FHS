@@ -31,7 +31,7 @@
     "rainFall" :{
         "search" :"Search",
         "printf" : "Print",
-        "export" : "Export",
+        "export" : "Export (.xlsx)",
         "showdata" :"Display detailed data",
         "show%" :"Show follow %",
         "showspeed" :"Show follow km/h",
@@ -64,5 +64,15 @@
         "temp":"Current temperature / minute" ,
         "rain":"Current rainfall / minute",
         "hum" : "Current Humidity/minute" 
+    },
+    "table" :{
+        "time":"Time",
+        "date":"Date",
+        "Direction":"Direction",
+        "NameDirection":"Name Direction",
+        "arg":"Direction"
+    },
+    "svg":{
+        "exportsvg" : "Export (.svg)"
     }
 }

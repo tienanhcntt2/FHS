@@ -79,7 +79,7 @@ export class SpeedComponent implements OnInit {
   /**
    * list table 
    */
-  private listNametable: string[] = ['ARG', '0-2 m/s', '2-5 m/s', '5-10 m/s', '10-15 m/s', '> 15 m/s'];
+  private listNametable: string[] =[];
   private urlSpeed: string = "http://10.199.15.95/mops/Meteorology/";
   private txt_zhan: string;
 
@@ -103,8 +103,7 @@ export class SpeedComponent implements OnInit {
     private excelService:ExcelServiceService,private titleService: Title, private authService:AutherService) {
 
     translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-
-
+      this.listNametable =[this.translateService.instant("table.arg"), '0-2 m/s', '2-5 m/s', '5-10 m/s', '10-15 m/s', '> 15 m/s'];
       this.sendData();
     });
     if(window.innerWidth <=768){
@@ -122,6 +121,7 @@ export class SpeedComponent implements OnInit {
    */
   ngOnInit() {
     // chien cha
+    this.listNametable =[this.translateService.instant("table.arg"), '0-2 m/s', '2-5 m/s', '5-10 m/s', '10-15 m/s', '> 15 m/s'];
     this.txt_zhan = "sixteenwindrose?";
     this.seriescolor ="aqua";
     this.txt_time_start = this.formatValue(this.timeStart) + ":00";

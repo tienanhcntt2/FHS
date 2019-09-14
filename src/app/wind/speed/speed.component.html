@@ -16,23 +16,23 @@
       horizontalAlignment="center"
       
       itemTextPosition="right">
-      <dxo-border [visible]="true" color="aqua">
+      <dxo-border [visible]="true" color="{{seriescolor}}">
           
       </dxo-border>
-      <dxo-font color="aqua" [size]="18"> </dxo-font>
+      <dxo-font color="{{seriescolor}}" [size]="18"> </dxo-font>
      </dxo-legend>
     
       <dxo-margin [bottom]="50" [left]="100" [top]="50" [right]="50">
       </dxo-margin>
-      <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true" color="aqua">
+      <dxo-argument-axis discreteAxisDivisionMode="crossLabels" [firstPointOnStartAngle]="true" color="{{seriescolor}}">
         <dxo-label [useRangeColors]="true">
           <dxo-font color={{seriescolor}} [size]="18"> </dxo-font>
         </dxo-label>
         <dxo-tick color="aqua" [width]="1" [length]="7"></dxo-tick>
       </dxo-argument-axis>
-      <dxo-value-axis [valueMarginsEnabled]="false" color="aqua">
+      <dxo-value-axis [valueMarginsEnabled]="false" color="{{seriescolor}}">
         <dxo-label [useRangeColors]="true">
-          <dxo-font color="aqua" [size]="18"> </dxo-font>
+          <dxo-font color="{{seriescolor}}" [size]="18"> </dxo-font>
         </dxo-label>
 
       </dxo-value-axis>
@@ -48,12 +48,15 @@
         <div class="col-md-6">
           <span>{{'rainFall.select' | translate}}</span>
           <br />
-          <mat-radio-group (change)="onSelectionChange($event)">
-            <mat-radio-button value="8" (change)="selectEight()">8 {{'rainFall.station' | translate}}
-            </mat-radio-button>
-            <mat-radio-button value="16" (change)="selectSixteen()" [checked]="true" #sixteen> 16
-              {{'rainFall.station' | translate}}</mat-radio-button>
-          </mat-radio-group>
+          <div style="margin-top: 5px;">
+              <mat-radio-group (change)="onSelectionChange($event)" >
+                  <mat-radio-button value="8" (change)="selectEight()">8 {{'rainFall.station' | translate}}
+                  </mat-radio-button>
+                  <mat-radio-button value="16" (change)="selectSixteen()" [checked]="true" #sixteen style="margin-left: 5px"> 16
+                    {{'rainFall.station' | translate}}</mat-radio-button>
+                </mat-radio-group>
+          </div>
+          
         </div>
       </div>
       <!-- select datetimer -->
@@ -93,9 +96,12 @@
 
 
       <div class="row" style="margin-top: 20px">
-        <div class="col-6">
-          <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-          <button class="col-6 dain" (click)="printfChart()">{{'rainFall.export' | translate}}</button>
+        <div class="col-md-6 col-sm-12">
+          <div class="row justify-content-around">
+              <button class="col-5 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+              <button class="col-5 dain" (click)="printfChart()">{{'svg.exportsvg' | translate}}</button>
+          </div>
+         
         </div>
 
       </div>
@@ -105,7 +111,7 @@
           <div class="line"></div>
         </span>
       </div>
-      <div class="row" *ngIf="showTable" style="margin:10px;">
+      <div class="row" *ngIf="showTable" style="margin:2px;">
 
         <!-- <button class="col-md-6">
               {{'rainFall.show%' | translate}}
@@ -113,8 +119,10 @@
             <button class="col-md-6">
               {{'rainFall.showspeed' | translate}}
             </button> -->
-        <button *ngIf="showExport" class="col-3 export" (click)="exportExcel()"><img
-            src="assets/image/excel.png" />{{'rainFall.export' | translate}}</button>
+            <div class="col-md-6 col-sm-12">
+                <button *ngIf="showExport" class="col-6 export" (click)="exportExcel()">{{'rainFall.export' | translate}}</button>
+            </div>
+       
         <div class="tbl-header">
           <table cellpadding="0" cellspacing="0" border="0">
             <thead>
@@ -129,12 +137,12 @@
           </table>
         </div>
         <div class="tbl-content">
-          <table cellpadding="0" cellspacing="0" border="0">
+          <table cellpadding="0" cellspacing="0">
             <tbody>
 
               <tr *ngFor='let dt of windRose'>
 
-                <td>{{ dt.arg }}</td>
+                <td style="color: aqua">{{dt.arg}}</td>
                 <td>{{ dt.val1 }}</td>
                 <td>{{ dt.val2 }}</td>
                 <td>{{ dt.val3 }}</td>
