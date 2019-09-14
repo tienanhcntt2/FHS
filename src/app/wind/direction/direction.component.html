@@ -1,17 +1,20 @@
 <div class="content_full row no-gutters">
   <!-- colum left -->
   <div ngClass={{nameColumnLeft}} id="second" class="my-auto">
-      <dx-chart [dataSource]="stockPrices" id="chart" class="justify-content-center">
+      <dx-chart [dataSource]="stockPrices" id="radarChart" class="justify-content-center">
           <!-- See details in the "Bind Series to Data" topic -->
          
           <dxo-zoom-and-pan argumentAxis="both"></dxo-zoom-and-pan>
           <dxi-series type="scatter" argumentField="timestamp" valueField="direction">
-      
+              <dxo-point [size]="5" color="aqua"></dxo-point>
           </dxi-series>
           <dxo-tooltip
           [enabled]="true"
+          color="aqua"
           [customizeTooltip]="customizeTooltip"
           >
+          <dxo-font color="#3c3c3b"></dxo-font>
+          <dxo-border [visible]="true" color="aqua"></dxo-border>
          </dxo-tooltip>
        
           <dxo-argument-axis argumentType="datetime" aggregationInterval="days" color="aqua">
@@ -78,11 +81,12 @@
 
 
         <div class="row" style="margin-top: 20px">
-          <div class="col-6">
-            <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-            <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
-          </div>
-
+            <div class="col-md-6 col-sm-12">
+                <div class="row justify-content-around">
+              <button class="col-5 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+              <button class="col-5 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
+              </div>
+           </div>
         </div>
 
       <div class="row">
@@ -91,8 +95,10 @@
         </span>
       </div>
       <!-- table detail -->
-      <div class="row" *ngIf="show" style="margin:10px;">
-        <button *ngIf="showExport" class="col-3 export" (click)="exportExcel()"  ><img src="assets/image/excel.png"/>{{'rainFall.export' | translate}}</button>
+      <div class="row" *ngIf="show" style="margin:2px;">
+          <div class="col-md-6 col-sm-12">
+              <button *ngIf="showExport" class="col-6 export" (click)="exportExcel()">{{'rainFall.export' | translate}}</button>
+          </div>
         <div class="tbl-header">
           <table cellpadding="0" cellspacing="0" border="0">
             <thead>
@@ -117,7 +123,7 @@
             <tbody>
               <tr *ngFor='let dt of stockPrices'>
 
-                <td >{{dt.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
+                <td style="color: aqua">{{dt.timestamp | date: 'yyyy-MM-dd HH:mm'}}</td>
                 <td >{{dt.direction}}</td>
                 <td >{{nameDirection(dt.direction)}}</td>
               </tr>

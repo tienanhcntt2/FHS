@@ -31,7 +31,7 @@
     "rainFall" :{
         "search": "搜索",
         "printf": "列印",
-        "export": "匯出",
+        "export": "匯出 (.xlsx)",
         "showdata": "顯示詳給數據",
         "show%": "顯示如下 %",
         "showspeed": "顯示如下 km/h",
@@ -69,7 +69,11 @@
     "table" :{
         "time":"時間",
         "date":"日期",
-        "Direction":"方向",
-        "NameDirection":"名稱方向"
+        "Direction":"風向",
+        "NameDirection":"名稱風向",
+        "arg":"風向"
+    },
+    "svg":{
+        "exportsvg" : "匯出 (.svg)"
     }
 }

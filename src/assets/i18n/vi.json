@@ -31,7 +31,7 @@
     "rainFall" :{
         "search" :"Tìm kiếm",
         "printf" : "In",
-        "export" : "xuất excel",
+        "export" : "Xuất (.xlsx)",
         "showdata" :"Hiển thị dữ liệu chi tiết",
         "show%" :"Hiển thị theo %",
         "showspeed" :"Hiển thị theo km/h",
@@ -69,7 +69,11 @@
         "time":"Thời gian",
         "date":"Ngày tháng",
         "Direction":"Hướng gió",
-        "NameDirection":"Tên hướng gió"
+        "NameDirection":"Tên hướng gió",
+        "arg":"Hướng gió"
+    },
+    "svg":{
+        "exportsvg" : "Xuất file (.svg)"
     }
 
 }

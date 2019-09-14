@@ -47,10 +47,12 @@ $turquoise: #1abc9c;
   justify-content: center;
   img{
     cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 6px;
   }
 }
 span{
-  color: #00eaf9;
+  color: #00c3ff;
   font-size: 20px;
   font-family: 'UTMAvoBold';
 
@@ -59,22 +61,22 @@ span{
   border-right:1px #1491d0 solid;
 }
 ul li p{
-  font-size: 18px;
- 
   align-items: center;
   justify-content: center;
   font-family:'UTM Avo';
+  margin-top: 5px;
+    margin-bottom: 5px;
 }
 ul li p img{
-  margin-right: 5px;
+  margin-right: 10px;
   vertical-align: middle;
 }
 .bg_navbar{
   background-color: white;
   text-align: center;
   line-height: 60px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 6px;
+  padding-bottom: 6px;
  
 }
 .nopadding {
@@ -82,12 +84,17 @@ ul li p img{
   margin: 0 !important;
 }
 .txt_title{
-  border-right: 1px aqua solid;color: aqua; font-weight: bold;font-size: 30px;
+  border-right: 2px aqua solid;
+  color: rgb(0, 255, 255); 
+  font-weight: bold;
+  font-size: 23px;
   
 }
 .txt_number{
   text-align: center;
-  color: black;
+  color: rgb(0, 81, 255);
+  font-size: 18px
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -100,7 +107,10 @@ ul li p img{
     padding: 0px !important;
   }
   .txt_title{
-    border-right: 0px aqua solid;color: aqua; font-weight: normal;font-size: 15px;
+    border-right: 0px aqua solid;
+    color: aqua;
+     font-weight: normal;
+     font-size: 15px;
     border-top: 1px aqua solid;
    
   }
@@ -116,6 +126,8 @@ ul li p img{
   }
   ul li p{
     padding-left: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
   .txt_number{
     text-align: start;

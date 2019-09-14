@@ -2,7 +2,7 @@
   <div class="content_full row no-gutters">
     <!-- colum left -->
     <div ngClass={{nameColumnLeft}} id="second" class="my-auto">
-        <dx-chart id="chart" [dataSource]="teamperateData" class="justify-content-center">
+        <dx-chart id="radarChart" [dataSource]="teamperateData" class="justify-content-center">
            
            
             <dxi-series>
@@ -87,10 +87,12 @@
 
 
           <div class="row" style="margin-top: 20px">
-            <div class="col-6">
-              <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
-            </div>
+              <div class="col-md-6 col-sm-12">
+                  <div class="row justify-content-around">
+                <button class="col-5 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+                <button class="col-5 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
+                </div>
+             </div>
 
           </div>
 

@@ -1,6 +1,6 @@
     <div class="content_full row no-gutters">
       <div id="second" ngClass={{nameColumnLeft}} class="my-auto">
-        <dx-chart id="chart" [dataSource]="dataSource" class="justify-content-center">
+        <dx-chart id="radarChart" [dataSource]="dataSource" class="justify-content-center">
            
           <dxi-series valueField="value" name="00:00 - 07:59" color="#07ccd9">
             
@@ -83,11 +83,12 @@
 
 
           <div class="row" style="margin-top: 20px">
-            <div class="col-6">
-              <button class="col-6 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
-              <button class="col-6 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
-            </div>
-
+            <div class="col-md-6 col-sm-12">
+                <div class="row justify-content-around">
+              <button class="col-5 done" (click)="clickSeach()">{{'rainFall.search' | translate}}</button>
+              <button class="col-5 dain" (click)="printfChart()">{{'rainFall.printf' | translate}}</button>
+              </div>
+           </div>
           </div>
 
           <div class="row">
@@ -97,8 +98,10 @@
             </span>
           </div>
           <!-- table detail -->
-          <div class="row" *ngIf="show" style="margin:10px;">
-              <button *ngIf="showExport"  class="col-3 export" (click)="exportExcel()"  ><img src="assets/image/excel.png"/>{{'rainFall.export' | translate}}</button>
+          <div class="row" *ngIf="show" style="margin:2px;">
+              <div class="col-md-6 col-sm-12">
+                  <button *ngIf="showExport" class="col-6 export" (click)="exportExcel()">{{'rainFall.export' | translate}}</button>
+              </div>
             <div class="tbl-header">
               <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
@@ -117,7 +120,7 @@
                 <tbody>
 
                   <tr *ngFor="let body of dataSource">
-                    <td>{{body.date}}</td>
+                    <td style="color: aqua">{{body.date}}</td>
                     <td #value1>{{body.value}}</td>
                     <td>{{body.value2}}</td>
                     <td>{{body.value3}}</td>
