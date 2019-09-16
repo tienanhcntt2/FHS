@@ -1,4 +1,6 @@
 $color_072884 :  #032ea3;
+$color_0b3cb1 : #032ea3;
+$color_2a34ff : #2a34ff;
 header{
     position: relative;
     width: 100%;
@@ -70,13 +72,25 @@ header{
     }
     :hover{
         cursor: pointer;
+        
     }
 }
+
 .img_logo{
     width: 150px;
     height: 100%;
     margin-left: 105px;
 }
+button{
+    color: white;
+   
+}
+button.active {
+    background-color: $color_2a34ff;
+
+  }
+  
+
 @media only screen and (max-width: 768px) {
     .img_logo{
         width: 100px;
