@@ -41,3 +41,26 @@ html,body {
             background-color:aqua ;
 
           }
+          .mat-menu-content{
+            background-image: linear-gradient(to top,#0374ff, #032ea3 );
+            color: #0374ff;
+          }
+          /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1a607e; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1491d0; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #38bdff;
+}

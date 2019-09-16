@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   private userName: string = "";
   private lg: string = "";
   private subscription: Subscription;
+  public activeState: string ;
   constructor(private userSevice: UserServicer, private auth: FhsAuthorizeService, private translateService: TranslateService,
     private languageService: LanguageService, private http: HttpClient, private router:Router, private autherService:AutherService,
     private commoService: CommonService) {
@@ -44,6 +45,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
     for (let i = 0; i < this.languages.length; i++) {
       if (this.languages[i].title === this.lg.toUpperCase()) {
         this.lag = this.languages[i];
+        this.activeState = this.languages[i].title.toUpperCase();
+        console.log(this.activeState);
       }
     }
     this.translateService.use(this.lg);
@@ -60,6 +63,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   // function select language
   selectLanguage(i: number) {
     this.lag = this.languages[i];
+    this.activeState =this.languages[i].title.toUpperCase();
     this.translateService.use(this.languages[i].title.toLowerCase());
     localStorage.setItem("language", this.languages[i].title.toLowerCase());
   }
@@ -99,7 +103,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   }
 
   inforUserName() {
-    console.log("hello 1 : ");
+
     if(this.autherService.isUserLoggedIn()){
       this.auth.FetchUserEndpoint(new URL(environment.OIDC.urlUser + environment.OIDC.userinfoEndpoint)).subscribe(response => {
         this.userName = response.name;

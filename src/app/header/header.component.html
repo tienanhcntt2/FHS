@@ -17,7 +17,7 @@
                   class="img-fluid center-block text-centercol-xs-12 col-md-6-offset-3 img-fluid center-block text-center">
                   <img src={{lag.imagePath}} style="height: 30px;" /><span>{{lag.name}}</span> </div>
                 <mat-menu #menu="matMenu">
-                  <button *ngFor="let language of languages;let i = index" mat-menu-item (click)="selectLanguage(i)">
+                  <button *ngFor="let language of languages;let i = index" mat-menu-item (click)="selectLanguage(i)" [class.active]="language.title === activeState">
                     <img src={{language.imagePath}} /><span style="padding-left: 10px">{{language.name}}</span>
                   </button>
                 </mat-menu>

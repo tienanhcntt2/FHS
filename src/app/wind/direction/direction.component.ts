@@ -234,6 +234,7 @@ export class DirectionComponent implements OnInit {
   customizeText = (arg: any) => {
     let value = new Date(arg.value);
     
+    console.log("value : " +value);
     if (arg.valueText.length < 2) {
       arg.valueText = value.toLocaleString().split(' ')[1];
 
@@ -378,8 +379,9 @@ export class DirectionComponent implements OnInit {
   }
 
   customizeTooltip(arg: any) {
+    
     return {
-      text: arg.argument.toTimeString() + " " + arg.valueText
+      text: arg.argument.toLocaleString('it-IT', {timeZone: 'Asia/Ho_Chi_Minh'})+ "  Value :" + arg.valueText
     };
   }
   public nameDirection(arg: number){
