@@ -87,7 +87,8 @@ button{
 }
 button.active {
     background-color: $color_2a34ff;
-
+    color: red;
+    cursor: not-allowed;
   }
   
 

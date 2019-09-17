@@ -110,6 +110,7 @@ export class SpeedComponent implements OnInit {
       this.showIconMobile();
      }else{
        this.showIconDesktop();
+   
      }
     this.selectToday = new Date();
     let date = new Date();

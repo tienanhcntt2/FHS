@@ -114,14 +114,19 @@ td{
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
 
-::ng-deep #radarChart {
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  min-height: 100%;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+ #radarChart {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center; 
+  // min-height: 100%;
+  // width: 100%;
+  // margin-left: auto;
+  // margin-right: auto;
+  height: 700px;
+
+}
+#radarChart > .dxc-grids-group{
+  border: solid;
 }
 
 @media only screen and (max-width: 768px) {

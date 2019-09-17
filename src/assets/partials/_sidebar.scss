@@ -7,7 +7,7 @@
       background: #032ea3;
       width: $sidebar-width;
       position: absolute;
-
+     
       // transition: left 1s ease;
       transition:1s;
       left: -$sidebar-width;
@@ -111,7 +111,16 @@
         height: 100%;
       }
     }
+    @media (max-width: 1440px){
+      .sidebar {
+       width: 235px;
+       transition:1s;
+       left: -235px;
+        height: 100%;
+      }
+    }
   }
+ 
 
   &.pinned-sidebar {
     @media (min-width: 768px) {
