@@ -158,16 +158,16 @@ export class SpeedComponent implements OnInit {
     ----------------------------------------------------- */
     private printfChart(){
       //this.radarChart.instance.print();
-       this.seriescolor ="black";  
-      //let instance:DxPolarChartComponent =   this.radarChart.instance
-     // let option=this.radarChart.instance.option();
-      
-      // this.radarChart.argumentAxis.label.font.color="red";
-     // console.log(this.radarChart.instance.option()) ;
-      window.setTimeout(() => {
-        this.radarChart.instance.exportTo(this.translateService.instant("home.windspeed"), "svg");
-        this.seriescolor = "aqua";
-      }, 10);
+       if(this.windRose != null && this.windRose.length > 0){
+        this.seriescolor ="black";  
+        window.setTimeout(() => {
+          this.radarChart.instance.exportTo(this.translateService.instant("home.windspeed"), "svg");
+          this.seriescolor = "aqua";
+        }, 10);
+       }else{
+         alert(this.translateService.instant("settingDialog.messageError"));
+       }
+     
       
     }
   /**
