@@ -74,5 +74,8 @@
     },
     "svg":{
         "exportsvg" : "Export (.svg)"
+    },
+    "version_number":{
+        "versionnumber":"Version Number"
     }
 }

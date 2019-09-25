@@ -74,6 +74,8 @@
     },
     "svg":{
         "exportsvg" : "Xuất file (.svg)"
+    },
+    "version_number":{
+        "versionnumber" :"Phiên bản số"
     }
-
 }

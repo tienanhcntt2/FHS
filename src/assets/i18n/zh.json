@@ -75,5 +75,8 @@
     },
     "svg":{
         "exportsvg" : "匯出 (.svg)"
+    },
+    "version_number":{
+        "versionnumber" :"版本號"
     }
 }
