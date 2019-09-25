@@ -48,10 +48,25 @@ footer{
                 vertical-align: middle;
                 padding-right: 10px;
             }
+    .demo{
+        border-bottom: 1px aqua solid;
+        padding: 5px;
+        font-size: 10px;
+        color: #00eaf9
+        }
         }
 }
 
-  
+hr{
+    background-color: #999898;
+    size: 1px;
+    margin-top: 30px;
+}
+.banben{
+    color: #999898;
+    font-size: 12px;
+    margin-top: -10px;
+}
 @media screen and (max-width :768px){
    
     #footer{
@@ -87,6 +102,11 @@ footer{
         font-size:10px;
         font-family:'UTM Avo';
         color: #00eaf9;
+    }
+    .banben{
+        margin-left: 40px;
+        color: #999898;
+        padding-right: 5px;
     }
 }
   
