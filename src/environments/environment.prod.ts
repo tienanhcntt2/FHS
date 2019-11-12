@@ -8,14 +8,14 @@ export const environment = {
     userinfoEndpoint: '/connect/userinfo',
     Paramaters: {   
     'scope': 'openid',
-    'client_id': 'demo',
+    'client_id': 'weather',
     'clientSecret': '',
-    'redirect_uri': 'http://10.199.15.95/demo/',
+    'redirect_uri': 'http://10.199.15.95/weather/',
     'response_type': 'id_token token',
     'nonce': 'n-0S6_WzA2Mj'
     }
     },
     
-  Languager: '/demo/assets/i18n/'
+  Languager: '/weather/assets/i18n/'
 
 };
